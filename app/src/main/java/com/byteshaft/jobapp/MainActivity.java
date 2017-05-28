@@ -3,13 +3,25 @@ package com.byteshaft.jobapp;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.byteshaft.jobapp.fragments.Home;
+import com.byteshaft.jobapp.fragments.Me;
+import com.byteshaft.jobapp.fragments.Search;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        loadThisFragment(new Home());
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -18,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    loadThisFragment(new Home());
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_search);
+                case R.id.navigation_search:
+                    loadThisFragment(new Search());
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_user);
+                case R.id.navigation_me:
+                    loadThisFragment(new Me());
                     return true;
             }
             return false;
@@ -32,14 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    public void loadThisFragment(Fragment fragment) {
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.fragment_container, fragment);
+        tx.commit();
     }
-
 }

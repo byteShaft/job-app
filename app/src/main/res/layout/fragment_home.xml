@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button_bg_color"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:weightSum="3">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/red_circle"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="Part time"
+            android:textAllCaps="false"
+            android:theme="@style/job_button" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/tale_circle"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="Full time"
+            android:textAllCaps="false"
+            android:theme="@style/job_button" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/gold_circle"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="Internship"
+            android:textAllCaps="false"
+            android:theme="@style/job_button" />
+    </LinearLayout>
+
+    <ss.com.bannerslider.views.BannerSlider
+        android:id="@+id/banner_slider1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/button_layout"
+        app:animateIndicators="true"
+        app:defaultIndicators="circle"
+        app:indicatorSize="6dp"
+        app:interval="2000" />
+
+</RelativeLayout>
