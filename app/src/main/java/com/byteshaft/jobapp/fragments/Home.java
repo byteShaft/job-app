@@ -25,9 +25,9 @@ public class Home extends Fragment {
         mBaseView = inflater.inflate(R.layout.fragment_home, container, false);
 
         bannerSlider = (BannerSlider) mBaseView.findViewById(R.id.banner_slider1);
-        bannerSlider.addBanner(new DrawableBanner(R.mipmap.gold_circle));
-        bannerSlider.addBanner(new DrawableBanner(R.mipmap.gold_circle));
-        bannerSlider.addBanner(new DrawableBanner(R.mipmap.gold_circle));
+        bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
+        bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
+        bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
 
         return mBaseView;
     }
