@@ -21,30 +21,36 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/malay_lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Language One"
+            android:text="Bahasa Melayu"
+            android:textColor="@android:color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/jap_lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="Language Two"
+            android:textColor="@android:color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/eng_lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Language Three"
+            android:text="English"
+            android:textColor="@android:color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
