@@ -10,8 +10,11 @@ import android.support.v7.app.AlertDialog;
 public class AppGlobals extends Application {
 
     private static Context sContext;
-    public static final String KEY_USER_LOGIN = "user_login";
+    public static final String SERVER_IP = "http://46.101.15.119:8000/";
+    public static final String BASE_URL = String.format("%sapi/", SERVER_IP);
+    public static final String KEY_TOKEN = "token";
     public static final String KEY_USER_ACTIVE = "user_active";
+    public static final String KEY_LOGIN = "login";
 
     @Override
     public void onCreate() {
@@ -48,14 +51,14 @@ public class AppGlobals extends Application {
         return sharedPreferences.getBoolean(AppGlobals.KEY_USER_ACTIVE, false);
     }
 
-    public static void saveUserLogin(boolean value) {
+    public static void loginState(boolean type) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_LOGIN, value).apply();
+        sharedPreferences.edit().putBoolean(KEY_LOGIN, type).apply();
     }
 
-    public static boolean isUserLoggedIn() {
+    public static boolean isLogin() {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        return sharedPreferences.getBoolean(AppGlobals.KEY_USER_LOGIN, false);
+        return sharedPreferences.getBoolean(KEY_LOGIN, false);
     }
 
     public static void alertDialog(Activity activity, String title, String msg) {

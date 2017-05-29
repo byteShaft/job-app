@@ -4,4 +4,29 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_user">Me</string>
+
+    <string name="e_mail_address">E-mail Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="password_forgot">Forgot password?</string>
+    <string name="sign_up_string">Do not have an account? <i>Sign Up</i></string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="code_activation">Activation Code</string>
+
+    <string name="sing_up">Sign Up</string>
+    <string name="user_name">Full name</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="reset">Reset</string>
+    <string name="phone_number">Phone number</string>
+
+    <string name="update_profile">Update Profile</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="account_activation">Account Activation</string>
+    <string name="already_have_an_account_login">Already have an account? <i>Login</i></string>
+    <string name="verification_code">Verification code</string>
+    <string name="email">Email</string>
+    <string name="verify">Verify</string>
 </resources>
