@@ -2,10 +2,9 @@ package com.byteshaft.jobapp.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
-/**
- * Created by shahid on 27/05/2017.
- */
 
 public class Helpers {
 
@@ -26,5 +25,18 @@ public class Helpers {
             progressDialog.dismiss();
         }
 
+    }
+
+    public static void showSnackBar(View view, int id) {
+        Snackbar.make(view, AppGlobals.getContext().getResources()
+                .getString(id), Snackbar.LENGTH_SHORT)
+                .setActionTextColor(AppGlobals.getContext().getResources().getColor(android.R.color.holo_red_light))
+                .show();
+    }
+
+    public static void showSnackBar(View view, String text) {
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
+                .setActionTextColor(AppGlobals.getContext().getResources().getColor(android.R.color.holo_red_light))
+                .show();
     }
 }

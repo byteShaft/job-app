@@ -18,6 +18,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".SplashScreen">
+        </activity>
+
+        <activity android:name=".accounts.AccountManager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,10 +28,10 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".LanguageSelectionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>
