@@ -6,18 +6,35 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.byteshaft.jobapp.fragments.Home;
 import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.fragments.Search;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Toolbar toolbarTop;
+    private ImageButton barcodeButton;
+    private ImageButton messageButton;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);
+        title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+        barcodeButton = (ImageButton) toolbarTop.findViewById(R.id.button_barcode);
+        messageButton = (ImageButton) toolbarTop.findViewById(R.id.button_message);
+        setSupportActionBar(toolbarTop);
+        title.setText(toolbarTop.getTitle());
+        barcodeButton.setOnClickListener(this);
+        messageButton.setOnClickListener(this);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadThisFragment(new Home());
@@ -44,9 +61,22 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+
     public void loadThisFragment(Fragment fragment) {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.fragment_container, fragment);
         tx.commit();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_barcode:
+                System.out.println("barcode");
+                break;
+            case R.id.button_message:
+                System.out.println("message");
+                break;
+        }
     }
 }
