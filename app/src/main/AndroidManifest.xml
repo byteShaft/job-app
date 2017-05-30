@@ -12,32 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:node="replace">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".SplashScreen"></activity>
-
+        <activity android:name=".SplashScreen" />
         <activity
             android:name=".accounts.AccountManager"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LanguageSelectionActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <activity
+            android:name=".activities.PartTime"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.FullTime"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.Internship"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

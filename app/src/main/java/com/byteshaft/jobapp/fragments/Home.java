@@ -1,5 +1,6 @@
 package com.byteshaft.jobapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.activities.FullTime;
+import com.byteshaft.jobapp.activities.Internship;
+import com.byteshaft.jobapp.activities.PartTime;
 
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.views.BannerSlider;
@@ -45,10 +49,13 @@ public class Home extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_part_time:
+                startActivity(new Intent(getActivity(), PartTime.class));
                 break;
             case R.id.button_full_time:
+                startActivity(new Intent(getActivity(), FullTime.class));
                 break;
             case R.id.button_internship:
+                startActivity(new Intent(getActivity(), Internship.class));
                 break;
         }
     }
