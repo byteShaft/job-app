@@ -23,7 +23,12 @@
         <activity android:name=".SplashScreen">
         </activity>
 
-        <activity android:name=".accounts.AccountManager">
+        <activity
+            android:name=".accounts.AccountManager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LanguageSelectionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,16 +39,25 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id"/>
 
-        <activity android:name="com.facebook.FacebookActivity"
+        <activity
+            android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".activities.PartTime"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".LanguageSelectionActivity"
+            android:name=".activities.FullTime"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.Internship"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

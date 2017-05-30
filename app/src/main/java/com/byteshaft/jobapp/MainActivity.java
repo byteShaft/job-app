@@ -34,24 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    getPackageName(),
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
-
-        }
-        catch (NoSuchAlgorithmException e) {
-
-        }
         toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);
         title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
         barcodeButton = (ImageButton) toolbarTop.findViewById(R.id.button_barcode);
