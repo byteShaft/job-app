@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.byteshaft.jobapp">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".utils.AppGlobals"
         android:allowBackup="true"
@@ -29,19 +31,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.PartTime"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.FullTime"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Internship"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activities.QRcodeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

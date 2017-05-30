@@ -1,5 +1,6 @@
 package com.byteshaft.jobapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.activities.QRcodeActivity;
 import com.byteshaft.jobapp.fragments.Home;
 import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.fragments.Search;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_barcode:
-                System.out.println("barcode");
+                startActivity(new Intent(this, QRcodeActivity.class));
                 break;
             case R.id.button_message:
                 System.out.println("message");
