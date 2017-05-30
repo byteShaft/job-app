@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);

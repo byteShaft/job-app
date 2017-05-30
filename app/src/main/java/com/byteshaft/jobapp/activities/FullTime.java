@@ -2,28 +2,39 @@ package com.byteshaft.jobapp.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
 
-public class FullTime extends AppCompatActivity {
+public class FullTime extends AppCompatActivity implements View.OnClickListener {
+
+
+    private TextView title;
+    private Toolbar toolbarTop;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_time);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);
+        title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+        backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+        backButton.setOnClickListener(this);
+        title.setText(R.string.full_time_title);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back_button:
+                onBackPressed();
+                break;
         }
-        return super.onOptionsItemSelected(item);
     }
 }

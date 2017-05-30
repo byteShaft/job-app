@@ -29,4 +29,7 @@
     <string name="verification_code">Verification code</string>
     <string name="email">Email</string>
     <string name="verify">Verify</string>
+    <string name="part_time_title">Part Time</string>
+    <string name="full_time_title">Full Time</string>
+    <string name="internship_title">Internship</string>
 </resources>

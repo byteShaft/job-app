@@ -20,12 +20,12 @@ public class PartTime extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_part_time);
-
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);
         title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
         backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
         backButton.setOnClickListener(this);
-        title.setText("Part Time");
+        title.setText(R.string.part_time_title);
 
     }
 
