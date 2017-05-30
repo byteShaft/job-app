@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
@@ -15,21 +14,43 @@
             android:layout_margin="20dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="50dp"
+                android:id="@+id/job_later_tv"
+                android:text="Register to JobLater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000" />
+            <TextView
+                android:layout_marginTop="10dip"
+                android:id="@+id/fb_quick_login"
+                android:text="Quick Register with"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingLeft="10dp"
+                android:textColor="#000" />
 
-                <EditText
-                    android:id="@+id/user_name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Username"
-                    android:inputType="text"
-                    android:paddingLeft="10sp"
-                    android:paddingTop="@dimen/floating_hint_margin"
-                    android:textColor="#000"
-                    android:textSize="15sp" />
-            </android.support.design.widget.TextInputLayout>
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:scaleType="centerInside"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/fb_button_background" />
+            <TextView
+                android:layout_marginTop="40dp"
+                android:id="@+id/quick_login"
+                android:text="Quick Register with"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingLeft="10dp"
+                android:textColor="#000" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -45,22 +66,6 @@
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
                     android:textColor="#fff"
-                    android:textSize="15sp" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/phone_number_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Mobile number"
-                    android:inputType="phone"
-                    android:paddingLeft="10sp"
-                    android:paddingTop="@dimen/floating_hint_margin"
-                    android:textColor="#000"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
 

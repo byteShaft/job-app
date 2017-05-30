@@ -38,8 +38,6 @@ public class ResetPassword extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_reset_password, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle(getResources().getString(R.string.reset_password));
         setHasOptionsMenu(true);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mOldPassword = (EditText) mBaseView.findViewById(R.id.old_password_edit_text);

@@ -28,7 +28,6 @@ public class Home extends Fragment {
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
-
         return mBaseView;
     }
 }
