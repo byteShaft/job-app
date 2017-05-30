@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.byteshaft.jobapp.MainActivity">
+    tools:context="com.byteshaft.jobapp.activities.FullTime">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -19,16 +17,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/button_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginRight="10dp"
-                android:background="?attr/selectableItemBackground"
-                android:src="@mipmap/ic_inbox" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -43,28 +31,15 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/button_barcode"
+                android:id="@+id/back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackground"
-                android:src="@mipmap/ic_qr_code" />
+                android:src="@mipmap/back_arrow" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
-
-</LinearLayout>
+</RelativeLayout>
