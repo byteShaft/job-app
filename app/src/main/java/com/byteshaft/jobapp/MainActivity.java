@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.activities.MessagesActivity;
 import com.byteshaft.jobapp.activities.QRcodeActivity;
 import com.byteshaft.jobapp.fragments.Home;
 import com.byteshaft.jobapp.fragments.Me;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, QRcodeActivity.class));
                 break;
             case R.id.button_message:
-                System.out.println("message");
+                startActivity(new Intent(this, MessagesActivity.class));
                 break;
         }
     }
