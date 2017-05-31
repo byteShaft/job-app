@@ -50,12 +50,8 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_register, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle(getResources().getString(R.string.sing_up));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         setHasOptionsMenu(true);
-
-        mName = (EditText) mBaseView.findViewById(R.id.user_name_edit_text);
-        mPhoneNumber = (EditText) mBaseView.findViewById(R.id.phone_number_edit_text);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);
         mVerifyPassword = (EditText) mBaseView.findViewById(R.id.verify_password_edit_text);

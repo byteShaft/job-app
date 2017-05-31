@@ -1,5 +1,8 @@
 package com.byteshaft.jobapp;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +21,8 @@ import com.byteshaft.jobapp.activities.QRcodeActivity;
 import com.byteshaft.jobapp.fragments.Home;
 import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.fragments.Search;
+
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

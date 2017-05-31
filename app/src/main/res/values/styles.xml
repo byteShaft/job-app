@@ -18,4 +18,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomFbButton">
+        <item name="android:layout_height">115dp</item>
+        <item name="android:layout_width">300dp</item>
+    </style>
+
 </resources>

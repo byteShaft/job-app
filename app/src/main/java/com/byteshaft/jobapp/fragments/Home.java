@@ -41,7 +41,6 @@ public class Home extends Fragment implements View.OnClickListener {
         partTime.setOnClickListener(this);
         fullTime.setOnClickListener(this);
         internShip.setOnClickListener(this);
-
         return mBaseView;
     }
 
