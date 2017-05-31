@@ -23,21 +23,20 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="10dp"
                 android:background="?attr/selectableItemBackground"
+                android:paddingTop="15dp"
                 android:src="@mipmap/settings" />
 
             <TextView
-                android:id="@+id/toolbar_title"
+                android:id="@+id/profile_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:paddingTop="10dp"
                 android:text="My Profile"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-
     </android.support.v7.widget.Toolbar>
-
 </RelativeLayout>

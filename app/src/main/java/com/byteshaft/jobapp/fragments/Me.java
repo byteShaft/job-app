@@ -29,30 +29,23 @@ public class Me extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_me, container, false);
-        setHasOptionsMenu(true);
-        toolbarTop = (Toolbar) mBaseView.findViewById(R.id.profile_toolbar);
-        title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
-        settingsButton = (ImageButton) toolbarTop.findViewById(R.id.button_settings);
-        title.setText(toolbarTop.getTitle());
-        settingsButton.setOnClickListener(this);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
+        toolbarTop = (Toolbar) mBaseView.findViewById(R.id.profile_toolbar);
+        settingsButton = (ImageButton) toolbarTop.findViewById(R.id.button_settings);
+        title = (TextView) toolbarTop.findViewById(R.id.profile_title);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Profile");
         activity.setSupportActionBar(toolbarTop);
+        settingsButton.setOnClickListener(this);
         return mBaseView;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.profile_settings:
-                System.out.println("daba k chal diay");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_settings:
+                System.out.println("ok kr k shadi krwao");
+        }
 
     }
 }
