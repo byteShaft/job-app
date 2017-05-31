@@ -40,9 +40,11 @@
         <activity
             android:name=".activities.Internship"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.QRcodeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MessagesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
