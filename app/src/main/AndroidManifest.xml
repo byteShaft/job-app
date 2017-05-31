@@ -4,6 +4,7 @@
     package="com.byteshaft.jobapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".utils.AppGlobals"
@@ -49,15 +50,18 @@
         <activity
             android:name=".activities.PartTime"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.FullTime"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Internship"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".activities.QRcodeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MessagesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
