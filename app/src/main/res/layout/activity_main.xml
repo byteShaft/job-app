@@ -28,6 +28,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="10dp"
                 android:background="?attr/selectableItemBackground"
+                android:padding="10dp"
                 android:src="@mipmap/ic_inbox" />
 
             <TextView
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackground"
+                android:padding="10dp"
                 android:src="@mipmap/ic_qr_code" />
         </RelativeLayout>
 
