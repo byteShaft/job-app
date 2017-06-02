@@ -31,12 +31,11 @@
 
             <ImageButton
                 android:id="@+id/back_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackground"
-                android:padding="10dp"
-                android:src="@mipmap/back_arrow" />
+                android:src="@drawable/back_arrow" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
@@ -202,9 +201,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_below="@+id/health_fitness"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="Legal/\nProfessional"
                     android:textAllCaps="true" />
             </LinearLayout>
@@ -236,9 +235,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_below="@+id/health_fitness"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="Nursery/\nPharmacy"
                     android:textAllCaps="true" />
             </LinearLayout>
