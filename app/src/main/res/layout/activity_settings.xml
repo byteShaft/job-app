@@ -18,8 +18,8 @@
                 android:id="@+id/feedback_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="#FFF">
+                android:background="#FFF"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/feedback_text_view"
@@ -31,18 +31,19 @@
                     android:textSize="18sp" />
 
                 <include
+                    layout="@layout/greater_than_sign"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/greater_than_sign" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/language_layout"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="#FFF">
+                android:layout_marginTop="5dp"
+                android:background="#FFF"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/language_text_view"
@@ -54,18 +55,18 @@
                     android:textSize="18sp" />
 
                 <include
+                    layout="@layout/greater_than_sign"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/greater_than_sign" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/privacy_policy_layout"
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="#FFF">
+                android:layout_marginTop="25dp"
+                android:background="#FFF"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/policy_text_view"
@@ -77,18 +78,18 @@
                     android:textSize="18sp" />
 
                 <include
+                    layout="@layout/greater_than_sign"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/greater_than_sign" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/terms_layout"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="#FFF">
+                android:layout_marginTop="5dp"
+                android:background="#FFF"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/terms_text_view"
@@ -100,18 +101,18 @@
                     android:textSize="18sp" />
 
                 <include
+                    layout="@layout/greater_than_sign"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/greater_than_sign" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/app_version_layout"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="#FFF">
+                android:layout_marginTop="5dp"
+                android:background="#FFF"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/app_version_text_view"
@@ -123,20 +124,20 @@
                     android:textSize="18sp" />
 
                 <include
+                    layout="@layout/greater_than_sign"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/greater_than_sign" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <TextView
-
-                android:layout_marginTop="20dp"
-                android:text="Log Out"
-                android:textSize="18sp"
-                android:textColor="#F03"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/logout_text_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="LogOut"
+                android:textColor="#F03"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
