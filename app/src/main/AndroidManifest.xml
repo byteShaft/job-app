@@ -50,6 +50,7 @@
         <activity
             android:name=".activities.PartTime"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".profile.profileSettings"/>
         <activity
             android:name=".activities.FullTime"
             android:theme="@style/AppTheme.NoActionBar" />
