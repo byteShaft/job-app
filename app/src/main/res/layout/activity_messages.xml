@@ -36,10 +36,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackground"
-                android:padding="10dp"
-                android:src="@mipmap/back_arrow" />
+                android:src="@drawable/back_arrow" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
+
+    <ListView
+        android:id="@+id/message_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar" />
 </RelativeLayout>
