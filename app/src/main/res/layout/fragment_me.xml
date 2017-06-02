@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#d3d3d3">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
@@ -160,13 +162,23 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <HorizontalScrollView
+        android:layout_below="@+id/main_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:scrollbars="none"
+        android:background="#FFF">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <RelativeLayout
         android:id="@+id/work_experience_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@+id/main_rel"
-        android:layout_margin="40dp"
-        android:background="#FFF">
+        android:layout_height="400dp">
 
         <TextView
             android:id="@+id/work_experience"
@@ -202,11 +214,91 @@
             android:id="@+id/edit_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/work_experience"
+            android:paddingLeft="50dp"
             android:text="Edit"
             android:textSize="20dp" />
-
-
     </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/education_layout"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <TextView
+                android:id="@+id/education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Education"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/period_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/education"
+                android:layout_margin="10dp"
+                android:drawableLeft="@mipmap/work_experience"
+                android:drawablePadding="5dp"
+                android:text="2016-2017 period"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/qualification_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/period_text_view"
+                android:layout_margin="10dp"
+                android:drawableLeft="@mipmap/work_experience"
+                android:drawablePadding="5dp"
+                android:text="Qualification"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/education_edit_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/education"
+                android:paddingLeft="110dp"
+                android:text="Edit"
+                android:textSize="20dp" />
+        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/personal_skills_layout"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+                <TextView
+                    android:id="@+id/personal_skills"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Personal Skills"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/personal_skills_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/personal_skills"
+                    android:layout_margin="10dp"
+                    android:drawableLeft="@mipmap/work_experience"
+                    android:drawablePadding="5dp"
+                    android:text="skills"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/personal_skills_edit_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/personal_skills"
+                    android:paddingLeft="70dp"
+                    android:text="Edit"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 </RelativeLayout>
