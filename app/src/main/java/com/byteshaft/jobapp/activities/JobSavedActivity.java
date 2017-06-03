@@ -42,10 +42,7 @@ public class JobSavedActivity extends AppCompatActivity {
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         adapter = new Adapter(getApplicationContext(), jobsArrayList);
         mListView.setAdapter(adapter);
-
     }
-
-
 
 
     private class Adapter extends ArrayAdapter<String> {
