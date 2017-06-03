@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by husnain on 6/1/17.
  */
 
-public class profileSettings extends AppCompatActivity {
+public class ProfileSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
