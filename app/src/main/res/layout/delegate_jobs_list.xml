@@ -129,7 +129,6 @@
                 android:textAllCaps="false"
                 android:theme="@style/job_button" />
         </LinearLayout>
-
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
