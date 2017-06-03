@@ -63,7 +63,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.Conversation" />
 
-        <activity android:name=".activities.JobSavedActivity" />
+        <activity
+            android:name=".activities.JobSavedActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
