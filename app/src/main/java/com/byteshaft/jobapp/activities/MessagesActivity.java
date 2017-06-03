@@ -1,8 +1,8 @@
 package com.byteshaft.jobapp.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -38,6 +38,16 @@ public class MessagesActivity extends AppCompatActivity implements View.OnClickL
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
 
         adapter = new Adapter(getApplicationContext(), messages);
 
@@ -52,7 +62,8 @@ public class MessagesActivity extends AppCompatActivity implements View.OnClickL
         messageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Snackbar.make(findViewById(android.R.id.content), "clicked", 1000).show();
+//                Snackbar.make(findViewById(android.R.id.content), "clicked", 1000).show();
+                startActivity(new Intent(MessagesActivity.this, Conversation.class));
             }
         });
     }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.byteshaft.jobapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -18,12 +18,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-        <activity android:name=".SplashScreen">
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SplashScreen"></activity>
         <activity
             android:name=".accounts.AccountManager"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -36,24 +32,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id"/>
+            android:value="@string/app_id" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activities.PartTime"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".profile.ProfileSettings"/>
-        <activity android:name=".profile.WorkExperience"/>
-        <activity android:name=".profile.Education"/>
-        <activity android:name=".profile.PersonalSkills"/>
+
+        <activity android:name=".profile.ProfileSettings" />
+        <activity android:name=".profile.WorkExperience" />
+        <activity android:name=".profile.Education" />
+        <activity android:name=".profile.PersonalSkills" />
+        
         <activity
             android:name=".activities.FullTime"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -66,6 +63,8 @@
         <activity
             android:name=".activities.MessagesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activities.Conversation" />
     </application>
 
 </manifest>
