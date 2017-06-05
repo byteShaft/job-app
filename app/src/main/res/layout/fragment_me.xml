@@ -120,9 +120,10 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/job_saved"
                 android:layout_width="60dp"
+                android:background="?attr/selectableItemBackground"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/job_saved" />
+                android:src="@drawable/job_saved" />
 
             <TextView
                 android:id="@+id/job_saved_text_view"

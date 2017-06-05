@@ -11,22 +11,28 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.activities.JobSavedActivity;
 import com.byteshaft.jobapp.profile.Education;
 import com.byteshaft.jobapp.profile.PersonalSkills;
 import com.byteshaft.jobapp.profile.ProfileSettings;
-import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.profile.WorkExperience;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by shahid on 28/05/2017.
  */
 
-public class Me extends Fragment implements View.OnClickListener{
+public class Me extends Fragment implements View.OnClickListener {
 
     private View mBaseView;
     private Toolbar toolbarTop;
     private ImageButton settingsButton;
     private TextView title;
+    private CircleImageView jobAppliedButton;
+    private CircleImageView jobSavedButton;
+    private CircleImageView jobResumeButton;
 
     private TextView workExperienceEditTextView;
     private TextView educationEditTextView;
@@ -39,6 +45,10 @@ public class Me extends Fragment implements View.OnClickListener{
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         toolbarTop = (Toolbar) mBaseView.findViewById(R.id.profile_toolbar);
         settingsButton = (ImageButton) toolbarTop.findViewById(R.id.button_settings);
+        jobAppliedButton = (CircleImageView) mBaseView.findViewById(R.id.job_applied);
+        jobSavedButton = (CircleImageView) mBaseView.findViewById(R.id.job_saved);
+        jobResumeButton = (CircleImageView) mBaseView.findViewById(R.id.job_resume);
+
         title = (TextView) toolbarTop.findViewById(R.id.profile_title);
         workExperienceEditTextView = (TextView) mBaseView.findViewById(R.id.work_experience_edit_text_view);
         educationEditTextView = (TextView) mBaseView.findViewById(R.id.education_edit_text_view);
@@ -49,6 +59,10 @@ public class Me extends Fragment implements View.OnClickListener{
         workExperienceEditTextView.setOnClickListener(this);
         educationEditTextView.setOnClickListener(this);
         personalSkillsEditTextView.setOnClickListener(this);
+
+        jobAppliedButton.setOnClickListener(this);
+        jobSavedButton.setOnClickListener(this);
+        jobResumeButton.setOnClickListener(this);
         return mBaseView;
     }
 
@@ -57,7 +71,6 @@ public class Me extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.button_settings:
                 startActivity(new Intent(getActivity(), ProfileSettings.class));
-                System.out.println("ok kr k shadi krwao");
                 break;
             case R.id.work_experience_edit_text_view:
                 startActivity(new Intent(getActivity(), WorkExperience.class));
@@ -67,6 +80,14 @@ public class Me extends Fragment implements View.OnClickListener{
                 break;
             case R.id.personal_skills_edit_text_view:
                 startActivity(new Intent(getActivity(), PersonalSkills.class));
+                break;
+
+            case R.id.job_applied:
+                break;
+            case R.id.job_saved:
+                startActivity(new Intent(getActivity(), JobSavedActivity.class));
+                break;
+            case R.id.job_resume:
                 break;
 
         }
