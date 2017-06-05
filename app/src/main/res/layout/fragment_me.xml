@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#d3d3d3">
+    android:background="#f2f2f2">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
@@ -179,7 +178,7 @@
     <RelativeLayout
         android:id="@+id/work_experience_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="500dp">
 
         <TextView
             android:id="@+id/work_experience"
@@ -208,6 +207,7 @@
             android:layout_margin="10dp"
             android:drawableLeft="@mipmap/work_experience"
             android:drawablePadding="5dp"
+            android:layout_marginBottom="20dp"
             android:text="2017 services"
             android:textSize="15dp" />
 
@@ -224,7 +224,7 @@
         <RelativeLayout
             android:id="@+id/education_layout"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="500dp">
 
             <TextView
                 android:id="@+id/education"
@@ -253,6 +253,7 @@
                 android:layout_margin="10dp"
                 android:drawableLeft="@mipmap/work_experience"
                 android:drawablePadding="5dp"
+                android:layout_marginBottom="20dp"
                 android:text="Qualification"
                 android:textSize="15dp" />
 
@@ -269,7 +270,7 @@
             <RelativeLayout
                 android:id="@+id/personal_skills_layout"
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="500dp">
 
                 <TextView
                     android:id="@+id/personal_skills"
@@ -287,6 +288,7 @@
                     android:layout_margin="10dp"
                     android:drawableLeft="@mipmap/work_experience"
                     android:drawablePadding="5dp"
+                    android:layout_marginBottom="20dp"
                     android:text="skills"
                     android:textSize="15dp" />
 

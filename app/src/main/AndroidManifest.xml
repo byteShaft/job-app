@@ -72,6 +72,9 @@
         <activity
             android:name=".activities.JobSavedActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.JobAppliedActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
