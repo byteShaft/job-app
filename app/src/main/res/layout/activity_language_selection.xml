@@ -43,7 +43,7 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Language Two"
+            android:text="简体中文"
             android:textColor="@android:color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
