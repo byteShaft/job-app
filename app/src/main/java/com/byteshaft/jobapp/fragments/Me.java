@@ -42,7 +42,6 @@ public class Me extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_me, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         toolbarTop = (Toolbar) mBaseView.findViewById(R.id.profile_toolbar);
         settingsButton = (ImageButton) toolbarTop.findViewById(R.id.button_settings);
