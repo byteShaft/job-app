@@ -20,7 +20,7 @@
                 android:drawableLeft="@mipmap/ic_search"
                 android:hint="Search jobs and locations"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="50dp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
@@ -28,7 +28,7 @@
         android:id="@+id/location_and_type_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -37,9 +37,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_save"
+            android:drawableLeft="@mipmap/location_icon"
             android:gravity="center"
-            android:text="Save"
+            android:text="Location"
             android:textAllCaps="false"
             android:theme="@style/job_button" />
 
@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_apply"
             android:gravity="center"
-            android:text="Apply"
+            android:text="Type"
             android:textAllCaps="false"
             android:theme="@style/job_button" />
     </LinearLayout>
@@ -63,11 +63,11 @@
         android:layout_below="@+id/location_and_type_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        android:gravity="center"
+        android:layout_margin="5dp"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
         android:scrollbars="none"
         android:numColumns="2">
-
     </GridView>
 
 </RelativeLayout>
