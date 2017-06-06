@@ -1,39 +1,48 @@
 package com.byteshaft.jobapp.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
 
-public class Internship extends AppCompatActivity implements View.OnClickListener {
+public class Internship extends Fragment implements View.OnClickListener {
 
-
+    private View mBAaseView;
     private TextView title;
     private Toolbar toolbarTop;
     private ImageButton backButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_internship);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBAaseView = inflater.inflate(R.layout.activity_internship, container, false);
 
-        overridePendingTransition(R.anim.enter, R.anim.exit);
-        toolbarTop = (Toolbar) findViewById(R.id.my_toolbar);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        toolbarTop = (Toolbar) mBAaseView.findViewById(R.id.my_toolbar);
         title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
         backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
         backButton.setOnClickListener(this);
         title.setText(R.string.internship_title);
+        activity.setSupportActionBar(toolbarTop);
+        return mBAaseView;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_button:
-                onBackPressed();
+                FragmentManager manager = getFragmentManager();
+                manager.popBackStack();
                 break;
         }
     }
