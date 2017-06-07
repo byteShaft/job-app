@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="?attr/selectableItemBackground"
-                android:src="@drawable/back_arrow" />
+                android:src="@mipmap/back_arrow" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
