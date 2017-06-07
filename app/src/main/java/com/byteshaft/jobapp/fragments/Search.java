@@ -14,7 +14,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.JobSavedActivity;
 
 import java.util.ArrayList;
 
