@@ -16,17 +16,22 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JobAppliedActivity extends AppCompatActivity {
+public class JobAppliedActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
     private ArrayList<String[]> jobsArrayList;
     private Adapter adapter;
+
+    private TextView mFilterTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_saved);
         mListView = (ListView) findViewById(R.id.jobs_list);
+        mFilterTextView = (TextView) findViewById(R.id.button_filter);
         jobsArrayList = new ArrayList<>();
 
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
@@ -42,6 +47,16 @@ public class JobAppliedActivity extends AppCompatActivity {
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         adapter = new Adapter(getApplicationContext(), jobsArrayList);
         mListView.setAdapter(adapter);
+
+        mFilterTextView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_filter:
+                break;
+        }
     }
 
 
