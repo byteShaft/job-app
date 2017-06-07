@@ -15,11 +15,18 @@ import com.byteshaft.jobapp.fragments.Search;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static MainActivity sInstance;
+
+    public static MainActivity getInstance() {
+        return sInstance;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         super.onCreate(savedInstanceState);
+        sInstance = this;
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.byteshaft.jobapp.activities.JobSavedActivity">
+    tools:context="com.byteshaft.jobapp.fragments.JobSaved">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/job_saved_toolbar"
@@ -37,7 +37,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
-                android:text="Job Applied"
+                android:text="Job Saved"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 

@@ -11,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.JobAppliedActivity;
-import com.byteshaft.jobapp.activities.JobSavedActivity;
 import com.byteshaft.jobapp.profile.Education;
 import com.byteshaft.jobapp.profile.PersonalSkills;
 import com.byteshaft.jobapp.profile.ProfileSettings;
@@ -83,10 +82,10 @@ public class Me extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.job_applied:
-                startActivity(new Intent(getActivity(), JobAppliedActivity.class));
+                MainActivity.getInstance().loadThisFragment(new JobApplied());
                 break;
             case R.id.job_saved:
-                startActivity(new Intent(getActivity(), JobSavedActivity.class));
+                MainActivity.getInstance().loadThisFragment(new JobSaved());
                 break;
             case R.id.job_resume:
                 break;
