@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,17 +17,20 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JobSavedActivity extends AppCompatActivity {
+public class JobSavedActivity extends AppCompatActivity implements OnClickListener{
 
     private ListView mListView;
     private ArrayList<String[]> jobsArrayList;
     private Adapter adapter;
+
+    private TextView mFilterTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_saved);
         mListView = (ListView) findViewById(R.id.jobs_list);
+        mFilterTextView = (TextView) findViewById(R.id.button_filter);
         jobsArrayList = new ArrayList<>();
 
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
@@ -42,6 +46,16 @@ public class JobSavedActivity extends AppCompatActivity {
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         adapter = new Adapter(getApplicationContext(), jobsArrayList);
         mListView.setAdapter(adapter);
+        mFilterTextView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_filter:
+                break;
+        }
+
     }
 
 
