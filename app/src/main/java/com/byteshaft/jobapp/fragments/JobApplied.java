@@ -1,8 +1,10 @@
-package com.byteshaft.jobapp.activities;
+package com.byteshaft.jobapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -10,14 +12,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JobAppliedActivity extends AppCompatActivity implements View.OnClickListener {
+public class JobApplied extends Fragment implements View.OnClickListener {
 
+    private View mBaseView;
     private ListView mListView;
     private ArrayList<String[]> jobsArrayList;
     private Adapter adapter;
@@ -25,13 +29,12 @@ public class JobAppliedActivity extends AppCompatActivity implements View.OnClic
     private TextView mFilterTextView;
 
 
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_saved);
-        mListView = (ListView) findViewById(R.id.jobs_list);
-        mFilterTextView = (TextView) findViewById(R.id.button_filter);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mBaseView = inflater.inflate(R.layout.fragment_job_applied, container, false);
+        mListView = (ListView) mBaseView.findViewById(R.id.jobs_list);
+        mFilterTextView = (TextView) mBaseView.findViewById(R.id.button_filter);
         jobsArrayList = new ArrayList<>();
 
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
@@ -45,16 +48,18 @@ public class JobAppliedActivity extends AppCompatActivity implements View.OnClic
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
-        adapter = new Adapter(getApplicationContext(), jobsArrayList);
+        adapter = new Adapter(getActivity(), jobsArrayList);
         mListView.setAdapter(adapter);
 
         mFilterTextView.setOnClickListener(this);
+        return mBaseView;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_filter:
+                MainActivity.getInstance().loadThisFragment(new Filter());
                 break;
         }
     }
@@ -73,7 +78,7 @@ public class JobAppliedActivity extends AppCompatActivity implements View.OnClic
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.delegate_jobs_applied,
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.delegate_jobs_applied,
                         parent, false);
                 viewHolder = new ViewHolder();
 

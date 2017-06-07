@@ -1,4 +1,4 @@
-package com.byteshaft.jobapp.activities;
+package com.byteshaft.jobapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
