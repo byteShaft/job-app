@@ -18,14 +18,18 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
 
-        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".SplashScreen">
+
         </activity>
 
         <activity
@@ -47,19 +51,11 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity
-            android:name=".activities.PartTime"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".profile.ProfileSettings" />
         <activity android:name=".profile.WorkExperience" />
         <activity android:name=".profile.Education" />
         <activity android:name=".profile.PersonalSkills" />
-        <activity
-            android:name=".activities.FullTime"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.Internship"
-            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <activity
             android:name=".activities.QRcodeActivity"
