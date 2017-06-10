@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,10 +28,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.FullTime;
-import com.byteshaft.jobapp.activities.Internship;
 import com.byteshaft.jobapp.activities.MessagesActivity;
-import com.byteshaft.jobapp.activities.PartTime;
 import com.byteshaft.jobapp.activities.QRcodeActivity;
 
 import ss.com.bannerslider.banners.DrawableBanner;
@@ -147,7 +145,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 loadFragment(new FullTime());
                 break;
             case R.id.button_internship:
-                loadFragment(new Internship());
+                loadFragment(new JobSaved.Internship());
                 break;
             case R.id.button_barcode:
                 permission();
@@ -228,5 +226,78 @@ public class Home extends Fragment implements View.OnClickListener {
         i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         context.startActivity(i);
+    }
+
+    public static class FullTime extends Fragment implements View.OnClickListener {
+
+
+        private View mBaseView;
+        private TextView title;
+        private Toolbar toolbarTop;
+        private ImageButton backButton;
+
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            mBaseView = inflater.inflate(R.layout.activity_full_time, container, false);
+
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
+            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+            backButton.setOnClickListener(this);
+            title.setText(R.string.full_time_title);
+            activity.setSupportActionBar(toolbarTop);
+            return mBaseView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back_button:
+                    FragmentManager manager = getFragmentManager();
+                    manager.popBackStack();
+                    break;
+            }
+        }
+    }
+
+    public static class PartTime extends Fragment implements View.OnClickListener {
+
+
+        private View mBaseView;
+        private TextView title;
+        private Toolbar toolbarTop;
+        private ImageButton backButton;
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            mBaseView = inflater.inflate(R.layout.activity_part_time, container, false);
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
+            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+            backButton.setOnClickListener(this);
+            title.setText(R.string.part_time_title);
+            activity.setSupportActionBar(toolbarTop);
+            return mBaseView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back_button:
+                    FragmentManager manager = getFragmentManager();
+                    manager.popBackStack();
+                    break;
+            }
+        }
     }
 }
