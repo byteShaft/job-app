@@ -52,6 +52,7 @@
                 android:paddingLeft="10dp"
                 android:textColor="#000" />
 
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +66,24 @@
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
-                    android:textColor="#fff"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/full_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Full name"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10sp"
+                    android:paddingTop="@dimen/floating_hint_margin"
+                    android:textColor="#000"
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
 

@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2f2f2">
 
     <ScrollView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_height="wrap_content">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="20dp"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#FFF">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/camera" />
+
+                <TextView
+                    android:text="Enter your name and add an
+optional profile picture"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/user_dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Edit"
+                    android:layout_below="@+id/user_dp"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -21,12 +57,13 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
-                    android:id="@+id/email_edit_text"
+                    android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Email"
+                    android:hint="Name"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10sp"
+                    android:background="#FFF"
                     android:paddingTop="@dimen/floating_hint_margin"
                     android:textColor="#000"
                     android:textSize="15sp" />
@@ -38,11 +75,12 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
-                    android:id="@+id/activation_edit_text"
+                    android:id="@+id/mobile_number_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Verification code"
+                    android:hint="Mobile Number"
                     android:inputType="number"
+                    android:background="#FFF"
                     android:maxLength="6"
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
@@ -51,12 +89,12 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_verify"
+                android:id="@+id/button_save"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/login_button_background"
-                android:text="@string/verify"
+                android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="#000" />
 

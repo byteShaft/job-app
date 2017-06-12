@@ -41,19 +41,19 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/feedback_layout"
+                android:id="@+id/edit_profile_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#FFF"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/feedback_text_view"
+                    android:id="@+id/edit_profile_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingLeft="10dp"
-                    android:text="Feedback"
+                    android:text="Edit Profile"
                     android:textSize="18sp" />
 
                 <include
@@ -133,10 +133,33 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/app_version_layout"
+                android:id="@+id/legal_notices_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="2dp"
+                android:background="#FFF"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/legal_notices_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="Legal notices"
+                    android:textSize="18sp" />
+
+                <include
+                    layout="@layout/greater_than_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/app_version_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
                 android:background="#FFF"
                 android:orientation="horizontal">
 
@@ -146,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingLeft="10dp"
-                    android:text="App Version"
+                    android:text="Privacy Policy"
                     android:textSize="18sp" />
 
                 <include

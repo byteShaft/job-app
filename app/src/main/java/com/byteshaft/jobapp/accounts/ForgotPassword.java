@@ -32,13 +32,12 @@ public class ForgotPassword extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_forgot_password, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         setHasOptionsMenu(true);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mRecoverButton = (Button) mBaseView.findViewById(R.id.button_recover);
 
-//        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
-//        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
+        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
+        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
         mRecoverButton.setOnClickListener(this);
 
         return mBaseView;
@@ -104,7 +103,7 @@ public class ForgotPassword extends Fragment implements View.OnClickListener,
         }
 
     }
-//
+
 private void recoverUserPassword(String email) {
     request = new HttpRequest(getActivity());
     request.setOnReadyStateChangeListener(this);
