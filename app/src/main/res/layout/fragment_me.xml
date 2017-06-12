@@ -96,8 +96,10 @@
                 android:id="@+id/job_applied"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:padding="3dp"
                 android:layout_gravity="center"
-                android:background="@drawable/job_applied" />
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/job_applied" />
 
             <TextView
                 android:id="@+id/job_applied_text_view"

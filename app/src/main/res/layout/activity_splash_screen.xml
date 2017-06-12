@@ -24,8 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/logo"
             android:gravity="center"
-            android:text="Company"
-            android:textSize="25sp"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:text="Terancet Enterprise"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
