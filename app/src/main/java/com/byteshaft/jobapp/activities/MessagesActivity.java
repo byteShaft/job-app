@@ -34,7 +34,7 @@ public class MessagesActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         messages = new ArrayList<>();
-        messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
+        messages.add(new String[]{"", "Bilal", "Are you free next week for inter view?", "12:00"});
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         messages.add(new String[]{"", "Bilal", "Hello world", "12:00"});

@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:elevation="4dp"
         android:minHeight="?attr/actionBarSize">
 
         <RelativeLayout
@@ -40,11 +39,26 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/conversation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f2f2f2"
+        android:layout_above="@+id/write_layout"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_below="@+id/my_toolbar" />
 
-    <include layout="@layout/type_message_area" />
+    <RelativeLayout
+        android:id="@+id/write_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+    <include
+        android:id="@+id/write_message"
+        layout="@layout/type_message_area" />
+    </RelativeLayout>
 
 </RelativeLayout>
