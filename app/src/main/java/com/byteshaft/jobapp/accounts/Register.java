@@ -24,14 +24,12 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 
 
-
 public class Register extends Fragment implements View.OnClickListener, HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
 
     private View mBaseView;
-    private EditText mName;
-    private EditText mPhoneNumber;
 
     private EditText mEmail;
+    private EditText mFullName;
     private EditText mPassword;
     private EditText mVerifyPassword;
     private Button mSignUpButton;
@@ -40,9 +38,9 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     private String mEmailAddressString;
     private String mPasswordString;
     private String mVerifyPasswordString;
+    private String mFullNameString;
     private String mNameString;
     private String mPhoneString;
-    private String mAccountType = String.valueOf(1);
 
     private HttpRequest request;
 
@@ -50,8 +48,8 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_register, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         setHasOptionsMenu(true);
+        mFullName = (EditText) mBaseView.findViewById(R.id.full_name_edit_text);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);
         mVerifyPassword = (EditText) mBaseView.findViewById(R.id.verify_password_edit_text);
@@ -69,7 +67,7 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
             case R.id.sign_up_button:
                 System.out.println("signUp button");
                 if (validateEditText()) {
-//                    registerUser(mNameString, mPhoneString, mPasswordString, mEmailAddressString, mAccountType);
+                    registerUser(mFullNameString, mEmailAddressString, mPasswordString);
                 }
                 break;
             case R.id.login_text_view:
@@ -81,22 +79,16 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
 
     private boolean validateEditText() {
         boolean valid = true;
-        mNameString = mName.getText().toString();
-        mPhoneString = mPhoneNumber.getText().toString();
         mEmailAddressString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
         mVerifyPasswordString = mVerifyPassword.getText().toString();
+        mFullNameString = mFullName.getText().toString();
 
-        if (mNameString.trim().isEmpty()) {
-            mName.setError("Please provide a Name");
+        if (mFullNameString.trim().isEmpty()) {
+            mFullName.setError("please enter your name");
+            valid = false;
         } else {
-            mName.setError(null);
-        }
-
-        if (mPhoneString.trim().isEmpty()) {
-            mPhoneNumber.setError("Please provide phone number");
-        } else {
-            mPhoneNumber.setError(null);
+            mFullName.setError(null);
         }
 
         if (mEmailAddressString.trim().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(mEmailAddressString).matches()) {
@@ -122,22 +114,20 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
         return valid;
     }
 
-    private void registerUser(String userName, String phonneNumber, String password, String email, String accountType) {
+    private void registerUser(String fullName, String email, String password) {
         request = new HttpRequest(getActivity());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
         request.open("POST", String.format("%sregister", AppGlobals.BASE_URL));
-        request.send(getRegisterData(userName, phonneNumber, password, email, accountType));
+        request.send(getRegisterData(fullName, email, password));
         Helpers.showProgressDialog(getActivity(), "Registering User ");
     }
 
-    private String getRegisterData(String userName, String phoneNumber, String password, String email, String accountType) {
+    private String getRegisterData(String fullName, String email, String password) {
         JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject.put("full_name", fullName);
             jsonObject.put("email", email);
-            jsonObject.put("full_name", userName);
-            jsonObject.put("phone_number", phoneNumber);
-            jsonObject.put("account_type", accountType);
             jsonObject.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -164,19 +154,14 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
                         System.out.println(request.getResponseText() + "working ");
                         try {
                             JSONObject jsonObject = new JSONObject(request.getResponseText());
-//                            String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
-//                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
-//                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-//                            String userName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
-//                            String phoneNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
-//
-//                            //saving values
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, phoneNumber);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
-//                            Log.i("closingTime", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_PHONE_NUMBER));
+                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
+                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+                            String userName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
+
+                            //saving values
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
                             AccountManager.getInstance().loadFragment(new AccountActivationCode());
                         } catch (JSONException e) {
                             e.printStackTrace();
