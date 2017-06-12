@@ -48,7 +48,7 @@ public class Me extends Fragment implements View.OnClickListener {
         settingsButton = (ImageButton) toolbarTop.findViewById(R.id.button_settings);
         jobAppliedButton = (CircleImageView) mBaseView.findViewById(R.id.job_applied);
         jobSavedButton = (CircleImageView) mBaseView.findViewById(R.id.job_saved);
-        jobResumeButton = (CircleImageView) mBaseView.findViewById(R.id.job_resume);
+        jobResumeButton = (CircleImageView) mBaseView.findViewById(R.id.resume);
 
         title = (TextView) toolbarTop.findViewById(R.id.profile_title);
         workExperienceEditTextView = (TextView) mBaseView.findViewById(R.id.work_experience_edit_text_view);
@@ -89,8 +89,8 @@ public class Me extends Fragment implements View.OnClickListener {
             case R.id.job_saved:
                 loadFragment(new JobSaved());
                 break;
-            case R.id.job_resume:
-                break;
+//            case R.id.job_resume:
+//                break;
 
         }
 
