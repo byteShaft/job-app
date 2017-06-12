@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2">
+    android:background="@color/screen_bg_color">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="4dp"
                 android:background="?attr/selectableItemBackground"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:src="@mipmap/ic_settings" />
 
             <TextView
@@ -42,270 +42,356 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profile_toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/camera" />
-
-    <TextView
-        android:id="@+id/name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="Husnain Hussi"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name_text_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@mipmap/location_icon"
-        android:drawablePadding="5dp"
-        android:gravity="center"
-        android:text="multan"
-        android:textSize="12sp" />
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/main_rel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name_text_view"
-        android:layout_margin="30dp"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp"
-        android:weightSum="3.0">
-
-        <RelativeLayout
-            android:id="@+id/child_one"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1.0">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/job_applied"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="3dp"
-                android:layout_gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/job_applied" />
-
-            <TextView
-                android:id="@+id/job_applied_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/job_applied"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="job Applied"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/child_two"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1.0">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/job_saved"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/job_saved" />
-
-            <TextView
-                android:id="@+id/job_saved_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/job_saved"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="job saved"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/child_three"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1.0">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/job_resume"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_resume" />
-
-            <TextView
-                android:id="@+id/job_resume_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/job_resume"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="job resume"
-                android:textSize="12sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_rel"
-        android:layout_margin="40dp"
-        android:background="#FFF"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/profile_toolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/camera" />
+
+            <TextView
+                android:id="@+id/name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Lee Lee"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_text_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:drawableLeft="@mipmap/ic_telephone"
+                android:drawablePadding="6dp"
+                android:gravity="center"
+                android:text="+60112121212"
+                android:textSize="12sp" />
+
+
+            <LinearLayout
+                android:id="@+id/buttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phone_number"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/job_applied"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/job_applied" />
+
+                    <TextView
+                        android:id="@+id/job_applied_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Applied"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/job_saved"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/job_saved" />
+
+                    <TextView
+                        android:id="@+id/job_saved_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Applied"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/resume"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_resume" />
+
+                    <TextView
+                        android:id="@+id/resume_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/job_applied"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="Resume"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
 
             <RelativeLayout
-                android:id="@+id/work_experience_layout"
+                android:id="@+id/layout_education"
                 android:layout_width="match_parent"
-                android:layout_height="500dp">
+                android:layout_height="250dp"
+                android:layout_margin="18dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_">
 
-                <TextView
-                    android:id="@+id/work_experience"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Work Experience"
-                    android:textSize="20dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="25dp">
 
-                <TextView
-                    android:id="@+id/services_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/work_experience"
-                    android:layout_margin="10dp"
-                    android:drawableLeft="@mipmap/work_experience"
-                    android:drawablePadding="5dp"
-                    android:text="2016-2017 services"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/text_edu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Education"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/services_two_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/services_text_view"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:drawableLeft="@mipmap/work_experience"
-                    android:drawablePadding="5dp"
-                    android:text="2017 services"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/edu_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_edu"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Education One"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/work_experience_edit_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/work_experience"
-                    android:paddingLeft="50dp"
-                    android:text="Edit"
-                    android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/period_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edu_one"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Education Two"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/education_edit_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="Edit"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="1/3"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
             </RelativeLayout>
+
 
             <RelativeLayout
-                android:id="@+id/education_layout"
+                android:id="@+id/layout_exp"
                 android:layout_width="match_parent"
-                android:layout_height="500dp">
+                android:layout_height="250dp"
+                android:layout_margin="18dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_">
 
-                <TextView
-                    android:id="@+id/education"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Education"
-                    android:textSize="20dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="25dp">
 
-                <TextView
-                    android:id="@+id/period_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/education"
-                    android:layout_margin="10dp"
-                    android:drawableLeft="@mipmap/work_experience"
-                    android:drawablePadding="5dp"
-                    android:text="2016-2017 period"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/text_exp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Work Experience"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/qualification_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/period_text_view"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:drawableLeft="@mipmap/work_experience"
-                    android:drawablePadding="5dp"
-                    android:text="Qualification"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/exp_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_exp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Exp One"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/education_edit_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/education"
-                    android:paddingLeft="110dp"
-                    android:text="Edit"
-                    android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/exp_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/exp_one"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Exp Two"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/work_experience_edit_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="Edit"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="2/3"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
             </RelativeLayout>
+
 
             <RelativeLayout
-                android:id="@+id/personal_skills_layout"
+                android:id="@+id/layout_skills"
                 android:layout_width="match_parent"
-                android:layout_height="500dp">
+                android:layout_height="250dp"
+                android:layout_margin="18dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_">
 
-                <TextView
-                    android:id="@+id/personal_skills"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Personal Skills"
-                    android:textSize="20dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="25dp">
 
-                <TextView
-                    android:id="@+id/personal_skills_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/personal_skills"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:drawableLeft="@mipmap/work_experience"
-                    android:drawablePadding="5dp"
-                    android:text="skills"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/text_skills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Personal Skills"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/personal_skills_edit_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/personal_skills"
-                    android:paddingLeft="70dp"
-                    android:text="Edit"
-                    android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/skill_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_skills"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Exp One"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/skill_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/skill_one"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:drawableLeft="@mipmap/work_experience"
+                        android:drawablePadding="5dp"
+                        android:text="Exp Two"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/personal_skills_edit_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="Edit"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:text="3/3"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
             </RelativeLayout>
+
         </LinearLayout>
-    </HorizontalScrollView>
+
+    </ScrollView>
 </RelativeLayout>
