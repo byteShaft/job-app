@@ -1,10 +1,22 @@
 package com.byteshaft.jobapp.fragments;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,10 +28,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.FullTime;
-import com.byteshaft.jobapp.activities.Internship;
 import com.byteshaft.jobapp.activities.MessagesActivity;
-import com.byteshaft.jobapp.activities.PartTime;
 import com.byteshaft.jobapp.activities.QRcodeActivity;
 
 import ss.com.bannerslider.banners.DrawableBanner;
@@ -27,6 +36,11 @@ import ss.com.bannerslider.views.BannerSlider;
 
 
 public class Home extends Fragment implements View.OnClickListener {
+
+
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    public static final String ALLOW_KEY = "ALLOWED";
+    public static final String CAMERA_PREF = "camera_pref";
 
     private View mBaseView;
     private BannerSlider bannerSlider;
@@ -65,6 +79,50 @@ public class Home extends Fragment implements View.OnClickListener {
         return mBaseView;
     }
 
+
+    public static void saveToPreferences(Context context, String key,
+                                         Boolean allowed) {
+        SharedPreferences myPrefs = context.getSharedPreferences
+                (CAMERA_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putBoolean(key, allowed);
+        prefsEditor.commit();
+    }
+
+    public static Boolean getFromPref(Context context, String key) {
+        SharedPreferences myPrefs = context.getSharedPreferences
+                (CAMERA_PREF, Context.MODE_PRIVATE);
+        return (myPrefs.getBoolean(key, false));
+    }
+
+    private void permission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (getFromPref(getActivity(), ALLOW_KEY)) {
+
+                showSettingsAlert();
+
+            } else if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.CAMERA)) {
+                    showAlert();
+                } else {
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.CAMERA},
+                            MY_PERMISSIONS_REQUEST_CAMERA);
+                }
+            }
+        } else {
+            startActivity(new Intent(getActivity(), QRcodeActivity.class));
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -87,10 +145,10 @@ public class Home extends Fragment implements View.OnClickListener {
                 loadFragment(new FullTime());
                 break;
             case R.id.button_internship:
-                loadFragment(new Internship());
+                loadFragment(new JobSaved.Internship());
                 break;
             case R.id.button_barcode:
-                startActivity(new Intent(getActivity(), QRcodeActivity.class));
+                permission();
                 break;
             case R.id.button_message:
                 startActivity(new Intent(getActivity(), MessagesActivity.class));
@@ -108,6 +166,138 @@ public class Home extends Fragment implements View.OnClickListener {
         if (!fragmentPopped) {
             fragmentTransaction.addToBackStack(backStateName);
             fragmentTransaction.commit();
+        }
+    }
+
+    private void showAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("App needs to access the Camera for Scanning Barcode.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ALLOW",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                MY_PERMISSIONS_REQUEST_CAMERA);
+
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void showSettingsAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("App needs to access the Camera.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SETTINGS",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startInstalledAppDetailsActivity(getActivity());
+
+                    }
+                });
+        alertDialog.show();
+    }
+
+    public static void startInstalledAppDetailsActivity(final Activity context) {
+        if (context == null) {
+            return;
+        }
+        final Intent i = new Intent();
+        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        i.addCategory(Intent.CATEGORY_DEFAULT);
+        i.setData(Uri.parse("package:" + context.getPackageName()));
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(i);
+    }
+
+    public static class FullTime extends Fragment implements View.OnClickListener {
+
+
+        private View mBaseView;
+        private TextView title;
+        private Toolbar toolbarTop;
+        private ImageButton backButton;
+
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            mBaseView = inflater.inflate(R.layout.activity_full_time, container, false);
+
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
+            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+            backButton.setOnClickListener(this);
+            title.setText(R.string.full_time_title);
+            activity.setSupportActionBar(toolbarTop);
+            return mBaseView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back_button:
+                    FragmentManager manager = getFragmentManager();
+                    manager.popBackStack();
+                    break;
+            }
+        }
+    }
+
+    public static class PartTime extends Fragment implements View.OnClickListener {
+
+
+        private View mBaseView;
+        private TextView title;
+        private Toolbar toolbarTop;
+        private ImageButton backButton;
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            mBaseView = inflater.inflate(R.layout.activity_part_time, container, false);
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
+            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+            backButton.setOnClickListener(this);
+            title.setText(R.string.part_time_title);
+            activity.setSupportActionBar(toolbarTop);
+            return mBaseView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back_button:
+                    FragmentManager manager = getFragmentManager();
+                    manager.popBackStack();
+                    break;
+            }
         }
     }
 }

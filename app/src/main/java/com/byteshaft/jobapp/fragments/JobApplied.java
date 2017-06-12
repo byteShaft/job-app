@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +27,7 @@ public class JobApplied extends Fragment implements View.OnClickListener {
     private ListView mListView;
     private ArrayList<String[]> jobsArrayList;
     private Adapter adapter;
-
+    private ImageButton backButton;
     private TextView mFilterTextView;
 
 
@@ -35,6 +37,7 @@ public class JobApplied extends Fragment implements View.OnClickListener {
         mBaseView = inflater.inflate(R.layout.fragment_job_applied, container, false);
         mListView = (ListView) mBaseView.findViewById(R.id.jobs_list);
         mFilterTextView = (TextView) mBaseView.findViewById(R.id.button_filter);
+        backButton = (ImageButton) mBaseView.findViewById(R.id.back_button);
         jobsArrayList = new ArrayList<>();
 
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
@@ -50,7 +53,7 @@ public class JobApplied extends Fragment implements View.OnClickListener {
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
         adapter = new Adapter(getActivity(), jobsArrayList);
         mListView.setAdapter(adapter);
-
+        backButton.setOnClickListener(this);
         mFilterTextView.setOnClickListener(this);
         return mBaseView;
     }
@@ -60,6 +63,10 @@ public class JobApplied extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button_filter:
                 MainActivity.getInstance().loadThisFragment(new Filter());
+                break;
+            case R.id.back_button:
+                FragmentManager manager = getFragmentManager();
+                manager.popBackStack();
                 break;
         }
     }

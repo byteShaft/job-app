@@ -50,6 +50,7 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_login, container, false);
+        setHasOptionsMenu(true);
         callbackManager = CallbackManager.Factory.create();
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);

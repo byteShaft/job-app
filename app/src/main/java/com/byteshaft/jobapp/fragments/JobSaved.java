@@ -4,12 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +31,7 @@ public class JobSaved extends Fragment implements OnClickListener{
     private ArrayList<String[]> jobsArrayList;
     private Adapter adapter;
 
+    private ImageButton backButton;
     private TextView mFilterTextView;
 
 
@@ -36,6 +41,7 @@ public class JobSaved extends Fragment implements OnClickListener{
         mBaseView = inflater.inflate(R.layout.fragment_job_saved, container, false);
         mListView = (ListView) mBaseView.findViewById(R.id.jobs_list);
         mFilterTextView = (TextView) mBaseView.findViewById(R.id.button_filter);
+        backButton = (ImageButton) mBaseView.findViewById(R.id.back_button);
         jobsArrayList = new ArrayList<>();
 
         jobsArrayList.add(new String[]{"", "Bilal", "Hello world", "12:00"});
@@ -52,6 +58,7 @@ public class JobSaved extends Fragment implements OnClickListener{
         adapter = new Adapter(getActivity(), jobsArrayList);
         mListView.setAdapter(adapter);
 
+        backButton.setOnClickListener(this);
         mFilterTextView.setOnClickListener(this);
         return mBaseView;
     }
@@ -62,9 +69,14 @@ public class JobSaved extends Fragment implements OnClickListener{
             case R.id.button_filter:
                 MainActivity.getInstance().loadThisFragment(new Filter());
                 break;
+            case R.id.back_button:
+                FragmentManager manager = getFragmentManager();
+                manager.popBackStack();
+                break;
         }
     }
 
+    /// Adapter
 
     private class Adapter extends ArrayAdapter<String> {
 
@@ -109,5 +121,40 @@ public class JobSaved extends Fragment implements OnClickListener{
         private Button jobSaveButton;
         private Button jobApplyButton;
         private CircleImageView companyImage;
+    }
+
+    public static class Internship extends Fragment implements OnClickListener {
+
+        private View mBAaseView;
+        private TextView title;
+        private Toolbar toolbarTop;
+        private ImageButton backButton;
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            mBAaseView = inflater.inflate(R.layout.activity_internship, container, false);
+
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            toolbarTop = (Toolbar) mBAaseView.findViewById(R.id.my_toolbar);
+            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+            backButton.setOnClickListener(this);
+            title.setText(R.string.internship_title);
+            activity.setSupportActionBar(toolbarTop);
+            return mBAaseView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.back_button:
+                    FragmentManager manager = getFragmentManager();
+                    manager.popBackStack();
+                    break;
+            }
+        }
     }
 }

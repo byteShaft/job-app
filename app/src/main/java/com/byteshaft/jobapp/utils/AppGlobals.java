@@ -97,6 +97,11 @@ public class AppGlobals extends Application {
         return sharedPreferences.getBoolean(KEY_LOGIN, false);
     }
 
+    public static void clearSettings() {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().clear().apply();
+    }
+
     public static void alertDialog(Activity activity, String title, String msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder.setTitle(title);

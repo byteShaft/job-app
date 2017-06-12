@@ -4,7 +4,6 @@ package com.byteshaft.jobapp.profile;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,9 +13,7 @@ import android.widget.Toast;
 
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.accounts.AccountManager;
 import com.byteshaft.jobapp.accounts.EditProfile;
-import com.byteshaft.jobapp.accounts.Login;
 
 /**
  * Created by husnain on 6/1/17.
@@ -36,7 +33,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.byteshaft.jobapp.R.layout.activity_settings);
+        setContentView(R.layout.activity_settings);
         mLogoutTextView = (TextView) findViewById(R.id.logout_text_view);
         mEditProfileLayout = (LinearLayout) findViewById(R.id.edit_profile_layout);
         mLanguageLayout = (LinearLayout) findViewById(R.id.language_layout);
@@ -58,14 +55,14 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.logout_text_view:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProfileSettings.this);
                 alertDialogBuilder.setTitle("Confirmation");
                 alertDialogBuilder.setMessage("Do you really want to logout?")
                         .setCancelable(false).setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(ProfileSettings.this, MainActivity.class));
                                 dialog.dismiss();
-                                AccountManager.getInstance().loadFragment(new Login());
                             }
                         });
                 alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
