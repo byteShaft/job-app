@@ -1,14 +1,10 @@
 package com.byteshaft.jobapp.accounts;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -25,7 +22,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -34,11 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.facebook.login.widget.ProfilePictureView.TAG;
 
 public class Login extends Fragment implements View.OnClickListener, HttpRequest.OnErrorListener,
         HttpRequest.OnReadyStateChangeListener {
@@ -59,14 +50,14 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_login, container, false);
+        setHasOptionsMenu(true);
         callbackManager = CallbackManager.Factory.create();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);
         mLoginButton = (Button) mBaseView.findViewById(R.id.button_login);
         mForgotPasswordTextView = (TextView) mBaseView.findViewById(R.id.forgot_password_text_view);
         mSignUpTextView = (TextView) mBaseView.findViewById(R.id.sign_up_text_view);
-        loginButton = (LoginButton)mBaseView.findViewById(R.id.login_button);
+        loginButton = (LoginButton) mBaseView.findViewById(R.id.login_button);
 
         mLoginButton.setOnClickListener(this);
         mForgotPasswordTextView.setOnClickListener(this);
@@ -125,7 +116,7 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
         switch (view.getId()) {
             case R.id.button_login:
                 if (validate()) {
-//                    loginUser(mEmailString, mPasswordString);
+                    loginUser(mEmailString, mPasswordString);
                 }
                 break;
             case R.id.forgot_password_text_view:
@@ -171,92 +162,84 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
                 Helpers.dismissProgressDialog();
                 switch (request.getStatus()) {
                     case HttpRequest.ERROR_NETWORK_UNREACHABLE:
-//                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.check_internet));
+                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.check_internet));
                         break;
                     case HttpURLConnection.HTTP_NOT_FOUND:
-//                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.email_not_exist));
+                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.email_not_exist));
                         break;
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
-//                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.check_password));
+                        AppGlobals.alertDialog(getActivity(), getString(R.string.login_failed), getString(R.string.check_password));
                         break;
                     case HttpURLConnection.HTTP_FORBIDDEN:
-//                        Helpers.showSnackBar(getView(), R.string.activate_your_account);
+                        Helpers.showSnackBar(getView(), R.string.activate_your_account);
                         AccountManager.getInstance().loadFragment(new AccountActivationCode());
                         break;
 
                     case HttpURLConnection.HTTP_OK:
                         System.out.println(request.getResponseText() + "working ");
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(request.getResponseText());
-//                            String token = jsonObject.getString(AppGlobals.KEY_TOKEN);
-//                            String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
-//                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
-//                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-//                            String phoneNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
-//
-//                            //saving values
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, phoneNumber);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_TOKEN, token);
-//                            Log.i("token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-//                            AppGlobals.loginState(true);
-//                            gettingUserData();
-//                            FragmentManager fragmentManager = getFragmentManager();
-//                            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//                            AccountManager.getInstance().finish();
-//                            startActivity(new Intent(getActivity(), MainActivity.class));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(request.getResponseText());
+                            String token = jsonObject.getString(AppGlobals.KEY_TOKEN);
+                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
+                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+
+                            //saving values
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_TOKEN, token);
+                            Log.i("token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+                            AppGlobals.loginState(true);
+                            gettingUserData();
+                            AccountManager.getInstance().finish();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                 }
         }
     }
 
-        private void gettingUserData() {
-            HttpRequest request = new HttpRequest(AppGlobals.getContext());
-            request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
-                @Override
-                public void onReadyStateChange(HttpRequest request, int readyState) {
-                    switch (readyState) {
-                        case HttpRequest.STATE_DONE:
-                            switch (request.getStatus()) {
-                                case HttpURLConnection.HTTP_OK:
-                                    System.out.println(request.getResponseText());
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(request.getResponseText());
-//                                        String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
-//                                        String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
-//                                        String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-//                                        String UserName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
-//                                        String phoneNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
-//
-//                                        //saving values
-//                                        AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
-//                                        AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, phoneNumber);
-//                                        AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-//                                        AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-//                                        AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, UserName);
-//                                        Log.i("closingTime", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                            }
-                    }
+    private void gettingUserData() {
+        HttpRequest request = new HttpRequest(AppGlobals.getContext());
+        request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_OK:
+                                System.out.println(request.getResponseText());
+                                try {
+                                    JSONObject jsonObject = new JSONObject(request.getResponseText());
+                                    String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
+                                    String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
+                                    String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+                                    String UserName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
 
+                                    //saving values
+                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
+                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
+                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, UserName);
+                                    Log.i("closingTime", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                        }
                 }
-            });
-            request.setOnErrorListener(new HttpRequest.OnErrorListener() {
-                @Override
-                public void onError(HttpRequest request, int readyState, short error, Exception exception) {
 
-                }
-            });
-            request.open("GET", String.format("%sme", AppGlobals.BASE_URL));
-            Log.i("Token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-            request.setRequestHeader("Authorization", "Token " +
-                    AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-            request.send();
-        }
+            }
+        });
+        request.setOnErrorListener(new HttpRequest.OnErrorListener() {
+            @Override
+            public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+
+            }
+        });
+        request.open("GET", String.format("%sme", AppGlobals.BASE_URL));
+        Log.i("Token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        request.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        request.send();
+    }
 }

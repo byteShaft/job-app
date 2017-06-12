@@ -37,15 +37,14 @@ public class ResetPassword extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_reset_password, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         setHasOptionsMenu(true);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mOldPassword = (EditText) mBaseView.findViewById(R.id.old_password_edit_text);
         mNewPassword = (EditText) mBaseView.findViewById(R.id.new_password_edit_text);
         mResetButton = (Button) mBaseView.findViewById(R.id.button_reset);
 
-//        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
-//        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
+        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
+        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
 
         mResetButton.setOnClickListener(this);
         return mBaseView;
@@ -57,7 +56,7 @@ public class ResetPassword extends Fragment implements View.OnClickListener,
         switch (view.getId()) {
             case R.id.button_reset:
                 if (validateEditText()) {
-//                    changePassword(mEmailString, mOldPasswordString, mNewPasswordString);
+                    changePassword(mEmailString, mOldPasswordString, mNewPasswordString);
                 }
                 break;
         }

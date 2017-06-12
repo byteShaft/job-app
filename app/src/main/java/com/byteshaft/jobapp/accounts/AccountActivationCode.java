@@ -42,16 +42,13 @@ public class AccountActivationCode extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_activation_code, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle(getResources().getString(R.string.code_activation));
         setHasOptionsMenu(true);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mVerificationCode = (EditText) mBaseView.findViewById(R.id.activation_edit_text);
         mLoginButton = (Button) mBaseView.findViewById(R.id.button_verify);
 
-//        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
-//        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
+        mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
+        mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
         mEmail.setEnabled(false);
 
         mLoginButton.setOnClickListener(this);
@@ -137,19 +134,15 @@ public class AccountActivationCode extends Fragment implements View.OnClickListe
                         try {
                             JSONObject jsonObject = new JSONObject(request.getResponseText());
                             System.out.println( "data" + jsonObject);
-//                            String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
-//                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
-//                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-//                            String token = jsonObject.getString(AppGlobals.KEY_TOKEN);
-//                            String phoneNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
-//
-//                            //saving values
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, phoneNumber);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_TOKEN, token);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-//                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
-//                            Log.i("token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
+                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+                            String token = jsonObject.getString(AppGlobals.KEY_TOKEN);
+
+                            //saving values
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_TOKEN, token);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                            Log.i("token", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
                             AppGlobals.loginState(true);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);

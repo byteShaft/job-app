@@ -54,7 +54,6 @@ public class Me extends Fragment implements View.OnClickListener {
         workExperienceEditTextView = (TextView) mBaseView.findViewById(R.id.work_experience_edit_text_view);
         educationEditTextView = (TextView) mBaseView.findViewById(R.id.education_edit_text_view);
         personalSkillsEditTextView = (TextView) mBaseView.findViewById(R.id.personal_skills_edit_text_view);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Profile");
         activity.setSupportActionBar(toolbarTop);
         settingsButton.setOnClickListener(this);
         workExperienceEditTextView.setOnClickListener(this);
