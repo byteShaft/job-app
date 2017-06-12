@@ -15,6 +15,7 @@ public class LanguageSelectionActivity extends Activity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         setContentView(R.layout.activity_language_selection);
         malay = (TextView) findViewById(R.id.malay_lang);
         english = (TextView) findViewById(R.id.eng_lang);
