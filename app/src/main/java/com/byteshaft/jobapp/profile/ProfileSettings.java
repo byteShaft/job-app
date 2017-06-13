@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.accounts.EditProfile;
+import com.byteshaft.jobapp.activities.EditProfile;
 
 public class ProfileSettings extends AppCompatActivity implements View.OnClickListener {
 

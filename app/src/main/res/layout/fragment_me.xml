@@ -76,18 +76,17 @@
                 android:gravity="center"
                 android:text="Lee Lee"
                 android:textSize="18sp" />
-
             <TextView
-                android:id="@+id/phone_number"
+                android:id="@+id/user_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name_text_view"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:drawableLeft="@mipmap/ic_telephone"
+                android:drawableLeft="@mipmap/location_icon"
                 android:drawablePadding="6dp"
                 android:gravity="center"
-                android:text="+60112121212"
+                android:text="Multan pakistan"
                 android:textSize="12sp" />
 
 
@@ -95,7 +94,7 @@
                 android:id="@+id/buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/phone_number"
+                android:layout_below="@id/user_location"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
