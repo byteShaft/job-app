@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2">
+    android:background="@color/screen_bg_color">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/add_personal_skill_toolbar"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/save"
+                android:id="@+id/button_skills_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -47,6 +47,7 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="SAVE"
+                android:clickable="true"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="18sp" />
         </RelativeLayout>
