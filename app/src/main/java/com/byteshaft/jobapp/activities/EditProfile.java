@@ -172,7 +172,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
-        request.open("PATCH", String.format("%sme", AppGlobals.BASE_URL));
+        request.open("PUT", String.format("%sme", AppGlobals.BASE_URL));
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         request.send(data);

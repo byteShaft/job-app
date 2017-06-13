@@ -29,7 +29,6 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     private View mBaseView;
 
     private EditText mEmail;
-    private EditText mFullName;
     private EditText mPassword;
     private EditText mVerifyPassword;
     private Button mSignUpButton;
@@ -49,7 +48,6 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_register, container, false);
         setHasOptionsMenu(true);
-        mFullName = (EditText) mBaseView.findViewById(R.id.full_name_edit_text);
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);
         mVerifyPassword = (EditText) mBaseView.findViewById(R.id.verify_password_edit_text);
@@ -82,14 +80,6 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
         mEmailAddressString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
         mVerifyPasswordString = mVerifyPassword.getText().toString();
-        mFullNameString = mFullName.getText().toString();
-
-        if (mFullNameString.trim().isEmpty()) {
-            mFullName.setError("please enter your name");
-            valid = false;
-        } else {
-            mFullName.setError(null);
-        }
 
         if (mEmailAddressString.trim().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(mEmailAddressString).matches()) {
             mEmail.setError("please provide a valid email");
