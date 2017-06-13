@@ -15,11 +15,7 @@ import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.accounts.EditProfile;
 
-/**
- * Created by husnain on 6/1/17.
- */
-
-public class ProfileSettings extends AppCompatActivity implements View.OnClickListener{
+public class ProfileSettings extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mLogoutTextView;
 
