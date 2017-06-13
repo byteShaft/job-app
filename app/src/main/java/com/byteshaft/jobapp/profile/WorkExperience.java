@@ -20,7 +20,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener{
 
 
-
     private TextView buttonSave;
     private Toolbar toolbarTop;
     private ImageButton backButton;
