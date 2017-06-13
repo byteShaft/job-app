@@ -49,6 +49,7 @@ public class AppGlobals extends Application {
     public static final String KEY_STATE = "state";
     public static final String KEY_CITY = "city";
     public static final String KEY_USER = "user";
+    public static final int LOCATION_ENABLE = 3;
 
     @Override
     public void onCreate() {
