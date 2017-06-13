@@ -20,15 +20,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".SplashScreen">
-        </activity>
+        <activity android:name=".SplashScreen"></activity>
 
         <activity
             android:name=".accounts.AccountManager"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,17 +50,28 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name=".profile.ProfileSettings" />
-        <activity android:name=".profile.WorkExperience" />
-        <activity android:name=".profile.Education" />
-        <activity android:name=".profile.PersonalSkills" />
+        <activity
+            android:name=".profile.ProfileSettings"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".profile.WorkExperience"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".profile.Education"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".profile.PersonalSkills"
+            android:theme="@style/AppTheme.NoActionBar" />
 
 
         <activity
             android:name=".activities.QRcodeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".accounts.EditProfile"/>
+        <activity android:name=".accounts.EditProfile" />
 
         <activity
             android:name=".activities.MessagesActivity"

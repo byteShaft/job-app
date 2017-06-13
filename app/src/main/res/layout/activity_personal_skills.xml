@@ -5,93 +5,68 @@
     android:background="#f2f2f2">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/profile_toolbar"
+        android:id="@+id/add_personal_skill_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/profile_title"
+            <ImageView
+                android:id="@+id/back_button"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10sp"
-                android:gravity="center"
-                android:text="Personal skills"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="6dp"
+                android:src="@mipmap/back_arrow" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/back_button"
+                android:text="Personal Skills"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="4dp"
+                android:background="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:padding="6dp"
                 android:text="SAVE"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_add_personal_skills"
+        android:layout_below="@+id/add_personal_skill_toolbar">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/button_add_personal_skills"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/period_layout"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="5dp"
-                android:background="#FFF">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-
-                    <EditText
-                        android:id="@+id/period__edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Personal skills"
-                        android:inputType="textMultiLine"
-                        android:lines="3"
-                        android:minLines="1"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="@dimen/floating_hint_margin"
-                        android:singleLine="false"
-                        android:textColor="#000"
-                        android:textSize="15dp" />
-                </android.support.design.widget.TextInputLayout>
-            </RelativeLayout>
-
-            <Button
-                android:layout_width="400dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="20sp"
-                android:background="#FFF"
-                android:gravity="center"
-                android:text="ADD ANOTHER ONE"
-                android:textColor="#F03"
-                android:textSize="18dp" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_alignParentBottom="true"
+        android:text="ADD ANOTHER ONE"
+        android:textColor="@android:color/holo_red_dark"
+        android:theme="@style/job_button" />
 </RelativeLayout>

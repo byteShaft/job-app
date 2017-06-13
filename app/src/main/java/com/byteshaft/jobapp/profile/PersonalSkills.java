@@ -6,16 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.byteshaft.jobapp.R;
 
-/**
- * Created by husnain on 6/2/17.
- */
 
 public class PersonalSkills extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_personal_skills);
 
     }
