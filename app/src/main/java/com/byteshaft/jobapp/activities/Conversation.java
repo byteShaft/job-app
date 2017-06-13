@@ -113,7 +113,6 @@ public class Conversation extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onBindViewHolder(MyChatViewHolder holder, int position) {
             ChatModel chatModel = modelArrayList.get(position);
-            holder.setProfilePhoto(chatModel.getSenderProfilePic());
             holder.setTxtMessage(chatModel.getMessage());
             holder.setTvTimestamp(chatModel.getTimeStamp());
         }
@@ -170,7 +169,7 @@ public class Conversation extends AppCompatActivity implements View.OnClickListe
 
             public void setTvTimestamp(String timestamp) {
                 if (tvTimestamp == null) return;
-                tvTimestamp.setText(converteTimestamp(timestamp));
+                tvTimestamp.setText(" "+converteTimestamp(timestamp));
             }
         }
 
