@@ -13,7 +13,6 @@ import com.byteshaft.jobapp.R;
 public class WorkExperience extends AppCompatActivity implements View.OnClickListener {
 
 
-
     private TextView buttonSave;
     private Toolbar toolbarTop;
     private ImageButton backButton;

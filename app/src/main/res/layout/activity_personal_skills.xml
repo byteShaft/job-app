@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_bg_color">
@@ -44,30 +45,32 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="4dp"
                 android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="SAVE"
-                android:clickable="true"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="18sp" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/button_add_personal_skills"
-        android:layout_below="@+id/add_personal_skill_toolbar">
-
-    </ListView>
-
-    <Button
-        android:id="@+id/button_add_personal_skills"
-        android:layout_width="match_parent"
+        android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="ADD ANOTHER ONE"
-        android:textColor="@android:color/holo_red_dark"
-        android:theme="@style/job_button" />
+        android:layout_below="@+id/add_personal_skill_toolbar"
+        app:counterEnabled="true"
+        app:counterMaxLength="150">
+
+        <EditText
+            android:id="@+id/skills_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:hint="Enter your skills"
+            android:lines="6" />
+
+    </android.support.design.widget.TextInputLayout>
 </RelativeLayout>

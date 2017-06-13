@@ -19,6 +19,7 @@ import com.byteshaft.jobapp.profile.Education;
 import com.byteshaft.jobapp.profile.PersonalSkills;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.profile.WorkExperience;
+import com.byteshaft.jobapp.utils.AppGlobals;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +41,8 @@ public class Me extends Fragment implements View.OnClickListener {
     private TextView educationEditTextView;
     private TextView personalSkillsEditTextView;
 
+    private TextView skillsTextViews;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_me, container, false);
@@ -49,6 +52,8 @@ public class Me extends Fragment implements View.OnClickListener {
         jobAppliedButton = (CircleImageView) mBaseView.findViewById(R.id.job_applied);
         jobSavedButton = (CircleImageView) mBaseView.findViewById(R.id.job_saved);
         jobResumeButton = (CircleImageView) mBaseView.findViewById(R.id.resume);
+
+        skillsTextViews = (TextView) mBaseView.findViewById(R.id.skills_text_view);
 
         title = (TextView) toolbarTop.findViewById(R.id.profile_title);
         workExperienceEditTextView = (TextView) mBaseView.findViewById(R.id.work_experience_edit_text_view);
@@ -64,6 +69,12 @@ public class Me extends Fragment implements View.OnClickListener {
         jobSavedButton.setOnClickListener(this);
         jobResumeButton.setOnClickListener(this);
         return mBaseView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        skillsTextViews.setText(AppGlobals.getStringFromSharedPreferences("skills"));
     }
 
     @Override
