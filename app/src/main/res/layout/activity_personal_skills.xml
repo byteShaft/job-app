@@ -47,8 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp">
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -64,36 +63,35 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    >
+                    android:layout_alignParentBottom="true">
 
                     <EditText
                         android:id="@+id/period__edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
                         android:hint="Personal skills"
-                        android:paddingLeft="10dp"
-                        android:singleLine="false"
+                        android:inputType="textMultiLine"
                         android:lines="3"
                         android:minLines="1"
+                        android:paddingLeft="10dp"
                         android:paddingTop="@dimen/floating_hint_margin"
+                        android:singleLine="false"
                         android:textColor="#000"
                         android:textSize="15dp" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
 
             <Button
-                android:layout_marginTop="20sp"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:text="ADD ANOTHER ONE"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="20sp"
                 android:background="#FFF"
                 android:gravity="center"
+                android:text="ADD ANOTHER ONE"
                 android:textColor="#F03"
-                android:textSize="18dp"
-                android:layout_marginBottom="40dp"
-                android:layout_width="400dp"
-                android:layout_height="60dp" />
+                android:textSize="18dp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
