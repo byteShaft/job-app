@@ -7,8 +7,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginRight="6dp"
         android:background="@mipmap/user"
         app:civ_border_width="@null" />
@@ -22,7 +22,6 @@
         android:layout_toLeftOf="@+id/time_and_date"
         android:layout_toRightOf="@+id/user_image"
         android:gravity="center"
-
         android:orientation="vertical"
         android:padding="4dp">
 
@@ -39,11 +38,11 @@
             android:id="@+id/message_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
+            android:paddingBottom="4dp"
             android:maxLines="1"
-            android:text="Hello world"
-            android:textSize="18sp" />
+            android:text="Are you free next week for inter view?"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
@@ -52,9 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="6dp"
-        android:drawableLeft="@android:drawable/ic_menu_recent_history"
+        android:layout_marginRight="5dp"
+        android:drawableLeft="@mipmap/ic_clock"
         android:gravity="center"
         android:maxLines="1"
-        android:text="2m" />
+        android:text=" 2m " />
 
 </RelativeLayout>
