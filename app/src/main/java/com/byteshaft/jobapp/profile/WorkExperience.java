@@ -3,20 +3,43 @@ package com.byteshaft.jobapp.profile;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
 
-/**
- * Created by husnain on 6/2/17.
- */
+public class WorkExperience extends AppCompatActivity implements View.OnClickListener {
 
-public class WorkExperience extends AppCompatActivity{
+
+
+    private TextView buttonSave;
+    private Toolbar toolbarTop;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_work_experience);
 
+        toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
+        buttonSave = (TextView) findViewById(R.id.button_exp_save);
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(this);
+        buttonSave.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back_button:
+                onBackPressed();
+                break;
+            case R.id.button_exp_save:
+                System.out.println("save");
+                break;
+        }
     }
 }
