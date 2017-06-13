@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -123,38 +121,4 @@ public class JobSaved extends Fragment implements OnClickListener{
         private CircleImageView companyImage;
     }
 
-    public static class Internship extends Fragment implements OnClickListener {
-
-        private View mBAaseView;
-        private TextView title;
-        private Toolbar toolbarTop;
-        private ImageButton backButton;
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            mBAaseView = inflater.inflate(R.layout.activity_internship, container, false);
-
-
-            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-            toolbarTop = (Toolbar) mBAaseView.findViewById(R.id.my_toolbar);
-            title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
-            backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
-            backButton.setOnClickListener(this);
-            title.setText(R.string.internship_title);
-            activity.setSupportActionBar(toolbarTop);
-            return mBAaseView;
-        }
-
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.back_button:
-                    FragmentManager manager = getFragmentManager();
-                    manager.popBackStack();
-                    break;
-            }
-        }
-    }
 }
