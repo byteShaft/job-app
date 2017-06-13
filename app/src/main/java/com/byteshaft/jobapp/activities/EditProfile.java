@@ -1,5 +1,5 @@
 
-package com.byteshaft.jobapp.accounts;
+package com.byteshaft.jobapp.activities;
 
 import android.Manifest;
 import android.content.CursorLoader;
@@ -8,7 +8,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,17 +23,24 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.jobapp.utils.RotateUtil;
 import com.byteshaft.requests.FormData;
 import com.byteshaft.requests.HttpRequest;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,6 +49,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,11 +59,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener,
-        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener,GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private EditText mMobileNumber;
     private EditText mUserName;
-    private Button mSaveButton;
+    private TextView mLocationTextView;
+    private EditText mAddress;
     private CircleImageView mProfilePicture;
 
     private File destination;
@@ -62,7 +76,20 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private static final int REQUEST_CAMERA = 3;
     private static final int SELECT_FILE = 2;
     private static final int STORAGE_CAMERA_PERMISSION = 1;
+
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private int locationCounter = 0;
+    private static final int LOCATION_PERMISSION = 4;
+
+    private String mMobileNumberString;
+    private String mUserNameString;
+    private String mLocationString;
+    private String mAddressString;
+
     private HttpRequest request;
+
+    private Button mSaveButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,11 +97,14 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_edit_profile);
         mMobileNumber = (EditText) findViewById(R.id.mobile_number_edit_text);
         mUserName = (EditText) findViewById(R.id.name_edit_text);
+        mAddress = (EditText) findViewById(R.id.location_edit_text);
+        mLocationTextView = (TextView) findViewById(R.id.pick_for_current_location);
         mSaveButton = (Button) findViewById(R.id.button_save);
         mProfilePicture = (CircleImageView) findViewById(R.id.user_dp);
 
         mSaveButton.setOnClickListener(this);
         mProfilePicture.setOnClickListener(this);
+        mLocationTextView.setOnClickListener(this);
 
         if (imageUrl.trim().isEmpty() && imageUrl != null) {
             profilePic = Helpers.getBitMapOfProfilePic(imageUrl);
@@ -89,25 +119,64 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
             case R.id.user_dp:
                 checkPermissions();
                 break;
+            case R.id.pick_for_current_location:
+                locationCounter = 0;
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditProfile.this);
+                    alertDialogBuilder.setTitle(getResources().getString(R.string.permission_dialog_title));
+                    alertDialogBuilder.setMessage(getResources().getString(R.string.permission_dialog_message))
+                            .setCancelable(false).setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                                        LOCATION_PERMISSION);
+                            }
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                } else {
+                    if (Helpers.locationEnabled()) {
+                        new LocationTask().execute();
+                    } else {
+                        Helpers.dialogForLocationEnableManually(this);
+                    }
+                }
+                break;
             case R.id.button_save:
-                editProfileDateToServer();
+                mAddressString = mAddress.getText().toString();
+                mMobileNumberString = mMobileNumber.getText().toString();
+                mUserNameString = mUserName.getText().toString();
+                editProfileDataToServer();
                 break;
         }
 
     }
 
-    private void editProfileDateToServer() {
+    private void editProfileDataToServer() {
         FormData data = new FormData();
-        data.append(FormData.TYPE_CONTENT_TEXT, "state", "");
-        data.append(FormData.TYPE_CONTENT_TEXT, "city", "");
-        data.append(FormData.TYPE_CONTENT_TEXT, "insurance_carrier", "");
-        data.append(FormData.TYPE_CONTENT_FILE, "affiliate_clinic", "");
+        data.append(FormData.TYPE_CONTENT_TEXT, "full_name", mUserNameString);
+        data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
+        data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
+        data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
-        request.open("POST", String.format("%sregister", AppGlobals.BASE_URL));
+        request.open("PATCH", String.format("%sme", AppGlobals.BASE_URL));
+        request.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         request.send(data);
-        Helpers.showProgressDialog(EditProfile.this, "Registering User ");
+        Helpers.showProgressDialog(EditProfile.this, "Updating profile..");
     }
 
     @Override
@@ -175,6 +244,19 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
+            case LOCATION_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (Helpers.locationEnabled()) {
+                        new LocationTask().execute();
+                    } else {
+                        Helpers.dialogForLocationEnableManually(this);
+                    }
+                } else {
+                    Helpers.showSnackBar(findViewById(android.R.id.content), R.string.permission_denied);
+                }
+
+                break;
             case STORAGE_CAMERA_PERMISSION:
                 Map<String, Integer> perms = new HashMap<>();
                 // Initialize the map with both permissions
@@ -222,7 +304,9 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                             }
                         }
                         break;
+
                     }
+
                 }
         }
     }
@@ -275,5 +359,110 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 imageUrl = String.valueOf(selectedImagePath);
             }
         }
+    }
+
+    private void getAddress(double latitude, double longitude) {
+        final StringBuilder result = new StringBuilder();
+        try {
+            Geocoder geocoder = new Geocoder(AppGlobals.getContext(), Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                result.append(address.getLocality()).append(" ").append(address.getCountryName());
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAddress.setText(result.toString());
+            }
+        });
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        startLocationUpdates();
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        locationCounter++;
+        if (locationCounter > 1) {
+            stopLocationUpdate();
+            mLocationString = location.getLatitude() + "," + location.getLongitude();
+            System.out.println("Lat: " + location.getLatitude() + "Long: " + location.getLongitude());
+            getAddress(location.getLatitude(), location.getLongitude());
+        }
+    }
+
+    class LocationTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Helpers.showSnackBar(findViewById(android.R.id.content), R.string.acquiring_location);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            buildGoogleApiClient();
+            return null;
+        }
+    }
+
+    public void buildGoogleApiClient() {
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(AppGlobals.getContext())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+            mGoogleApiClient.connect();
+        }
+    }
+
+    public void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        createLocationRequest();
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    }
+
+    private void stopLocationUpdate() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        mGoogleApiClient.disconnect();
+    }
+
+
+    protected void createLocationRequest() {
+        long INTERVAL = 1000;
+        long FASTEST_INTERVAL = 1000;
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 }

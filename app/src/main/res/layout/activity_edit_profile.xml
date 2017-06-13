@@ -5,7 +5,7 @@
     android:background="#f2f2f2">
 
     <ScrollView
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -60,7 +60,7 @@ optional profile picture"
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Name"
+                    android:hint="Full name"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10sp"
                     android:background="#FFF"
@@ -78,10 +78,36 @@ optional profile picture"
                     android:id="@+id/mobile_number_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Mobile Number"
+                    android:hint="Mobile number"
                     android:inputType="number"
                     android:background="#FFF"
                     android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingTop="@dimen/floating_hint_margin"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/pick_for_current_location"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:drawableLeft="@mipmap/location_icon"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Pick for current location"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/location_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Current address"
+                    android:background="#FFF"
+                    android:enabled="false"
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
                     android:textColor="#000"
