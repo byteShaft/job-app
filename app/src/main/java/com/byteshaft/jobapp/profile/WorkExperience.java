@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
@@ -23,6 +25,8 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
     private TextView buttonSave;
     private Toolbar toolbarTop;
     private ImageButton backButton;
+    private ListView mListView;
+    private Button addButton;
 
     private HttpRequest request;
 
@@ -34,6 +38,9 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
         buttonSave = (TextView) findViewById(R.id.button_exp_save);
         backButton = (ImageButton) findViewById(R.id.back_button);
+        mListView = (ListView) findViewById(R.id.work_exp_list);
+        addButton = (Button) findViewById(R.id.button_add_work_experience);
+        addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
 
@@ -47,6 +54,10 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.button_exp_save:
                 System.out.println("save");
+                break;
+            case R.id.button_add_work_experience:
+                System.out.println("add button");
+                // TODO: 14/06/2017 Add field for work experience
                 break;
         }
     }
