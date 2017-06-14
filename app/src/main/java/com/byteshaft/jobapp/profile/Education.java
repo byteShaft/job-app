@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
@@ -23,6 +25,9 @@ public class Education extends AppCompatActivity implements View.OnClickListener
     private TextView buttonSave;
     private Toolbar toolbarTop;
     private ImageButton backButton;
+    private ListView mListView;
+    private Button addButton;
+
 
     private HttpRequest request;
 
@@ -33,9 +38,12 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
         buttonSave = (TextView) findViewById(R.id.button_save_edu);
         backButton = (ImageButton) findViewById(R.id.back_button);
+        mListView = (ListView) findViewById(R.id.education_list);
+        addButton = (Button) findViewById(R.id.button_add_education);
 
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
+        addButton.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +54,10 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.button_save_edu:
                 System.out.println("save");
+                break;
+            case R.id.button_add_education:
+                System.out.println("add button");
+                // TODO: 14/06/2017 Add new field on click
                 break;
         }
     }
