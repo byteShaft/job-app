@@ -1,7 +1,6 @@
 package com.byteshaft.jobapp.profile;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,12 +10,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.adapters.QualificationAdapter;
+import com.byteshaft.jobapp.gettersetters.Qualification;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 public class Education extends AppCompatActivity implements View.OnClickListener, HttpRequest.OnErrorListener,
         HttpRequest.OnReadyStateChangeListener {
@@ -27,12 +32,13 @@ public class Education extends AppCompatActivity implements View.OnClickListener
     private ImageButton backButton;
     private ListView mListView;
     private Button addButton;
-
+    private ArrayList<Qualification> qualificationArrayList;
+    private QualificationAdapter adapter;
 
     private HttpRequest request;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education);
         toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
@@ -40,10 +46,12 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         backButton = (ImageButton) findViewById(R.id.back_button);
         mListView = (ListView) findViewById(R.id.education_list);
         addButton = (Button) findViewById(R.id.button_add_education);
+        qualificationArrayList = new ArrayList<>();
 
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         addButton.setOnClickListener(this);
+        getQualificationList();
     }
 
     @Override
@@ -92,5 +100,42 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         }
         return jsonObject.toString();
 
+    }
+
+    private void getQualificationList() {
+        HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+        requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_OK:
+                                try {
+                                    JSONArray jsonArray = new JSONArray(request.getResponseText());
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Qualification qualification = new Qualification();
+                                        qualification.setId(jsonObject.getInt("id"));
+                                        qualification.setUserId(jsonObject.getInt("user"));
+                                        qualification.setQualification(jsonObject.getString("qualification"));
+                                        qualification.setPeriod(jsonObject.getString("period"));
+                                        qualification.setSchool(jsonObject.getString("school"));
+                                        qualificationArrayList.add(qualification);
+                                    }
+
+                                    adapter = new QualificationAdapter(Education.this, qualificationArrayList);
+                                    mListView.setAdapter(adapter);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                        }
+                }
+            }
+        });
+        requestQualifications.open("GET", String.format("%seducation/", AppGlobals.BASE_URL));
+        requestQualifications.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        requestQualifications.send();
     }
 }
