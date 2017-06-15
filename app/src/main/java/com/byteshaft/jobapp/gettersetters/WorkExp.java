@@ -1,7 +1,7 @@
 package com.byteshaft.jobapp.gettersetters;
 
 
-public class WorkExperience {
+public class WorkExp {
 
     private String comapnyName;
     private String period;

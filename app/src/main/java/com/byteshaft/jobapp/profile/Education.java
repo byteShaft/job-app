@@ -103,12 +103,14 @@ public class Education extends AppCompatActivity implements View.OnClickListener
     }
 
     private void getQualificationList() {
+        Helpers.showProgressDialog(Education.this, "Please wait...");
         HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
         requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
             @Override
             public void onReadyStateChange(HttpRequest request, int readyState) {
                 switch (readyState) {
                     case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
                                 try {
