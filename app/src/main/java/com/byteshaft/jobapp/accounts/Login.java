@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -208,19 +206,19 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
                     case HttpRequest.STATE_DONE:
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
-                                System.out.println(request.getResponseText());
+                                System.out.println(request.getResponseText() +  "  Login data");
                                 try {
                                     JSONObject jsonObject = new JSONObject(request.getResponseText());
-                                    String accountType = jsonObject.getString(AppGlobals.KEY_ACCOUNT_TYPE);
                                     String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
                                     String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
                                     String UserName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
+                                    String skills = jsonObject.getString(AppGlobals.KEY_SKILLS);
 
                                     //saving values
-                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_ACCOUNT_TYPE, accountType);
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, UserName);
+                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_SKILLS, skills);
                                     Log.i("closingTime", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
