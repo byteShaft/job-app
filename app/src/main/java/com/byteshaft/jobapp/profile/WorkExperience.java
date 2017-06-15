@@ -1,7 +1,6 @@
 package com.byteshaft.jobapp.profile;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,15 +10,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.adapters.WorkExpAdapter;
+import com.byteshaft.jobapp.gettersetters.WorkExp;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+
 public class WorkExperience extends AppCompatActivity implements View.OnClickListener,
-        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener{
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
 
 
     private TextView buttonSave;
@@ -27,11 +32,13 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
     private ImageButton backButton;
     private ListView mListView;
     private Button addButton;
+    private ArrayList<WorkExp> workExperienceArrayList;
+    private WorkExpAdapter workExpAdapter;
 
     private HttpRequest request;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_experience);
 
@@ -40,10 +47,12 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         backButton = (ImageButton) findViewById(R.id.back_button);
         mListView = (ListView) findViewById(R.id.work_exp_list);
         addButton = (Button) findViewById(R.id.button_add_work_experience);
+        workExperienceArrayList = new ArrayList<>();
+
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
-
+        getWorkExperienceList();
     }
 
     @Override
@@ -92,5 +101,45 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onReadyStateChange(HttpRequest request, int readyState) {
 
+    }
+
+
+    private void getWorkExperienceList() {
+        Helpers.showProgressDialog(WorkExperience.this, "Please wait...");
+        HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+        requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_OK:
+                                try {
+                                    JSONArray jsonArray = new JSONArray(request.getResponseText());
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        WorkExp workExp = new WorkExp();
+                                        workExp.setId(jsonObject.getInt("id"));
+                                        workExp.setUserId(jsonObject.getInt("user"));
+                                        workExp.setJobTitle(jsonObject.getString("title"));
+                                        workExp.setComapnyName(jsonObject.getString("company"));
+                                        workExp.setPeriod(jsonObject.getString("period"));
+                                        workExperienceArrayList.add(workExp);
+                                    }
+
+                                    workExpAdapter = new WorkExpAdapter(WorkExperience.this, workExperienceArrayList);
+                                    mListView.setAdapter(workExpAdapter);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                        }
+                }
+            }
+        });
+        requestQualifications.open("GET", String.format("%sexperience/", AppGlobals.BASE_URL));
+        requestQualifications.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        requestQualifications.send();
     }
 }
