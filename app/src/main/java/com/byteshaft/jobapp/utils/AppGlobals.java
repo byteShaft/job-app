@@ -21,6 +21,7 @@ public class AppGlobals extends Application {
     public static final String KEY_TOKEN = "token";
     public static final String KEY_USER_ACTIVE = "user_active";
     public static final String KEY_USER_NAME = "full_name";
+    public static final String KEY_SKILLS = "skills";
     public static final String KEY_FIRST_NAME = "first_name";
     public static final String KEY_PROFILE_ID = "id";
     public static final String KEY_LAST_NAME = "last_name";
