@@ -9,11 +9,14 @@ import android.support.v7.app.AlertDialog;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class AppGlobals extends Application {
 
     private static Context sContext;
     public static final String SERVER_IP = " http://46.101.72.82:8000/";
+    public static final String SERVER_IP_FOR_IMAGE = " http://46.101.72.82:8000";
     public static final String BASE_URL = String.format("%sapi/", SERVER_IP);
     public static final String KEY_TOKEN = "token";
     public static final String KEY_USER_ACTIVE = "user_active";
@@ -29,9 +32,8 @@ public class AppGlobals extends Application {
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_LOCATION = "location";
     public static final String KEY_IMAGE_URL = "photo";
-    public static final String SERVER_PHOTO_URL = "server_photo_url";
     public static final String KEY_LOGIN = "login";
-    public static final String KEY_PHONE_NUMBER_PRIMARY = "phone_number_primary";
+    public static final String KEY_PHONE_NUMBER = "phone_number";
     public static final String KEY_PHONE_NUMBER_SECONDARY = "phone_number_secondary";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ACCOUNT_TYPE = "account_type";
@@ -50,10 +52,13 @@ public class AppGlobals extends Application {
     public static final String KEY_CITY = "city";
     public static final String KEY_USER = "user";
     public static final int LOCATION_ENABLE = 3;
+    public static ImageLoader sImageLoader;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sImageLoader = ImageLoader.getInstance();
+        sImageLoader.init(ImageLoaderConfiguration.createDefault(getApplicationContext()));
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         sContext = getApplicationContext();
