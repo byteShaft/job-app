@@ -70,4 +70,5 @@
         android:text="ADD ANOTHER ONE"
         android:textColor="@android:color/holo_red_dark"
         android:theme="@style/job_button" />
+
 </RelativeLayout>
