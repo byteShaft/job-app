@@ -75,7 +75,7 @@
                 android:layout_marginTop="6dp"
                 android:gravity="center"
                 android:text="Lee Lee"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
             <TextView
                 android:id="@+id/user_location"
                 android:layout_width="wrap_content"

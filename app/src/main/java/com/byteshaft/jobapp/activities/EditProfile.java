@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.accounts.AccountActivationCode;
+import com.byteshaft.jobapp.accounts.AccountManager;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -42,10 +44,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +65,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener,
-        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener,GoogleApiClient.ConnectionCallbacks,
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private EditText mMobileNumber;
@@ -167,8 +173,10 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         FormData data = new FormData();
         data.append(FormData.TYPE_CONTENT_TEXT, "full_name", mUserNameString);
         data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
-        data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
-        data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
+        if (imageUrl != null && mLocationString != null) {
+            data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
+            data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
+        }
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
@@ -181,11 +189,51 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+        Helpers.dismissProgressDialog();
+        switch (readyState) {
+            case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                Helpers.showSnackBar(findViewById(android.R.id.content), "connection time out");
+                break;
+            case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                Helpers.showSnackBar(findViewById(android.R.id.content), exception.getLocalizedMessage());
 
+        }
     }
 
     @Override
     public void onReadyStateChange(HttpRequest request, int readyState) {
+        switch (readyState) {
+            case HttpRequest.STATE_DONE:
+                Helpers.dismissProgressDialog();
+                Log.i("TAG", "Response " + request.getResponseText());
+                switch (request.getStatus()) {
+                    case HttpURLConnection.HTTP_OK:
+                        System.out.println(request.getResponseText() + "200");
+                        Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                        System.out.println(request.getResponseText() + "working ");
+                        try {
+                            JSONObject jsonObject = new JSONObject(request.getResponseText());
+                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
+                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+                            String userName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
+                            String mobileNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
+                            String location = jsonObject.getString(AppGlobals.KEY_LOCATION);
+                            String userImage = jsonObject.getString(AppGlobals.KEY_IMAGE_URL);
+
+                            //saving values
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_IMAGE_URL, AppGlobals.SERVER_IP_FOR_IMAGE + userImage);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, mobileNumber);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, location);
+                            Log.i("sahdi nai ho rahi..", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+        }
 
     }
 
@@ -361,7 +409,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    private void getAddress(double latitude, double longitude) {
+    public void getAddress(double latitude, double longitude) {
         final StringBuilder result = new StringBuilder();
         try {
             Geocoder geocoder = new Geocoder(AppGlobals.getContext(), Locale.getDefault());

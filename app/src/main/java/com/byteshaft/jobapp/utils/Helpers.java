@@ -12,6 +12,22 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.byteshaft.jobapp.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.byteshaft.jobapp.utils.AppGlobals.sImageLoader;
 
 
 public class Helpers {
@@ -104,5 +120,37 @@ public class Helpers {
             }
         });
         dialog.show();
+    }
+
+    public static void getBitMap(String url, CircleImageView circleImageView) {
+        ImageLoadingListener animateFirstListener;
+        DisplayImageOptions options;
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.camera)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
+                .cacheInMemory(true)
+                .cacheOnDisc(true).considerExifParams(true).build();
+        animateFirstListener = new AnimateFirstDisplayListener();
+        sImageLoader.displayImage(url, circleImageView, options, animateFirstListener);
+    }
+
+    private static class AnimateFirstDisplayListener extends
+            SimpleImageLoadingListener {
+
+        static final List<String> displayedImages = Collections
+                .synchronizedList(new LinkedList<String>());
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view,
+                                      Bitmap loadedImage) {
+            if (loadedImage != null) {
+                ImageView imageView = (ImageView) view;
+                boolean firstDisplay = !displayedImages.contains(imageUri);
+                if (firstDisplay) {
+                    FadeInBitmapDisplayer.animate(imageView, 500);
+                    displayedImages.add(imageUri);
+                }
+            }
+        }
     }
 }
