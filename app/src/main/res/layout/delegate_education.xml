@@ -73,12 +73,15 @@
                 android:hint="Standford University" />
 
             <TextView
+                android:id="@+id/remove_education"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="2dp"
                 android:text="remove"
                 android:textAllCaps="true"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

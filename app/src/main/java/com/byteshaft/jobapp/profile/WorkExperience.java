@@ -1,16 +1,19 @@
 package com.byteshaft.jobapp.profile;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.adapters.WorkExpAdapter;
 import com.byteshaft.jobapp.gettersetters.WorkExp;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -128,7 +131,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                                         workExperienceArrayList.add(workExp);
                                     }
 
-                                    workExpAdapter = new WorkExpAdapter(WorkExperience.this, workExperienceArrayList);
+                                    workExpAdapter = new WorkExpAdapter(workExperienceArrayList);
                                     mListView.setAdapter(workExpAdapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -141,5 +144,69 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         requestQualifications.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         requestQualifications.send();
+    }
+
+
+    private class WorkExpAdapter extends BaseAdapter {
+
+        private ViewHolder viewHolder;
+        private ArrayList<WorkExp> workExperiencesList;
+
+        public WorkExpAdapter(ArrayList<WorkExp> workExperiencesList) {
+            this.workExperiencesList = workExperiencesList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.delegate_experience, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.period = (EditText) convertView.findViewById(R.id.et_time_span_work);
+                viewHolder.title = (EditText) convertView.findViewById(R.id.et_job_title);
+                viewHolder.company = (EditText) convertView.findViewById(R.id.et_company);
+                viewHolder.jobNumber = (TextView) convertView.findViewById(R.id.tv_job_number);
+                viewHolder.removeButton = (TextView) convertView.findViewById(R.id.remove_job);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            WorkExp workExperience = workExperiencesList.get(position);
+            viewHolder.period.setText(workExperience.getPeriod());
+            viewHolder.title.setText(workExperience.getJobTitle());
+            viewHolder.company.setText(workExperience.getComapnyName());
+            viewHolder.jobNumber.setText("Job # " + (position + 1));
+            viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Remove Button job");
+                }
+            });
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return workExperiencesList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+
+        private class ViewHolder {
+            private TextView removeButton;
+            private TextView jobNumber;
+            private EditText period;
+            private EditText title;
+            private EditText company;
+        }
     }
 }
