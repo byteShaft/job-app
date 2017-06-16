@@ -1,16 +1,19 @@
 package com.byteshaft.jobapp.profile;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.adapters.QualificationAdapter;
 import com.byteshaft.jobapp.gettersetters.Qualification;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -126,7 +129,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                                         qualificationArrayList.add(qualification);
                                     }
 
-                                    adapter = new QualificationAdapter(Education.this, qualificationArrayList);
+                                    adapter = new QualificationAdapter(qualificationArrayList);
                                     mListView.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -139,5 +142,69 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         requestQualifications.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         requestQualifications.send();
+    }
+
+
+    private class QualificationAdapter extends BaseAdapter {
+
+        private ViewHolder viewHolder;
+        private ArrayList<Qualification> qualificationsList;
+
+        public QualificationAdapter(ArrayList<Qualification> qualificationsList) {
+            this.qualificationsList = qualificationsList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.delegate_education, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.educationNumber = (TextView) convertView.findViewById(R.id.tv_education_number);
+                viewHolder.period = (EditText) convertView.findViewById(R.id.et_time_span);
+                viewHolder.qualification = (EditText) convertView.findViewById(R.id.et_qualification);
+                viewHolder.school = (EditText) convertView.findViewById(R.id.et_school);
+                viewHolder.removeButton = (TextView) convertView.findViewById(R.id.remove_education);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            Qualification qualification = qualificationsList.get(position);
+            viewHolder.period.setText(qualification.getPeriod());
+            viewHolder.qualification.setText(qualification.getQualification());
+            viewHolder.school.setText(qualification.getSchool());
+            viewHolder.educationNumber.setText("Education # " + (position+1) );
+            viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Edu Remove button click");
+                }
+            });
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return qualificationsList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+
+        private class ViewHolder {
+            private TextView educationNumber;
+            private TextView removeButton;
+            private EditText period;
+            private EditText qualification;
+            private EditText school;
+        }
     }
 }

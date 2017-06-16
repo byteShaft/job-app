@@ -17,21 +17,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.EditProfile;
 import com.byteshaft.jobapp.profile.Education;
 import com.byteshaft.jobapp.profile.PersonalSkills;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.profile.WorkExperience;
 import com.byteshaft.jobapp.utils.AppGlobals;
-import com.byteshaft.jobapp.utils.Helpers;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.byteshaft.jobapp.utils.Helpers.getBitMap;
 
 /**
  * Created by shahid on 28/05/2017.
@@ -86,21 +82,21 @@ public class Me extends Fragment implements View.OnClickListener {
         jobSavedButton.setOnClickListener(this);
         jobResumeButton.setOnClickListener(this);
 
-        if (AppGlobals.isLogin() && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null
-                || AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null
-                || AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null) {
-            String url = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL);
-            String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
-            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
-            getBitMap(url, mProfileImage);
-            userName = userName.toLowerCase();
-            userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-            mUserName.setText(userName);
-            String[] latlng = location.split(",");
-            double latitude = Double.parseDouble(latlng[0]);
-            double longitude = Double.parseDouble(latlng[1]);
-            getAddress(latitude, longitude);
-        }
+//        if (AppGlobals.isLogin() && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null
+//                || AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null
+//                || AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null) {
+//            String url = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL);
+//            String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
+//            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
+//            getBitMap(url, mProfileImage);
+//            userName = userName.toLowerCase();
+//            userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+//            mUserName.setText(userName);
+//            String[] latlng = location.split(",");
+//            double latitude = Double.parseDouble(latlng[0]);
+//            double longitude = Double.parseDouble(latlng[1]);
+//            getAddress(latitude, longitude);
+//        }
         return mBaseView;
     }
 

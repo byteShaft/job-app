@@ -21,8 +21,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="6dp"
                 android:background="?attr/selectableItemBackground"
+                android:padding="6dp"
                 android:src="@mipmap/back_arrow" />
 
             <TextView
@@ -54,12 +54,16 @@
     </android.support.v7.widget.Toolbar>
 
     <ListView
-        android:layout_margin="16dp"
         android:id="@+id/work_exp_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/button_add_work_experience"
-        android:layout_below="@+id/add_work_experience_toolbar">
+        android:layout_below="@+id/add_work_experience_toolbar"
+        android:layout_marginLeft="16dp"
+        android:dividerHeight="8dp"
+        android:divider="@android:color/transparent"
+        android:layout_marginRight="16dp"
+        android:scrollbars="none">
 
     </ListView>
 
