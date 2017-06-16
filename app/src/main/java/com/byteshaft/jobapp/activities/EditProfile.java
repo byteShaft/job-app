@@ -230,7 +230,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, location);
                             Log.i("i love you..", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
                             finish();
-                            AccountManager.getInstance().loadFragment(new Me());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
