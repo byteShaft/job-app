@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.gettersetters.Qualification;
@@ -170,7 +171,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
 
         @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.delegate_education, parent, false);
                 viewHolder = new ViewHolder();
@@ -183,7 +184,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            Qualification qualification = qualificationsList.get(position);
+            final Qualification qualification = qualificationsList.get(position);
             viewHolder.period.setText(qualification.getPeriod());
             viewHolder.qualification.setText(qualification.getQualification());
             viewHolder.school.setText(qualification.getSchool());
@@ -192,6 +193,9 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 @Override
                 public void onClick(View view) {
                     System.out.println("Edu Remove button click");
+                    int educationId = qualification.getId();
+                    deleteEducation(educationId, position);
+
                 }
             });
             return convertView;
@@ -210,6 +214,36 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         @Override
         public long getItemId(int i) {
             return 0;
+        }
+
+        private void deleteEducation(int educationId, final int position) {
+            Helpers.showProgressDialog(Education.this, "Removing Education...");
+            HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+            requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+                @Override
+                public void onReadyStateChange(HttpRequest request, int readyState) {
+                    switch (readyState) {
+                        case HttpRequest.STATE_DONE:
+                            Helpers.dismissProgressDialog();
+                            switch (request.getStatus()) {
+                                case HttpURLConnection.HTTP_NO_CONTENT:
+                                    System.out.println(request.getResponseText());
+                                    qualificationArrayList.remove(position);
+                                    adapter.notifyDataSetChanged();
+
+                                    Toast.makeText(Education.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpURLConnection.HTTP_BAD_REQUEST:
+                                    System.out.println(request.getResponseText());
+                                    break;
+                            }
+                    }
+                }
+            });
+            requestQualifications.open("DELETE", String.format("%seducation/%d/", AppGlobals.BASE_URL, educationId));
+            requestQualifications.setRequestHeader("Authorization", "Token " +
+                    AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+            requestQualifications.send();
         }
 
 

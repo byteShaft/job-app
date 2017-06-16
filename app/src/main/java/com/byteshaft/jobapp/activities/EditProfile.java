@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.accounts.AccountActivationCode;
 import com.byteshaft.jobapp.accounts.AccountManager;
+import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -227,7 +228,8 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, mobileNumber);
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, location);
-                            Log.i("sahdi nai ho rahi..", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
+                            Log.i("i love you..", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
