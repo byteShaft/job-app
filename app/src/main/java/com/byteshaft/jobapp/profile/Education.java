@@ -26,19 +26,16 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-public class Education extends AppCompatActivity implements View.OnClickListener, HttpRequest.OnErrorListener,
-        HttpRequest.OnReadyStateChangeListener {
+public class Education extends AppCompatActivity implements View.OnClickListener {
 
 
     private TextView buttonSave;
     private Toolbar toolbarTop;
     private ImageButton backButton;
     private ListView mListView;
-    private Button addButton;
+    private Button addEducationButton;
     private ArrayList<Qualification> qualificationArrayList;
     private QualificationAdapter adapter;
-
-    private HttpRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +45,13 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         buttonSave = (TextView) findViewById(R.id.button_save_edu);
         backButton = (ImageButton) findViewById(R.id.back_button);
         mListView = (ListView) findViewById(R.id.education_list);
-        addButton = (Button) findViewById(R.id.button_add_education);
+        addEducationButton = (Button) findViewById(R.id.button_add_education);
+        setSupportActionBar(toolbarTop);
         qualificationArrayList = new ArrayList<>();
 
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
-        addButton.setOnClickListener(this);
+        addEducationButton.setOnClickListener(this);
         getQualificationList();
     }
 
@@ -67,29 +65,45 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 System.out.println("save");
                 break;
             case R.id.button_add_education:
-                System.out.println("add button");
-                // TODO: 14/06/2017 Add new field on click
+                Qualification qualification = new Qualification();
+                qualification.setQualification("Add Qualification");
+                qualification.setSchool("XYZ School");
+                qualification.setPeriod("from - till");
+                addEducation(qualification);
                 break;
         }
     }
 
-    @Override
-    public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+    private void addEducation(final Qualification qualification) {
+        Helpers.showProgressDialog(Education.this, "Adding...");
+        HttpRequest request = new HttpRequest(this);
+        request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_CREATED:
+                                qualificationArrayList.add(qualification);
+                                adapter.notifyDataSetChanged();
 
-    }
+                        }
+                }
 
-    @Override
-    public void onReadyStateChange(HttpRequest request, int readyState) {
+            }
+        });
+        request.setOnErrorListener(new HttpRequest.OnErrorListener() {
+            @Override
+            public void onError(HttpRequest request, int readyState, short error, Exception exception) {
 
-    }
-
-    private void AddEducation(String period, String qualification, String school) {
-        request = new HttpRequest(this);
-        request.setOnReadyStateChangeListener(this);
-        request.setOnErrorListener(this);
+            }
+        });
         request.open("POST", String.format("%seducation/ ", AppGlobals.BASE_URL));
-        request.send(getEducationData(period, qualification, school));
-        Helpers.showProgressDialog(Education.this, "Saving education..");
+        request.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        request.send(getEducationData(qualification.getPeriod(),
+                qualification.getQualification(), qualification.getSchool()));
     }
 
     private String getEducationData(String period, String qualification, String school) {
@@ -173,7 +187,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             viewHolder.period.setText(qualification.getPeriod());
             viewHolder.qualification.setText(qualification.getQualification());
             viewHolder.school.setText(qualification.getSchool());
-            viewHolder.educationNumber.setText("Education # " + (position+1) );
+            viewHolder.educationNumber.setText("Education # " + (position + 1));
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -206,5 +220,6 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             private EditText qualification;
             private EditText school;
         }
+
     }
 }

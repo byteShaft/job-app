@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,9 +27,7 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-public class WorkExperience extends AppCompatActivity implements View.OnClickListener,
-        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
-
+public class WorkExperience extends AppCompatActivity implements View.OnClickListener {
 
     private TextView buttonSave;
     private Toolbar toolbarTop;
@@ -38,24 +37,37 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
     private ArrayList<WorkExp> workExperienceArrayList;
     private WorkExpAdapter workExpAdapter;
 
-    private HttpRequest request;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_experience);
-
         toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
         buttonSave = (TextView) findViewById(R.id.button_exp_save);
         backButton = (ImageButton) findViewById(R.id.back_button);
         mListView = (ListView) findViewById(R.id.work_exp_list);
         addButton = (Button) findViewById(R.id.button_add_work_experience);
+        setSupportActionBar(toolbarTop);
         workExperienceArrayList = new ArrayList<>();
 
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         getWorkExperienceList();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("Item Click");
+            }
+        });
+
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("Long Click");
+                return false;
+            }
+        });
     }
 
     @Override
@@ -68,19 +80,44 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                 System.out.println("save");
                 break;
             case R.id.button_add_work_experience:
-                System.out.println("add button");
-                // TODO: 14/06/2017 Add field for work experience
+                WorkExp workExp = new WorkExp();
+                workExp.setComapnyName("XYZ Company");
+                workExp.setPeriod("2000 - 2010");
+                workExp.setJobTitle("ACE");
+                addWorkExp(workExp);
                 break;
         }
     }
 
-    private void AddEducation(String company, String period, String title) {
-        request = new HttpRequest(this);
-        request.setOnReadyStateChangeListener(this);
-        request.setOnErrorListener(this);
+    private void addWorkExp(final WorkExp workExp) {
+        Helpers.showProgressDialog(WorkExperience.this, "Adding...");
+        HttpRequest request = new HttpRequest(this);
+        request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_CREATED:
+                                workExperienceArrayList.add(workExp);
+                                workExpAdapter.notifyDataSetChanged();
+                                System.out.println("created OK");
+                        }
+                }
+
+            }
+        });
+        request.setOnErrorListener(new HttpRequest.OnErrorListener() {
+            @Override
+            public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+
+            }
+        });
         request.open("POST", String.format("%sexperience/ ", AppGlobals.BASE_URL));
-        request.send(getWorkExperienceData(company, period, title));
-        Helpers.showProgressDialog(WorkExperience.this, "Saving Experiences..");
+        request.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        request.send(getWorkExperienceData(workExp.getComapnyName(), workExp.getPeriod(), workExp.getJobTitle()));
     }
 
     private String getWorkExperienceData(String company, String period, String title) {
@@ -93,16 +130,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
         return jsonObject.toString();
-
-    }
-
-    @Override
-    public void onError(HttpRequest request, int readyState, short error, Exception exception) {
-
-    }
-
-    @Override
-    public void onReadyStateChange(HttpRequest request, int readyState) {
 
     }
 
