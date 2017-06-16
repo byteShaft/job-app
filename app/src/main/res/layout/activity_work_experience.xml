@@ -59,13 +59,13 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/button_add_work_experience"
         android:layout_below="@+id/add_work_experience_toolbar"
-        android:layout_marginLeft="16dp"
-        android:dividerHeight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="4dp"
         android:divider="@android:color/transparent"
-        android:layout_marginRight="16dp"
-        android:scrollbars="none">
-
-    </ListView>
+        android:dividerHeight="8dp"
+        android:scrollbars="none" />
 
     <Button
         android:id="@+id/button_add_work_experience"
@@ -75,4 +75,5 @@
         android:text="ADD ANOTHER ONE"
         android:textColor="@android:color/holo_red_dark"
         android:theme="@style/job_button" />
+
 </RelativeLayout>
