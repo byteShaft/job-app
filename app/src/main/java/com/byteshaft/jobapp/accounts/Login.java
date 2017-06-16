@@ -150,6 +150,15 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
 
     @Override
     public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+        Helpers.dismissProgressDialog();
+        switch (readyState) {
+            case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                Helpers.showSnackBar(getView(), "connection time out");
+                break;
+            case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                Helpers.showSnackBar(getView(), exception.getLocalizedMessage());
+                break;
+        }
 
     }
 
@@ -230,6 +239,15 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
         request.setOnErrorListener(new HttpRequest.OnErrorListener() {
             @Override
             public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+                Helpers.dismissProgressDialog();
+                switch (readyState) {
+                    case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                        Helpers.showSnackBar(getView(), "connection time out");
+                        break;
+                    case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                        Helpers.showSnackBar(getView(), exception.getLocalizedMessage());
+                        break;
+                }
 
             }
         });

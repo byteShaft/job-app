@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.gettersetters.Qualification;
@@ -178,6 +179,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 @Override
                 public void onClick(View view) {
                     System.out.println("Edu Remove button click");
+                    deleteEducation(1);
                 }
             });
             return convertView;
@@ -196,6 +198,44 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         @Override
         public long getItemId(int i) {
             return 0;
+        }
+
+        private void deleteEducation(int educationId) {
+            Helpers.showProgressDialog(Education.this, "Removing Education...");
+            HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+            requestQualifications.setOnErrorListener(new HttpRequest.OnErrorListener() {
+                @Override
+                public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+                    Helpers.dismissProgressDialog();
+                    switch (readyState) {
+                        case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                            Helpers.showSnackBar(findViewById(android.R.id.content), "connection time out");
+                            break;
+                        case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                            Helpers.showSnackBar(findViewById(android.R.id.content), exception.getLocalizedMessage());
+                            break;
+                    }
+
+                }
+            });
+            requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+                @Override
+                public void onReadyStateChange(HttpRequest request, int readyState) {
+                    switch (readyState) {
+                        case HttpRequest.STATE_DONE:
+                            Helpers.dismissProgressDialog();
+                            switch (request.getStatus()) {
+                                case HttpURLConnection.HTTP_NO_CONTENT:
+                                    Toast.makeText(Education.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                    }
+                }
+            });
+            requestQualifications.open("DELETE", String.format("%seducation/%d", AppGlobals.BASE_URL, educationId));
+            requestQualifications.setRequestHeader("Authorization", "Token " +
+                    AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+            requestQualifications.send();
         }
 
 
