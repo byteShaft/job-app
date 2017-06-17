@@ -246,7 +246,6 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             requestQualifications.send();
         }
 
-
         private class ViewHolder {
             private TextView educationNumber;
             private TextView removeButton;
@@ -254,6 +253,5 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             private EditText qualification;
             private EditText school;
         }
-
     }
 }
