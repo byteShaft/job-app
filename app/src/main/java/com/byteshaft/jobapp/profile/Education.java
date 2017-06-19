@@ -1,7 +1,6 @@
 package com.byteshaft.jobapp.profile;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -18,9 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.activities.EditProfile;
 import com.byteshaft.jobapp.gettersetters.Qualification;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -94,7 +91,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                     case HttpRequest.STATE_DONE:
                         Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
-                            case HttpURLConnection.HTTP_CREATED:
+                            case HttpURLConnection.HTTP_OK:
                                 finish();
                         }
                 }

@@ -105,7 +105,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                     case HttpRequest.STATE_DONE:
                         Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
-                            case HttpURLConnection.HTTP_CREATED:
+                            case HttpURLConnection.HTTP_OK:
                                 finish();
                         }
                 }
@@ -118,7 +118,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-        request.open("PUT", String.format("%sme/ ", AppGlobals.BASE_URL));
+        request.open("PUT", String.format("%sme", AppGlobals.BASE_URL));
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         request.send(getWorkExperienceData());
