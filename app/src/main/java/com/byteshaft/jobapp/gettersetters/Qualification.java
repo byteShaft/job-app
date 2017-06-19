@@ -6,7 +6,7 @@ public class Qualification {
     private String qualification;
     private String period;
     private String school;
-    private int id;
+    private int id = -1;
     private int userId;
 
     public String getQualification() {

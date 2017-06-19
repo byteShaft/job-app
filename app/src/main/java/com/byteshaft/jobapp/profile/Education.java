@@ -68,7 +68,14 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 onBackPressed();
                 break;
             case R.id.button_save_edu:
-                addEducation();
+                for (int i=0 ; i < qualificationArrayList.size() ; i++) {
+                    Qualification education = qualificationArrayList.get(i);
+                    if (education.getId() == -1) {
+                        Log.e("SAVEBUTTON", "Save button code");
+                        addEducation();
+                        break;
+                    }
+                }
                 break;
             case R.id.button_add_education:
                 Qualification qualification = new Qualification();
@@ -116,16 +123,21 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         JSONObject jsonObject1 = new JSONObject();
         try {
             for (int i = 0; i < mListView.getCount(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span);
-                EditText qualification = (EditText) mListView.getChildAt(i).findViewById(R.id.et_qualification);
-                EditText school = (EditText) mListView.getChildAt(i).findViewById(R.id.et_school);
-                jsonObject.put("period", period.getText().toString());
-                jsonObject.put("qualification", qualification.getText().toString());
-                jsonObject.put("school", school.getText().toString());
-                jsonArray.put(jsonObject);
+                Qualification education = qualificationArrayList.get(i);
+                if (education.getId() == -1) {
+
+                    Log.e("LOOP CODE", "Save button code");
+                    JSONObject jsonObject = new JSONObject();
+                    EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span);
+                    EditText qualification = (EditText) mListView.getChildAt(i).findViewById(R.id.et_qualification);
+                    EditText school = (EditText) mListView.getChildAt(i).findViewById(R.id.et_school);
+                    jsonObject.put("period", period.getText().toString());
+                    jsonObject.put("qualification", qualification.getText().toString());
+                    jsonObject.put("school", school.getText().toString());
+                    jsonArray.put(jsonObject);
+                }
+                jsonObject1.put("education", jsonArray);
             }
-            jsonObject1.put("education", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
