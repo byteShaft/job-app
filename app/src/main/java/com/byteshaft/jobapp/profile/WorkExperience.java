@@ -1,7 +1,9 @@
 package com.byteshaft.jobapp.profile;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.gettersetters.WorkExp;
@@ -192,7 +195,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
 
         @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.delegate_experience, parent, false);
                 viewHolder = new ViewHolder();
@@ -205,7 +208,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            WorkExp workExperience = workExperiencesList.get(position);
+            final WorkExp workExperience = workExperiencesList.get(position);
             viewHolder.period.setText(workExperience.getPeriod());
             viewHolder.title.setText(workExperience.getJobTitle());
             viewHolder.company.setText(workExperience.getComapnyName());
@@ -213,7 +216,25 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Remove Button job");
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WorkExperience.this);
+                    alertDialogBuilder.setTitle("Confirmation");
+                    alertDialogBuilder.setMessage("Do you really want to delete?")
+                            .setCancelable(false).setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    int workExperienceId = workExperience.getId();
+                                    deleteWorkExperience(workExperienceId, position);
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             });
             return convertView;
@@ -232,6 +253,35 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         @Override
         public long getItemId(int i) {
             return 0;
+        }
+
+        private void deleteWorkExperience(int experienceId, final int position) {
+            Helpers.showProgressDialog(WorkExperience.this, "Removing Work Experience...");
+            HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+            requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+                @Override
+                public void onReadyStateChange(HttpRequest request, int readyState) {
+                    switch (readyState) {
+                        case HttpRequest.STATE_DONE:
+                            Helpers.dismissProgressDialog();
+                            switch (request.getStatus()) {
+                                case HttpURLConnection.HTTP_NO_CONTENT:
+                                    System.out.println(request.getResponseText());
+                                    workExperienceArrayList.remove(position);
+                                    workExpAdapter.notifyDataSetChanged();
+                                    Toast.makeText(WorkExperience.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpURLConnection.HTTP_BAD_REQUEST:
+                                    System.out.println(request.getResponseText());
+                                    break;
+                            }
+                    }
+                }
+            });
+            requestQualifications.open("DELETE", String.format("%sexperience/%d/", AppGlobals.BASE_URL, experienceId));
+            requestQualifications.setRequestHeader("Authorization", "Token " +
+                    AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+            requestQualifications.send();
         }
 
         private class ViewHolder {

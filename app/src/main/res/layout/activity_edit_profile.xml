@@ -4,8 +4,43 @@
     android:layout_height="match_parent"
     android:background="#f2f2f2">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/edit_profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="6dp"
+                android:src="@mipmap/back_arrow" />
+
+            <TextView
+                android:id="@+id/profile_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Edit Profile"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edit_profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,9 +55,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:layout_marginTop="150dp"
                 android:background="#FFF">
-
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_dp"
                     android:layout_width="80dp"
