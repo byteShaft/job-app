@@ -174,8 +174,10 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         FormData data = new FormData();
         data.append(FormData.TYPE_CONTENT_TEXT, "full_name", mUserNameString);
         data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
-        if (imageUrl != null && mLocationString != null) {
+        if (imageUrl != null) {
             data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
+        }
+        if (mLocationString != null){
             data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
         }
         request = new HttpRequest(getApplicationContext());

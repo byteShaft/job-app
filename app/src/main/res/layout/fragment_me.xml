@@ -74,7 +74,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:gravity="center"
-                android:text="Lee Lee"
+                android:text="Your name"
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/user_location"
@@ -86,7 +86,7 @@
                 android:drawableLeft="@mipmap/location_icon"
                 android:drawablePadding="6dp"
                 android:gravity="center"
-                android:text="Multan pakistan"
+                android:text="Location"
                 android:textSize="12sp" />
 
 
