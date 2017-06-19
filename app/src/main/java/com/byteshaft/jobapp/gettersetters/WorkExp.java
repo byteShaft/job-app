@@ -6,7 +6,7 @@ public class WorkExp {
     private String comapnyName;
     private String period;
     private String jobTitle;
-    private int id;
+    private int id = -1;
     private int userId;
 
     public String getComapnyName() {

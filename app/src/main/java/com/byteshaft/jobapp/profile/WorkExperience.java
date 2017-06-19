@@ -82,7 +82,12 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
                 break;
             case R.id.button_exp_save:
-                addWorkExp();
+                for (int i = 0; i < workExperienceArrayList.size(); i++) {
+                    WorkExp workExp = workExperienceArrayList.get(i);
+                    if (workExp.getId() == -1) {
+                        addWorkExp();
+                    }
+                }
                 break;
             case R.id.button_add_work_experience:
                 WorkExp workExp = new WorkExp();
@@ -128,18 +133,21 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject1 = new JSONObject();
         try {
-            for (int i = 0; i < mListView.getCount(); i++){
-                JSONObject jsonObject = new JSONObject();
-                EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span_work);
-                EditText jobTitle = (EditText) mListView.getChildAt(i).findViewById(R.id.et_job_title);
-                EditText company = (EditText) mListView.getChildAt(i).findViewById(R.id.et_company);
+            for (int i = 0; i < mListView.getCount(); i++) {
+                WorkExp workExp = workExperienceArrayList.get(i);
 
-                jsonObject.put("period", period.getText().toString());
-                jsonObject.put("title", jobTitle.getText().toString());
-                jsonObject.put("company", company.getText().toString());
-                jsonArray.put(jsonObject);
+                if (workExp.getId() == -1) {
+                    JSONObject jsonObject = new JSONObject();
+                    EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span_work);
+                    EditText jobTitle = (EditText) mListView.getChildAt(i).findViewById(R.id.et_job_title);
+                    EditText company = (EditText) mListView.getChildAt(i).findViewById(R.id.et_company);
+                    jsonObject.put("period", period.getText().toString());
+                    jsonObject.put("title", jobTitle.getText().toString());
+                    jsonObject.put("company", company.getText().toString());
+                    jsonArray.put(jsonObject);
+                }
+                jsonObject1.put("experience", jsonArray);
             }
-            jsonObject1.put("experience", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -189,6 +197,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
 
         private ViewHolder viewHolder;
         private ArrayList<WorkExp> workExperiencesList;
+
         public WorkExpAdapter(ArrayList<WorkExp> workExperiencesList) {
             this.workExperiencesList = workExperiencesList;
         }
