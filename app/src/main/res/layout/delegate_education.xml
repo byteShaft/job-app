@@ -22,57 +22,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_period"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_education_number"
-                android:layout_marginTop="10dp"
-                android:text="Period"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/et_time_span"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_period"
-                android:layout_marginTop="8dp"
-                android:hint="2008 - 2012" />
-
-            <TextView
-                android:id="@+id/tv_qualification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_time_span"
-                android:layout_marginTop="10dp"
-                android:text="Qualification"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/et_qualification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_qualification"
-                android:layout_marginTop="8dp"
-                android:hint="BS Computer Science" />
-
-            <TextView
-                android:id="@+id/tv_school"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_qualification"
-                android:layout_marginTop="10dp"
-                android:text="School"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/et_school"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_school"
-                android:layout_marginTop="8dp"
-                android:hint="Standford University" />
-
-            <TextView
                 android:id="@+id/remove_education"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,6 +31,59 @@
                 android:text="remove"
                 android:textAllCaps="true"
                 android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/remove_education"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/et_time_span"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_period"
+                        android:hint="Period"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/et_qualification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_qualification"
+                        android:hint="Qualification"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/et_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_school"
+                        android:layout_marginTop="10dp"
+                        android:hint="School"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
