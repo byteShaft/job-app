@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     private LinearLayout mLegalNoticesLayout;
     private LinearLayout mAppPrivacyLayout;
 
+    private ImageView mBackButtonImageView;
+
     public static ProfileSettings getInstance() {
         return sInstance;
     }
@@ -43,6 +46,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
         mAppVersionLayout = (LinearLayout) findViewById(R.id.app_version_layout);
         mAppPrivacyLayout = (LinearLayout) findViewById(R.id.privacy_policy_layout);
         mLegalNoticesLayout = (LinearLayout) findViewById(R.id.legal_notices_layout);
+        mBackButtonImageView = (ImageView) findViewById(R.id.back_button);
 
         mLogoutTextView.setOnClickListener(this);
         mEditProfileLayout.setOnClickListener(this);
@@ -51,6 +55,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
         mAppVersionLayout.setOnClickListener(this);
         mAppPrivacyLayout.setOnClickListener(this);
         mLegalNoticesLayout.setOnClickListener(this);
+        mBackButtonImageView.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +99,10 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
             case R.id.legal_notices_layout:
                 Toast.makeText(getApplicationContext(), "soon will it be implement", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.back_button:
+                onBackPressed();
+                break;
+
         }
 
     }
