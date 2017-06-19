@@ -52,6 +52,8 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
+        workExpAdapter = new WorkExpAdapter(workExperienceArrayList);
+        mListView.setAdapter(workExpAdapter);
         getWorkExperienceList();
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,19 +79,20 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
                 break;
             case R.id.button_exp_save:
-                System.out.println("save");
+                addWorkExp();
                 break;
             case R.id.button_add_work_experience:
                 WorkExp workExp = new WorkExp();
-                workExp.setComapnyName("XYZ Company");
-                workExp.setPeriod("2000 - 2010");
-                workExp.setJobTitle("ACE");
-                addWorkExp(workExp);
+                workExp.setComapnyName("");
+                workExp.setPeriod("");
+                workExp.setJobTitle("");
+                workExperienceArrayList.add(workExp);
+                workExpAdapter.notifyDataSetChanged();
                 break;
         }
     }
 
-    private void addWorkExp(final WorkExp workExp) {
+    private void addWorkExp() {
         Helpers.showProgressDialog(WorkExperience.this, "Adding...");
         HttpRequest request = new HttpRequest(this);
         request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
@@ -100,9 +103,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                         Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_CREATED:
-                                workExperienceArrayList.add(workExp);
-                                workExpAdapter.notifyDataSetChanged();
-                                System.out.println("created OK");
+                                finish();
                         }
                 }
 
@@ -114,25 +115,34 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-        request.open("POST", String.format("%sexperience/ ", AppGlobals.BASE_URL));
+        request.open("PUT", String.format("%sme/ ", AppGlobals.BASE_URL));
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-        request.send(getWorkExperienceData(workExp.getComapnyName(), workExp.getPeriod(), workExp.getJobTitle()));
+        request.send(getWorkExperienceData());
     }
 
-    private String getWorkExperienceData(String company, String period, String title) {
-        JSONObject jsonObject = new JSONObject();
+    private String getWorkExperienceData() {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject1 = new JSONObject();
         try {
-            jsonObject.put("company", company);
-            jsonObject.put("period", period);
-            jsonObject.put("title", title);
+            for (int i = 0; i < mListView.getCount(); i++){
+                JSONObject jsonObject = new JSONObject();
+                EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span_work);
+                EditText jobTitle = (EditText) mListView.getChildAt(i).findViewById(R.id.et_job_title);
+                EditText company = (EditText) mListView.getChildAt(i).findViewById(R.id.et_company);
+
+                jsonObject.put("period", period.getText().toString());
+                jsonObject.put("title", jobTitle.getText().toString());
+                jsonObject.put("company", company.getText().toString());
+                jsonArray.put(jsonObject);
+            }
+            jsonObject1.put("experience", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject.toString();
 
+        return jsonObject1.toString();
     }
-
 
     private void getWorkExperienceList() {
         Helpers.showProgressDialog(WorkExperience.this, "Please wait...");
@@ -156,10 +166,8 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                                         workExp.setComapnyName(jsonObject.getString("company"));
                                         workExp.setPeriod(jsonObject.getString("period"));
                                         workExperienceArrayList.add(workExp);
+                                        workExpAdapter.notifyDataSetChanged();
                                     }
-
-                                    workExpAdapter = new WorkExpAdapter(workExperienceArrayList);
-                                    mListView.setAdapter(workExpAdapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -178,7 +186,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
 
         private ViewHolder viewHolder;
         private ArrayList<WorkExp> workExperiencesList;
-
         public WorkExpAdapter(ArrayList<WorkExp> workExperiencesList) {
             this.workExperiencesList = workExperiencesList;
         }
@@ -226,7 +233,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         public long getItemId(int i) {
             return 0;
         }
-
 
         private class ViewHolder {
             private TextView removeButton;

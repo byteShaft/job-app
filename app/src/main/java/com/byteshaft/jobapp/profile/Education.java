@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,6 +54,8 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         addEducationButton.setOnClickListener(this);
+        adapter = new QualificationAdapter(qualificationArrayList);
+        mListView.setAdapter(adapter);
         getQualificationList();
     }
 
@@ -63,19 +66,20 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 onBackPressed();
                 break;
             case R.id.button_save_edu:
-                System.out.println("save");
+                addEducation();
                 break;
             case R.id.button_add_education:
                 Qualification qualification = new Qualification();
-                qualification.setQualification("Add Qualification");
-                qualification.setSchool("XYZ School");
-                qualification.setPeriod("from - till");
-                addEducation(qualification);
+                qualification.setQualification("");
+                qualification.setSchool("");
+                qualification.setPeriod("");
+                qualificationArrayList.add(qualification);
+                adapter.notifyDataSetChanged();
                 break;
         }
     }
 
-    private void addEducation(final Qualification qualification) {
+    private void addEducation() {
         Helpers.showProgressDialog(Education.this, "Adding...");
         HttpRequest request = new HttpRequest(this);
         request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
@@ -86,9 +90,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                         Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_CREATED:
-                                qualificationArrayList.add(qualification);
-                                adapter.notifyDataSetChanged();
-
+                                finish();
                         }
                 }
 
@@ -100,24 +102,33 @@ public class Education extends AppCompatActivity implements View.OnClickListener
 
             }
         });
-        request.open("POST", String.format("%seducation/ ", AppGlobals.BASE_URL));
+        request.open("PUT", String.format("%sme", AppGlobals.BASE_URL));
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-        request.send(getEducationData(qualification.getPeriod(),
-                qualification.getQualification(), qualification.getSchool()));
+        request.send(getEducationData());
+        Log.i("TAG DATA ", getEducationData());
     }
 
-    private String getEducationData(String period, String qualification, String school) {
-        JSONObject jsonObject = new JSONObject();
+    private String getEducationData() {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject1 = new JSONObject();
         try {
-            jsonObject.put("period", period);
-            jsonObject.put("qualification", qualification);
-            jsonObject.put("school", school);
+            for (int i = 0; i < mListView.getCount(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span);
+                EditText qualification = (EditText) mListView.getChildAt(i).findViewById(R.id.et_qualification);
+                EditText school = (EditText) mListView.getChildAt(i).findViewById(R.id.et_school);
+                jsonObject.put("period", period.getText().toString());
+                jsonObject.put("qualification", qualification.getText().toString());
+                jsonObject.put("school", school.getText().toString());
+                jsonArray.put(jsonObject);
+            }
+            jsonObject1.put("education", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject.toString();
 
+        return jsonObject1.toString();
     }
 
     private void getQualificationList() {
@@ -142,10 +153,9 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                                         qualification.setPeriod(jsonObject.getString("period"));
                                         qualification.setSchool(jsonObject.getString("school"));
                                         qualificationArrayList.add(qualification);
+                                        adapter.notifyDataSetChanged();
                                     }
 
-                                    adapter = new QualificationAdapter(qualificationArrayList);
-                                    mListView.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -184,11 +194,14 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+
             final Qualification qualification = qualificationsList.get(position);
-            viewHolder.period.setText(qualification.getPeriod());
-            viewHolder.qualification.setText(qualification.getQualification());
-            viewHolder.school.setText(qualification.getSchool());
-            viewHolder.educationNumber.setText("Education # " + (position + 1));
+            if (qualification.getPeriod() != null && !qualification.getPeriod().trim().isEmpty()) {
+                viewHolder.period.setText(qualification.getPeriod());
+                viewHolder.qualification.setText(qualification.getQualification());
+                viewHolder.school.setText(qualification.getSchool());
+                viewHolder.educationNumber.setText("Education # " + (position + 1));
+            }
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

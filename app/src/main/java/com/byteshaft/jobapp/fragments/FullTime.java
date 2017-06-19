@@ -32,7 +32,6 @@ public class FullTime extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.activity_full_time, container, false);
 
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
