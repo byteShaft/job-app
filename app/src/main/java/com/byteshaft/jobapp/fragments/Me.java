@@ -23,6 +23,7 @@ import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.profile.WorkExperience;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -83,7 +84,6 @@ public class Me extends Fragment implements View.OnClickListener {
         jobAppliedButton.setOnClickListener(this);
         jobSavedButton.setOnClickListener(this);
         jobResumeButton.setOnClickListener(this);
-
         return mBaseView;
     }
 
@@ -91,12 +91,14 @@ public class Me extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         skillsTextViews.setText(AppGlobals.getStringFromSharedPreferences("skills"));
-        if (AppGlobals.isLogin() && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
+        if (AppGlobals.isLogin() && !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL).trim().isEmpty()
+                && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
             String url = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL);
             System.out.println(url + " server image");
             Helpers.getBitMap(url, mProfileImage);
 
         }
+
          if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null &&
                  !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME).isEmpty()) {
              String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
