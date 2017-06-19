@@ -17,8 +17,9 @@ import com.byteshaft.jobapp.activities.EditProfile;
 
 public class ProfileSettings extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView mLogoutTextView;
+    public static ProfileSettings sInstance;
 
+    private TextView mLogoutTextView;
     private LinearLayout mEditProfileLayout;
     private LinearLayout mLanguageLayout;
     private LinearLayout mTermsLayout;
@@ -26,9 +27,14 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     private LinearLayout mLegalNoticesLayout;
     private LinearLayout mAppPrivacyLayout;
 
+    public static ProfileSettings getInstance() {
+        return sInstance;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sInstance = this;
         setContentView(R.layout.activity_settings);
         mLogoutTextView = (TextView) findViewById(R.id.logout_text_view);
         mEditProfileLayout = (LinearLayout) findViewById(R.id.edit_profile_layout);
