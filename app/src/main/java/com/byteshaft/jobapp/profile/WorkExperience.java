@@ -1,7 +1,9 @@
 package com.byteshaft.jobapp.profile;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -207,10 +209,25 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Remove Button job");
-                    int workExperienceId = workExperience.getId();
-                    System.out.println( workExperience.getId() + "Remove id");
-                    deleteWorkExperience(workExperienceId, position);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WorkExperience.this);
+                    alertDialogBuilder.setTitle("Confirmation");
+                    alertDialogBuilder.setMessage("Do you really want to delete?")
+                            .setCancelable(false).setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    int workExperienceId = workExperience.getId();
+                                    deleteWorkExperience(workExperienceId, position);
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             });
             return convertView;

@@ -11,6 +11,7 @@ import android.util.Log;
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
+import com.facebook.login.LoginFragment;
 
 
 public class AccountManager extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class AccountManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_manager);
         if (!AppGlobals.isLogin()) {
-            loadFragment();
+            loadFragmentWithOutBackStack(new Login());
         } else {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
@@ -47,10 +48,10 @@ public class AccountManager extends AppCompatActivity {
         }
     }
 
-    public void loadFragment() {
+    public void loadFragmentWithOutBackStack(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        fragmentTransaction.replace(R.id.container, new Login());
+        fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
 }

@@ -1,7 +1,10 @@
 package com.byteshaft.jobapp.profile;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.activities.EditProfile;
 import com.byteshaft.jobapp.gettersetters.Qualification;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -192,10 +197,25 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Edu Remove button click");
-                    int educationId = qualification.getId();
-                    deleteEducation(educationId, position);
-
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Education.this);
+                    alertDialogBuilder.setTitle("Confirmation");
+                    alertDialogBuilder.setMessage("Do you really want to delete?")
+                            .setCancelable(false).setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    int educationId = qualification.getId();
+                                    deleteEducation(educationId, position);
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             });
             return convertView;

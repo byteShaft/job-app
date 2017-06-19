@@ -73,7 +73,8 @@
             android:name=".activities.QRcodeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.EditProfile"/>
+        <activity android:name=".activities.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".activities.MessagesActivity"
