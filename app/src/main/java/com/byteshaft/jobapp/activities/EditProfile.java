@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private TextView mLocationTextView;
     private EditText mAddress;
     private CircleImageView mProfilePicture;
+    private ImageView mBackButton;
 
     private File destination;
     private Uri selectedImageUri;
@@ -107,11 +109,13 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         mAddress = (EditText) findViewById(R.id.location_edit_text);
         mLocationTextView = (TextView) findViewById(R.id.pick_for_current_location);
         mSaveButton = (Button) findViewById(R.id.button_save);
+        mBackButton = (ImageView) findViewById(R.id.back_button);
         mProfilePicture = (CircleImageView) findViewById(R.id.user_dp);
 
         mSaveButton.setOnClickListener(this);
         mProfilePicture.setOnClickListener(this);
         mLocationTextView.setOnClickListener(this);
+        mBackButton.setOnClickListener(this);
 
         if (imageUrl.trim().isEmpty() && imageUrl != null) {
             profilePic = Helpers.getBitMapOfProfilePic(imageUrl);
@@ -166,6 +170,9 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 mUserNameString = mUserName.getText().toString();
                 editProfileDataToServer();
                 break;
+            case R.id.back_button:
+                onBackPressed();
+                break;
         }
 
     }
@@ -173,12 +180,15 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private void editProfileDataToServer() {
         FormData data = new FormData();
         data.append(FormData.TYPE_CONTENT_TEXT, "full_name", mUserNameString);
+        System.out.println(mUserNameString + "name");
         data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
-        if (imageUrl != null) {
+        if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+            System.out.println(imageUrl + "imageView");
             data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
         }
         if (mLocationString != null){
             data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
+            System.out.println(imageUrl + "imageView");
         }
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
