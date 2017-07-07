@@ -3,7 +3,6 @@ package com.byteshaft.jobapp.accounts;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +64,7 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
             case R.id.sign_up_button:
                 System.out.println("signUp button");
                 if (validateEditText()) {
-                    registerUser(mFullNameString, mEmailAddressString, mPasswordString);
+                    registerUser(2, mFullNameString, mEmailAddressString, mPasswordString);
                 }
                 break;
             case R.id.login_text_view:
@@ -104,21 +103,22 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
         return valid;
     }
 
-    private void registerUser(String fullName, String email, String password) {
+    private void registerUser(int usertype, String fullName, String email, String password) {
         request = new HttpRequest(getActivity());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
         request.open("POST", String.format("%sregister", AppGlobals.BASE_URL));
-        request.send(getRegisterData(fullName, email, password));
+        request.send(getRegisterData(usertype, fullName, email, password));
         Helpers.showProgressDialog(getActivity(), "Registering User ");
     }
 
-    private String getRegisterData(String fullName, String email, String password) {
+    private String getRegisterData(int type, String fullName, String email, String password) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("full_name", fullName);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
+            jsonObject.put("type", type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -146,12 +146,10 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
                             JSONObject jsonObject = new JSONObject(request.getResponseText());
                             String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
                             String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-                            String userName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
 
                             //saving values
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
                             AccountManager.getInstance().loadFragment(new AccountActivationCode());
                         } catch (JSONException e) {
                             e.printStackTrace();
