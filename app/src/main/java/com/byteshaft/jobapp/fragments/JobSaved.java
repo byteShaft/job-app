@@ -65,7 +65,7 @@ public class JobSaved extends Fragment implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_filter:
-                MainActivity.getInstance().loadThisFragment(new Filter());
+                MainActivity.getInstance().loadThisFragment(new Filter(), "");
                 break;
             case R.id.back_button:
                 FragmentManager manager = getFragmentManager();

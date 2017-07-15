@@ -248,7 +248,6 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
                         Helpers.showSnackBar(getView(), exception.getLocalizedMessage());
                         break;
                 }
-
             }
         });
         request.open("GET", String.format("%sme", AppGlobals.BASE_URL));
