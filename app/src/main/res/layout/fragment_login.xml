@@ -35,14 +35,11 @@
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:scaleType="centerInside"
-                android:textColor="@color/colorPrimary"
-                android:background="@drawable/fb_button_background" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
 
 
             <TextView

@@ -1,17 +1,31 @@
 package com.byteshaft.jobapp.accounts;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginFragment;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 
 public class AccountManager extends AppCompatActivity {

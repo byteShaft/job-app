@@ -1,5 +1,6 @@
 package com.byteshaft.jobapp.accounts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,10 +25,10 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 
 
-public class Register extends Fragment implements View.OnClickListener, HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
+public class Register extends Fragment implements View.OnClickListener,
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener{
 
     private View mBaseView;
-
     private EditText mEmail;
     private EditText mPassword;
     private EditText mVerifyPassword;
@@ -40,6 +42,7 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     private String mNameString;
     private String mPhoneString;
 
+    private LoginButton mFbLoginButton;
     private HttpRequest request;
 
     @Nullable
@@ -52,9 +55,11 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
         mVerifyPassword = (EditText) mBaseView.findViewById(R.id.verify_password_edit_text);
         mSignUpButton = (Button) mBaseView.findViewById(R.id.sign_up_button);
         mLoginTextView = (TextView) mBaseView.findViewById(R.id.login_text_view);
+        mFbLoginButton = (LoginButton) mBaseView.findViewById(R.id.login_button);
 
         mSignUpButton.setOnClickListener(this);
         mLoginTextView.setOnClickListener(this);
+
         return mBaseView;
     }
 
