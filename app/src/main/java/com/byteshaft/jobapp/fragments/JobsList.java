@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.requests.HttpRequest;
 
 import java.net.HttpURLConnection;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class JobsList extends Fragment implements View.OnClickListener {
 
@@ -67,5 +70,39 @@ public class JobsList extends Fragment implements View.OnClickListener {
                 manager.popBackStack();
                 break;
         }
+    }
+
+    private class JobListAdapter extends BaseAdapter {
+
+
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            return null;
+        }
+    }
+
+    class ViewHolder {
+        private TextView companyName;
+        private TextView jobTitle;
+        private TextView jobLocation;
+        private CircleImageView companyLogo;
+        private TextView salary;
+        private TextView jobCategory;
     }
 }
