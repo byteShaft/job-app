@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadThisFragment(new Home());
+        loadThisFragment(new Home(), "");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    loadThisFragment(new Home());
+                    loadThisFragment(new Home(), "");
                     return true;
                 case R.id.navigation_search:
-                    loadThisFragment(new Search());
+                    loadThisFragment(new Search(), "");
                     return true;
                 case R.id.navigation_me:
-                    loadThisFragment(new Me());
+                    loadThisFragment(new Me(), "");
                     return true;
             }
             return false;
@@ -67,8 +67,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void loadThisFragment(Fragment fragment) {
+    public void loadThisFragment(Fragment fragment, String category) {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("category", category);
+        fragment.setArguments(bundle);
         tx.replace(R.id.fragment_container, fragment);
         tx.commit();
     }
