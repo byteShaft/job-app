@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">JobApp</string>
-
     <string name="facebook_app_id">414421995621789</string>
     <string name="fb_login_protocol_scheme">fb414421995621789</string>
 
@@ -36,6 +35,7 @@
     <string name="email">Email</string>
     <string name="verify">Verify</string>
 
+    <string name="app_id">725425740962500</string>
     <string name="part_time_title">Part Time</string>
     <string name="full_time_title">Full Time</string>
     <string name="internship_title">Internship</string>

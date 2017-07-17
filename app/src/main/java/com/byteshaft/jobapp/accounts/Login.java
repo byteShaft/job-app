@@ -17,10 +17,13 @@ import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.FacebookSdkNotInitializedException;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -43,46 +46,24 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private FacebookCallback<LoginResult> callback;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         mBaseView = inflater.inflate(R.layout.fragment_login, container, false);
         setHasOptionsMenu(true);
-        callbackManager = CallbackManager.Factory.create();
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mPassword = (EditText) mBaseView.findViewById(R.id.password_edit_text);
         mLoginButton = (Button) mBaseView.findViewById(R.id.button_login);
         mForgotPasswordTextView = (TextView) mBaseView.findViewById(R.id.forgot_password_text_view);
         mSignUpTextView = (TextView) mBaseView.findViewById(R.id.sign_up_text_view);
-        loginButton = (LoginButton) mBaseView.findViewById(R.id.login_button);
 
         mLoginButton.setOnClickListener(this);
         mForgotPasswordTextView.setOnClickListener(this);
         mSignUpTextView.setOnClickListener(this);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
         return mBaseView;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
     }
 
     public boolean validate() {

@@ -31,6 +31,7 @@ import java.util.Arrays;
 public class AccountManager extends AppCompatActivity {
 
     private static AccountManager sInstance;
+    CallbackManager callbackManager;
 
     public static AccountManager getInstance() {
         return sInstance;
@@ -39,6 +40,8 @@ public class AccountManager extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_account_manager);
         if (!AppGlobals.isLogin()) {
             loadFragmentWithOutBackStack(new Login());
@@ -67,5 +70,12 @@ public class AccountManager extends AppCompatActivity {
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        System.out.println("working");
     }
 }

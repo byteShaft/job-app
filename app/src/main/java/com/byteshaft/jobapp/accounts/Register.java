@@ -17,6 +17,15 @@ import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
@@ -43,7 +52,10 @@ public class Register extends Fragment implements View.OnClickListener,
     private String mPhoneString;
 
     private LoginButton mFbLoginButton;
+    private CallbackManager callbackManager;
+    private FacebookCallback<LoginResult> callback;
     private HttpRequest request;
+
 
     @Nullable
     @Override
@@ -55,11 +67,11 @@ public class Register extends Fragment implements View.OnClickListener,
         mVerifyPassword = (EditText) mBaseView.findViewById(R.id.verify_password_edit_text);
         mSignUpButton = (Button) mBaseView.findViewById(R.id.sign_up_button);
         mLoginTextView = (TextView) mBaseView.findViewById(R.id.login_text_view);
-        mFbLoginButton = (LoginButton) mBaseView.findViewById(R.id.login_button);
 
         mSignUpButton.setOnClickListener(this);
         mLoginTextView.setOnClickListener(this);
-
+        setupView(mBaseView);
+        System.out.println("onCreateView");
         return mBaseView;
     }
 
@@ -174,6 +186,34 @@ public class Register extends Fragment implements View.OnClickListener,
                 Helpers.showSnackBar(getView(), exception.getLocalizedMessage());
                 break;
         }
-
     }
+
+    public void setupView(View view) {
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton facebookLoginButton = (LoginButton) view.findViewById(R.id.login_button);
+        callback = new FacebookCallback<LoginResult>() {
+            //ERROR
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                //ERROR - I can't get access token and user name
+                Log.d("facebook id", accessToken.getApplicationId());
+                Log.d("profile name", profile.getFirstName());
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        };
+        facebookLoginButton.setReadPermissions("public_profile", "user_friends","user_birthday","user_about_me","email");
+        facebookLoginButton.registerCallback(callbackManager, callback);
+    }
+
 }

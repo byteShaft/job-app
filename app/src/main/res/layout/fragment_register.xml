@@ -37,6 +37,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"/>
+
             <TextView
                 android:layout_marginTop="40dp"
                 android:id="@+id/quick_login"
