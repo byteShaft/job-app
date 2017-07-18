@@ -92,42 +92,41 @@ public class FullTime extends Fragment implements View.OnClickListener {
                 break;
             // buttons
             case R.id.full_health_fitness:
-
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Health/Fitness");
                 break;
             case R.id.full_insurance:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Insurance");
                 break;
             case R.id.full_it:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "it");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "IT");
                 System.out.println("OK");
                 break;
             case R.id.full_media:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Media");
                 break;
             case R.id.full_science_search:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Science/Search");
                 break;
             case R.id.full_legal_professional:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Legal/Professional");
                 break;
             case R.id.full_nursery:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Nursery/Pharmacy");
                 break;
             case R.id.full_manufacturing:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Manufacturing/Production");
                 break;
             case R.id.full_property:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Property");
                 break;
             case R.id.full_sales:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Sales");
                 break;
             case R.id.full_transportation:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Transportation");
                 break;
             case R.id.full_hospitality:
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Hospitality/Tourism");
                 break;
         }
     }
