@@ -23,6 +23,11 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".SplashScreen"></activity>
@@ -30,11 +35,7 @@
         <activity
             android:name=".accounts.AccountManager"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".LanguageSelectionActivity"
@@ -64,6 +65,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activities.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".activities.FilterLocation"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
