@@ -28,7 +28,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/save"
+                android:id="@+id/reset_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
@@ -89,13 +89,10 @@
                     android:textSize="15sp" />
 
                 <include
-
                     layout="@layout/greater_than_sign_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:id="@+id/job_type_layout"

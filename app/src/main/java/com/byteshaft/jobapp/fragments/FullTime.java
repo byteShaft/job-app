@@ -45,10 +45,8 @@ public class FullTime extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.activity_full_time, container, false);
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-
         toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
         title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
         backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);

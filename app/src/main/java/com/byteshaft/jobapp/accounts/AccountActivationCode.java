@@ -33,10 +33,8 @@ public class AccountActivationCode extends Fragment implements View.OnClickListe
     private EditText mEmail;
     private EditText mVerificationCode;
     private Button mLoginButton;
-
     private String mEmailString;
     private String mVerificationCodeString;
-
     private HttpRequest request;
 
     @Override
@@ -46,11 +44,10 @@ public class AccountActivationCode extends Fragment implements View.OnClickListe
         mEmail = (EditText) mBaseView.findViewById(R.id.email_edit_text);
         mVerificationCode = (EditText) mBaseView.findViewById(R.id.activation_edit_text);
         mLoginButton = (Button) mBaseView.findViewById(R.id.button_verify);
-
         mEmail.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
         mEmailString = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL);
-        mEmail.setEnabled(false);
 
+        mEmail.setEnabled(false);
         mLoginButton.setOnClickListener(this);
         return mBaseView;
     }

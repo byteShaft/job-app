@@ -1,0 +1,153 @@
+package com.byteshaft.jobapp.activities;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.byteshaft.jobapp.MainActivity;
+import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.accounts.AccountActivationCode;
+import com.byteshaft.jobapp.accounts.AccountManager;
+import com.byteshaft.jobapp.utils.AppGlobals;
+import com.byteshaft.jobapp.utils.Helpers;
+import com.byteshaft.requests.HttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+
+
+public class FilterLocation extends Activity implements HttpRequest.OnErrorListener,
+        HttpRequest.OnReadyStateChangeListener {
+
+    private ListView mFilterLocationsListView;
+    private ArrayList<com.byteshaft.jobapp.gettersetters.FilterLocation> mLocationArrayList;
+    private LocationAdapter locationAdapter;
+
+    private HttpRequest request;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_filter_location);
+        mFilterLocationsListView = (ListView) findViewById(R.id.location_list_view);
+        mLocationArrayList = new ArrayList<>();
+        getLocationFromServer();
+        mFilterLocationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value = mLocationArrayList.get(position).getFilterLocationName();
+                System.out.println(value);
+            }
+        });
+    }
+
+    @Override
+    public void onReadyStateChange(HttpRequest request, int readyState) {
+        switch (readyState) {
+            case HttpRequest.STATE_DONE:
+                Helpers.dismissProgressDialog();
+                switch (request.getStatus()) {
+                    case HttpURLConnection.HTTP_OK:
+                        System.out.println(request.getResponseText() + "working ");
+                        locationAdapter = new LocationAdapter(mLocationArrayList);
+                        mFilterLocationsListView.setAdapter(locationAdapter);
+
+                        try {
+                            JSONArray locationArry = new JSONArray(request.getResponseText());
+                            for (int i = 0; i < locationArry.length(); i++) {
+                                JSONObject jsonObject = locationArry.getJSONObject(i);
+                                com.byteshaft.jobapp.gettersetters.FilterLocation location = new com.byteshaft.jobapp.gettersetters.FilterLocation();
+                                location.setFilterLocationName(jsonObject.getString("name"));
+                                mLocationArrayList.add(location);
+                                locationAdapter.notifyDataSetChanged();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                }
+        }
+    }
+
+    @Override
+    public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+        if (exception.getLocalizedMessage().equals("Network is unreachable")) {
+            Helpers.showSnackBar(findViewById(android.R.id.content), exception.getLocalizedMessage());
+        }
+        switch (readyState) {
+            case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                Helpers.showSnackBar(findViewById(android.R.id.content), "connection time out");
+                break;
+        }
+        Helpers.dismissProgressDialog();
+    }
+
+    private void getLocationFromServer() {
+        request = new HttpRequest(this);
+        request.setOnReadyStateChangeListener(this);
+        request.setOnErrorListener(this);
+        request.open("GET", String.format("%sjobs/locations/", AppGlobals.BASE_URL));
+        request.send();
+        Helpers.showProgressDialog(FilterLocation.this, "Getting Locations...");
+    }
+
+    private class LocationAdapter extends BaseAdapter {
+        private ViewHolder viewHolder;
+        private ArrayList<com.byteshaft.jobapp.gettersetters.FilterLocation> locationArrayList;
+
+        private LocationAdapter(ArrayList<com.byteshaft.jobapp.gettersetters.FilterLocation> locationArrayList) {
+            this.locationArrayList = locationArrayList;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.delegate_filter_location, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.mLocationName = (TextView) convertView.findViewById(R.id.location_name);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            com.byteshaft.jobapp.gettersetters.FilterLocation locationName = locationArrayList.get(position);
+            viewHolder.mLocationName.setText(locationName.getFilterLocationName());
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return locationArrayList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+    }
+
+    class ViewHolder {
+        TextView mLocationName;
+    }
+}
