@@ -3,6 +3,7 @@ package com.byteshaft.jobapp.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
 import com.google.zxing.Result;
@@ -32,6 +33,7 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
     public void handleResult(Result rawResult) {
         // Do something with the result here
         Log.v("Tag", rawResult.getText()); // Prints scan results
+        Toast.makeText(getApplicationContext(), rawResult.getText(),Toast.LENGTH_SHORT).show();
         Log.v("Tag", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
         // If you would like to resume scanning, call this method below:
         mScannerView.resumeCameraPreview(this);
