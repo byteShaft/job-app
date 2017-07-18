@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">JobApp</string>
+    <string name="facebook_app_id">414421995621789</string>
+    <string name="fb_login_protocol_scheme">fb414421995621789</string>
 
     <string name="title_home">Home</string>
     <string name="profile_settings">Settings</string>

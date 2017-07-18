@@ -1,5 +1,6 @@
 package com.byteshaft.jobapp.accounts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,16 @@ import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,10 +34,10 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 
 
-public class Register extends Fragment implements View.OnClickListener, HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
+public class Register extends Fragment implements View.OnClickListener,
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener{
 
     private View mBaseView;
-
     private EditText mEmail;
     private EditText mPassword;
     private EditText mVerifyPassword;
@@ -40,7 +51,11 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
     private String mNameString;
     private String mPhoneString;
 
+    private LoginButton mFbLoginButton;
+    private CallbackManager callbackManager;
+    private FacebookCallback<LoginResult> callback;
     private HttpRequest request;
+
 
     @Nullable
     @Override
@@ -55,6 +70,8 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
 
         mSignUpButton.setOnClickListener(this);
         mLoginTextView.setOnClickListener(this);
+        setupView(mBaseView);
+        System.out.println("onCreateView");
         return mBaseView;
     }
 
@@ -169,6 +186,34 @@ public class Register extends Fragment implements View.OnClickListener, HttpRequ
                 Helpers.showSnackBar(getView(), exception.getLocalizedMessage());
                 break;
         }
-
     }
+
+    public void setupView(View view) {
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton facebookLoginButton = (LoginButton) view.findViewById(R.id.login_button);
+        callback = new FacebookCallback<LoginResult>() {
+            //ERROR
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                //ERROR - I can't get access token and user name
+                Log.d("facebook id", accessToken.getApplicationId());
+                Log.d("profile name", profile.getFirstName());
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        };
+        facebookLoginButton.setReadPermissions("public_profile", "user_friends","user_birthday","user_about_me","email");
+        facebookLoginButton.registerCallback(callbackManager, callback);
+    }
+
 }

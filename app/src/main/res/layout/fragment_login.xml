@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:fb="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,9 +39,13 @@
                 android:layout_marginTop="5dip"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:scaleType="centerInside"
-                android:textColor="@color/colorPrimary"
-                android:background="@drawable/fb_button_background" />
+                android:scaleType="centerInside"/>
+
+            <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/login_button"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
 
 
             <TextView
