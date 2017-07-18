@@ -46,6 +46,7 @@ public class JobsList extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.jobs_list_fragment, container, false);
         String categoryValue = getArguments().getString("category");
+        String type = getArguments().getString("type");
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         listView = (ListView) mBaseView.findViewById(R.id.jobs_list);
         toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
@@ -54,11 +55,12 @@ public class JobsList extends Fragment implements View.OnClickListener {
         backButton.setOnClickListener(this);
         title.setText(categoryValue.toUpperCase());
         jobsArrayList = new ArrayList<>();
-        getJobsList(categoryValue);
+        Log.e("Test", categoryValue + " " +type);
+        getJobsList(type, categoryValue);
         return mBaseView;
     }
 
-    private void getJobsList(String category) {
+    private void getJobsList(String category, String jobType) {
         HttpRequest request = new HttpRequest(AppGlobals.getContext());
         Helpers.showProgressDialog(getActivity(), "Please wait...");
         request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
@@ -89,12 +91,11 @@ public class JobsList extends Fragment implements View.OnClickListener {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                         }
                 }
             }
         });
-        request.open("GET", String.format("%sjobs/?type=Full-time&category=%s", AppGlobals.BASE_URL, category));
+        request.open("GET", String.format("%sjobs/?type=%s&category=%s", AppGlobals.BASE_URL, jobType, category));
         request.send();
     }
 
