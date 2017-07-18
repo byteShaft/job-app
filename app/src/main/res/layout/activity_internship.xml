@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,6 +62,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:id="@+id/intern_health_fitness"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -72,7 +72,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/health_fitness"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -89,6 +88,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_insurance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -98,7 +98,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/insurance"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -115,6 +114,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_it"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -124,7 +124,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/it"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -150,6 +149,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:id="@+id/intern_media"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -159,7 +159,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/media"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -176,6 +175,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_science_search"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -185,7 +185,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/science_search"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -202,6 +201,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_legal_professional"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -211,7 +211,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/legal_professional"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -238,6 +237,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:id="@+id/intern_nursery"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -247,7 +247,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/nursery"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -265,6 +264,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_manufacturing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -274,7 +274,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/production"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -291,6 +290,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_property"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -300,7 +300,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/property"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -325,6 +324,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:id="@+id/intern_sales"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -334,7 +334,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/sales"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -351,6 +350,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_transportation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -360,7 +360,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/transportation"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -377,6 +376,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/intern_hospitality"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -386,7 +386,6 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/hospitality"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
@@ -401,7 +400,6 @@
                             android:textAllCaps="true" />
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
