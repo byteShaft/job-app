@@ -23,7 +23,7 @@ public class Internship extends Fragment implements View.OnClickListener {
     private ImageButton backButton;
 
 
-    private LinearLayout healthNfitness;
+    private LinearLayout healthNfitnes;
     private LinearLayout insurance;
     private LinearLayout it;
     private LinearLayout media;
@@ -49,7 +49,7 @@ public class Internship extends Fragment implements View.OnClickListener {
         backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
 
         // buttons
-        healthNfitness = (LinearLayout) mBaseView.findViewById(R.id.intern_health_fitness);
+        healthNfitnes = (LinearLayout) mBaseView.findViewById(R.id.intern_health_fitness);
         insurance = (LinearLayout) mBaseView.findViewById(R.id.intern_insurance);
         it = (LinearLayout) mBaseView.findViewById(R.id.intern_it);
         media = (LinearLayout) mBaseView.findViewById(R.id.intern_media);
@@ -62,7 +62,7 @@ public class Internship extends Fragment implements View.OnClickListener {
         transportation = (LinearLayout) mBaseView.findViewById(R.id.intern_transportation);
         hospitality = (LinearLayout) mBaseView.findViewById(R.id.intern_hospitality);
 
-        healthNfitness.setOnClickListener(this);
+        healthNfitnes.setOnClickListener(this);
         insurance.setOnClickListener(this);
         it.setOnClickListener(this);
         media.setOnClickListener(this);
@@ -89,40 +89,41 @@ public class Internship extends Fragment implements View.OnClickListener {
                 manager.popBackStack();
                 break;
             // buttons
-            case R.id.full_health_fitness:
+            case R.id.intern_health_fitness:
+                System.out.println("OKOKOKOK");
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Health/Fitness", "Internship");
                 break;
-            case R.id.full_insurance:
+            case R.id.intern_insurance:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Insurance", "Internship");
                 break;
-            case R.id.full_it:
+            case R.id.intern_it:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "IT", "Internship");
                 break;
-            case R.id.full_media:
+            case R.id.intern_media:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Media", "Internship");
                 break;
-            case R.id.full_science_search:
+            case R.id.intern_science_search:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Science/Search", "Internship");
                 break;
-            case R.id.full_legal_professional:
+            case R.id.intern_legal_professional:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Legal/Professional", "Internship");
                 break;
-            case R.id.full_nursery:
+            case R.id.intern_nursery:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Nursery/Pharmacy", "Internship");
                 break;
-            case R.id.full_manufacturing:
+            case R.id.intern_manufacturing:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Manufacturing/Production", "Internship");
                 break;
-            case R.id.full_property:
+            case R.id.intern_property:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Property", "Internship");
                 break;
-            case R.id.full_sales:
+            case R.id.intern_sales:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Sales", "Internship");
                 break;
-            case R.id.full_transportation:
+            case R.id.intern_transportation:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Transportation", "Internship");
                 break;
-            case R.id.full_hospitality:
+            case R.id.intern_hospitality:
                 MainActivity.getInstance().loadThisFragment(new JobsList(), "Hospitality/Tourism", "Internship");
                 break;
         }
