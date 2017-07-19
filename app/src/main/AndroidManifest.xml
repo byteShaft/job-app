@@ -70,6 +70,9 @@
         <activity android:name=".activities.FilterLocation"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".activities.FilterCategories"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".activities.MessagesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
