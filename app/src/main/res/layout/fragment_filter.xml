@@ -58,7 +58,7 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -79,13 +79,13 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/county_text_view"
+                    android:id="@+id/job_location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/location_text_view"
                     android:layout_marginTop="20sp"
                     android:paddingLeft="10dp"
-                    android:text="Pakistan"
+                    android:text="your job location"
                     android:textSize="15sp" />
 
                 <include
@@ -120,28 +120,32 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/button_any"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="Any"
                         android:textAllCaps="false" />
 
                     <Button
+                        android:id="@+id/button_part_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Part time"
+                        android:text="Part-time"
                         android:textAllCaps="false" />
 
                     <Button
+                        android:id="@+id/button_full_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Full time"
+                        android:text="Full-time"
                         android:textAllCaps="false" />
 
                     <Button
+                        android:id="@+id/button_internship"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="internship"
+                        android:text="Internship"
                         android:textAllCaps="false" />
 
                 </LinearLayout>
@@ -167,13 +171,13 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/jobs_text_view"
+                    android:id="@+id/jobs_category_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/categories_text_view"
                     android:layout_marginTop="20sp"
                     android:paddingLeft="10dp"
-                    android:text="Engineering jobs"
+                    android:text="your job category"
                     android:textSize="15sp" />
 
                 <include
@@ -187,6 +191,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/apply_filter"
         android:layout_width="400dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

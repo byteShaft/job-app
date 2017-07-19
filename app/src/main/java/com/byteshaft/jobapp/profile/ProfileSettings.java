@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.activities.EditProfile;
+import com.byteshaft.jobapp.utils.AppGlobals;
 
 public class ProfileSettings extends AppCompatActivity implements View.OnClickListener {
 
@@ -68,6 +69,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
                         .setCancelable(false).setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                AppGlobals.clearSettings();
                                 startActivity(new Intent(ProfileSettings.this, MainActivity.class));
                                 dialog.dismiss();
                             }
