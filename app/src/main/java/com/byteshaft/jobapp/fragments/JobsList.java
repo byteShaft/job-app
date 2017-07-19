@@ -68,6 +68,7 @@ public class JobsList extends Fragment implements View.OnClickListener {
             public void onReadyStateChange(HttpRequest request, int readyState) {
                 switch (readyState) {
                     case HttpRequest.STATE_DONE:
+                        Log.i("MY URLlllll", request.getResponseURL());
                         Helpers.dismissProgressDialog();
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
@@ -95,7 +96,7 @@ public class JobsList extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        request.open("GET", String.format("%sjobs/?type=%s&category=%s", AppGlobals.BASE_URL, jobType, category));
+        request.open("GET", String.format("%sjobs/?type=%s&category=%s", AppGlobals.BASE_URL, category,  jobType));
         request.send();
     }
 

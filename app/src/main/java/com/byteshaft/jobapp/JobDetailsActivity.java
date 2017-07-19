@@ -3,6 +3,8 @@ package com.byteshaft.jobapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.utils.AppGlobals;
@@ -16,6 +18,8 @@ import java.net.HttpURLConnection;
 
 public class JobDetailsActivity extends AppCompatActivity {
 
+
+    private ImageButton backButton;
     private TextView companyName;
     private TextView jobDescription;
     private TextView jobRequirement;
@@ -23,6 +27,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     private TextView jobLocation;
     private TextView phoneNumber;
     private TextView website;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,13 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobRequirement = (TextView)findViewById(R.id.tv_job_requirement);
         phoneNumber = (TextView) findViewById(R.id.tv_phone);
         createdAt = (TextView) findViewById(R.id.date);
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         int jobId = Integer.parseInt(id);
         getJobDetails(jobId);

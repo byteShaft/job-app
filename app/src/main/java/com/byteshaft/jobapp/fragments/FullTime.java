@@ -16,10 +16,6 @@ import android.widget.TextView;
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 
-/**
- * Created by shahid on 13/06/2017.
- */
-
 public class FullTime extends Fragment implements View.OnClickListener {
 
 
