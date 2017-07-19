@@ -16,10 +16,6 @@ import android.widget.TextView;
 import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 
-/**
- * Created by shahid on 13/06/2017.
- */
-
 public class FullTime extends Fragment implements View.OnClickListener {
 
 
@@ -50,6 +46,7 @@ public class FullTime extends Fragment implements View.OnClickListener {
         toolbarTop = (Toolbar) mBaseView.findViewById(R.id.my_toolbar);
         title = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
         backButton = (ImageButton) toolbarTop.findViewById(R.id.back_button);
+
         // buttons
         healthNfitness = (LinearLayout) mBaseView.findViewById(R.id.full_health_fitness);
         insurance = (LinearLayout) mBaseView.findViewById(R.id.full_insurance);
@@ -92,41 +89,40 @@ public class FullTime extends Fragment implements View.OnClickListener {
                 break;
             // buttons
             case R.id.full_health_fitness:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Health/Fitness");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Health/Fitness", "Full-time");
                 break;
             case R.id.full_insurance:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Insurance");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Insurance", "Full-time");
                 break;
             case R.id.full_it:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "IT");
-                System.out.println("OK");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "IT", "Full-time");
                 break;
             case R.id.full_media:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Media");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Media", "Full-time");
                 break;
             case R.id.full_science_search:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Science/Search");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Science/Search", "Full-time");
                 break;
             case R.id.full_legal_professional:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Legal/Professional");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Legal/Professional", "Full-time");
                 break;
             case R.id.full_nursery:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Nursery/Pharmacy");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Nursery/Pharmacy", "Full-time");
                 break;
             case R.id.full_manufacturing:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Manufacturing/Production");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Manufacturing/Production", "Full-time");
                 break;
             case R.id.full_property:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Property");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Property", "Full-time");
                 break;
             case R.id.full_sales:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Sales");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Sales", "Full-time");
                 break;
             case R.id.full_transportation:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Transportation");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Transportation", "Full-time");
                 break;
             case R.id.full_hospitality:
-                MainActivity.getInstance().loadThisFragment(new JobsList(), "Hospitality/Tourism");
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Hospitality/Tourism", "Full-time");
                 break;
         }
     }

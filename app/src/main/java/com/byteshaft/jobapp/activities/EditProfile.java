@@ -32,9 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.byteshaft.jobapp.R;
-import com.byteshaft.jobapp.accounts.AccountActivationCode;
-import com.byteshaft.jobapp.accounts.AccountManager;
-import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
@@ -61,10 +58,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-/**
- * Created by husnain on 6/9/17.
- */
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener,
         HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener, GoogleApiClient.ConnectionCallbacks,
