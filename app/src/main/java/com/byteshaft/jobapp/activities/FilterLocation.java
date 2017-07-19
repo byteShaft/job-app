@@ -2,6 +2,7 @@ package com.byteshaft.jobapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.byteshaft.jobapp.MainActivity;
 import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.accounts.AccountActivationCode;
 import com.byteshaft.jobapp.accounts.AccountManager;
+import com.byteshaft.jobapp.fragments.Filter;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
@@ -50,8 +52,20 @@ public class FilterLocation extends Activity implements HttpRequest.OnErrorListe
         mFilterLocationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String value = mLocationArrayList.get(position).getFilterLocationName();
-                System.out.println(value);
+                String locationName = mLocationArrayList.get(position).getFilterLocationName();
+                AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_JOB_LOCATION_NAME, locationName);
+                System.out.println(locationName);
+                FilterLocation.this.finish();
+                Filter.setTextForLocation(locationName);
+                for (int i = 0; i < parent.getCount(); i++) {
+                    view = parent.getChildAt(i);
+                    if (i == position) {
+                        view.setBackgroundColor(Color.LTGRAY);
+                    } else {
+                        view.setBackgroundColor(Color.TRANSPARENT);
+
+                    }
+                }
             }
         });
     }

@@ -26,6 +26,8 @@ public class AppGlobals extends Application {
     public static final String KEY_IMAGE_URL = "photo";
     public static final String KEY_LOGIN = "login";
     public static final String KEY_PHONE_NUMBER = "phone_number";
+    public static final String KEY_JOB_CATEGORY_NAME = "category_name";
+    public static final String KEY_JOB_LOCATION_NAME = "location_name";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_USER_ID = "id";
     public static final int LOCATION_ENABLE = 3;
