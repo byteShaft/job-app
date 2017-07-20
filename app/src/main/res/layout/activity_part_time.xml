@@ -126,7 +126,7 @@
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
                             android:layout_weight="1"
-                            android:src="@mipmap/health_fitness_icon" />
+                            android:src="@mipmap/it_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
                             android:layout_weight="1"
-                            android:src="@mipmap/health_fitness_icon" />
+                            android:src="@mipmap/legal_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -362,7 +362,7 @@
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
                             android:layout_weight="1"
-                            android:src="@mipmap/insurance_icon" />
+                            android:src="@mipmap/transportation_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -388,7 +388,7 @@
                             android:layout_height="60dp"
                             android:layout_alignParentLeft="true"
                             android:layout_weight="1"
-                            android:src="@mipmap/health_fitness_icon" />
+                            android:src="@mipmap/turism_icons" />
 
                         <TextView
                             android:layout_width="wrap_content"
