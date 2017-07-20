@@ -16,6 +16,42 @@ public class JobDetails {
     private String detailDescription;
     private int creator;
     private String createdAt;
+    private boolean isUrgent;
+    private String creatorName;
+    private String locationName;
+    private String companyLogoUrl;
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public String getLocation_name() {
+        return locationName;
+    }
+
+    public void setLocation_name(String location_name) {
+        this.locationName = location_name;
+    }
+
+    public String getCompanyLogoUrl() {
+        return companyLogoUrl;
+    }
+
+    public void setCompanyLogoUrl(String companyLogoUrl) {
+        this.companyLogoUrl = companyLogoUrl;
+    }
+
+    public boolean isUrgent() {
+        return isUrgent;
+    }
+
+    public void setUrgent(boolean urgent) {
+        isUrgent = urgent;
+    }
 
     public String getJobTitle() {
         return jobTitle;
