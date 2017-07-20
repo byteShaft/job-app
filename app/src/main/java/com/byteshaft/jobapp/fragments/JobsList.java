@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -80,11 +81,14 @@ public class JobsList extends Fragment implements View.OnClickListener {
                                         JobDetails jobDetails = new JobDetails();
                                         jobDetails.setJobType(jsonObject.getString("type"));
                                         jobDetails.setJobTitle(jsonObject.getString("title"));
+                                        jobDetails.setCreatorName(jsonObject.getString("creator_name"));
                                         jobDetails.setScope(jsonObject.getString("scope"));
                                         jobDetails.setSalary(jsonObject.getString("salary"));
                                         jobDetails.setRequirement(jsonObject.getString("requirement"));
                                         jobDetails.setLocation(jsonObject.getString("location"));
+                                        jobDetails.setLocation_name(jsonObject.getString("location_name"));
                                         jobDetails.setDetailDescription(jsonObject.getString("detailed_description"));
+
                                         jobsArrayList.add(jobDetails);
                                     }
                                     adapter = new JobListAdapter(jobsArrayList);
@@ -128,6 +132,7 @@ public class JobsList extends Fragment implements View.OnClickListener {
                 viewHolder.companyName = (TextView) convertView.findViewById(R.id.company_name);
                 viewHolder.jobTitle = (TextView) convertView.findViewById(R.id.job_title);
                 viewHolder.jobLocation = (TextView) convertView.findViewById(R.id.company_location);
+                viewHolder.urgentTag = (ImageView) convertView.findViewById(R.id.urgent_tag);
 //                viewHolder.companyLogo = (CircleImageView) convertView.findViewById(R.id.job_icon);
                 viewHolder.salary = (TextView) convertView.findViewById(R.id.salary);
                 viewHolder.jobCategory = (TextView) convertView.findViewById(R.id.part_time_button);
@@ -136,9 +141,9 @@ public class JobsList extends Fragment implements View.OnClickListener {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             JobDetails jobDetail = jobDetails.get(position);
-            viewHolder.companyName.setText(jobDetail.getJobTitle());
+            viewHolder.companyName.setText(jobDetail.getCreatorName());
             viewHolder.jobTitle.setText(jobDetail.getJobTitle());
-            viewHolder.jobLocation.setText(jobDetail.getLocation());
+            viewHolder.jobLocation.setText(jobDetail.getLocation_name());
             viewHolder.salary.setText(jobDetail.getSalary());
             viewHolder.jobCategory.setText(jobDetail.getJobType());
 
@@ -162,6 +167,7 @@ public class JobsList extends Fragment implements View.OnClickListener {
     }
 
     class ViewHolder {
+        private ImageView urgentTag;
         private TextView companyName;
         private TextView jobTitle;
         private TextView jobLocation;
