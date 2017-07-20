@@ -2,6 +2,7 @@ package com.byteshaft.jobapp.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,8 @@ import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,6 +65,7 @@ public class Filter extends Fragment implements View.OnClickListener {
 
     private ArrayList<JobDetails> jobsArrayList;
     private JobListAdapter adapter;
+
 
 
     @Nullable
@@ -109,6 +113,11 @@ public class Filter extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Button[] btns = new Button[4];
+        btns[0] = (Button) mBaseView.findViewById(R.id.button_any);
+        btns[1] = (Button) mBaseView.findViewById(R.id.button_full_time);
+        btns[2] = (Button) mBaseView.findViewById(R.id.button_part_time);
+        btns[3] = (Button) mBaseView.findViewById(R.id.button_internship);
         switch (v.getId()) {
             case R.id.back_button:
                 FragmentManager manager = getFragmentManager();
@@ -156,6 +165,13 @@ public class Filter extends Fragment implements View.OnClickListener {
                 getJobsList(mButtonText, mJobCategoryTextViewString, mJobLocationTextViewString);
                 System.out.println();
                 break;
+        }
+        for (Button button : btns) {
+            if (button.getText().equals(mButtonText)) {
+                button.setTextColor(Color.RED);
+            } else {
+                button.setTextColor(Color.BLACK);
+            }
         }
     }
 
