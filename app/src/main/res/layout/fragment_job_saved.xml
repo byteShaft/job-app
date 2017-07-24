@@ -56,7 +56,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ListView
-        android:id="@+id/jobs_list"
+        android:id="@+id/saved_jobs_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/job_saved_toolbar"
