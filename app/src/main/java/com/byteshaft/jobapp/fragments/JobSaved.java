@@ -111,7 +111,8 @@ public class JobSaved extends Fragment implements OnClickListener{
             }
         });
         request.open("GET", String.format("%sjobs/saved/", AppGlobals.BASE_URL));
-        request.setRequestHeader("Authorization", "Token " + "1b2b526ac5c286d8926fb08115603c9b9655cce1");
+        request.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         request.send();
     }
 
@@ -177,6 +178,5 @@ public class JobSaved extends Fragment implements OnClickListener{
         private CircleImageView companyLogo;
         private TextView salary;
         private TextView jobCategory;
-
     }
 }

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d3d3d3"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -41,6 +42,8 @@
 
     <ListView
         android:id="@+id/jobs_list"
+        android:divider="@null"
+        android:dividerHeight="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/my_toolbar">
