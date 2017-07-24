@@ -12,8 +12,8 @@
         <TextView
             android:id="@+id/company_name"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:gravity="center"
             android:text="Company"
@@ -23,10 +23,10 @@
 
         <ImageView
             android:id="@+id/urgent_tag"
-            android:background="@mipmap/tag_urgent"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/tag_urgent" />
 
 
         <RelativeLayout
@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/company_name"
             android:layout_marginLeft="16dp"
-            android:padding="4dp"
-            android:layout_marginRight="16dp">
+            android:layout_marginRight="16dp"
+            android:padding="4dp">
 
             <TextView
                 android:id="@+id/job_title"
@@ -115,6 +115,7 @@
             android:weightSum="2">
 
             <Button
+                android:id="@+id/button_save_job"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -130,6 +131,7 @@
                 android:background="@android:color/black" />
 
             <Button
+                android:id="@+id/button_apply_job"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
