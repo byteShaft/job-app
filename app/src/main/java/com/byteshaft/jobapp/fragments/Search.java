@@ -19,10 +19,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by shahid on 28/05/2017.
- */
-
 public class Search extends Fragment {
 
     private View mBaseView;
