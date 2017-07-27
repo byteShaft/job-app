@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +55,13 @@ public class JobSaved extends Fragment implements OnClickListener{
         backButton.setOnClickListener(this);
         mFilterTextView.setOnClickListener(this);
         getJobsList();
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                System.out.println(position);
+                return false;
+            }
+        });
         return mBaseView;
     }
 
