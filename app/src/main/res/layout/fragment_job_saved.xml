@@ -41,7 +41,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
@@ -58,6 +57,8 @@
     <ListView
         android:id="@+id/saved_jobs_list"
         android:layout_width="match_parent"
+        android:divider="@null"
+        android:dividerHeight="10dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/job_saved_toolbar"
         android:background="?attr/selectableItemBackground" />

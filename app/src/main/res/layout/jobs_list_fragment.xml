@@ -43,6 +43,7 @@
     <ListView
         android:id="@+id/jobs_list"
         android:divider="@null"
+        android:foreground="?android:attr/selectableItemBackground"
         android:dividerHeight="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
