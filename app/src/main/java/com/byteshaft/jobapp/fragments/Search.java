@@ -3,6 +3,7 @@ package com.byteshaft.jobapp.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -91,6 +92,36 @@ public class Search extends Fragment {
         request.send();
     }
 
+    public void saveJob(int id) {
+        Helpers.showProgressDialog(getActivity(), "Please wait...");
+        HttpRequest httpRequest = new HttpRequest(getActivity().getApplicationContext());
+        httpRequest.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
+                        Log.i("MY URLl", request.getResponseURL());
+                        Helpers.dismissProgressDialog();
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_CREATED:
+                                Snackbar.make(mBaseView, "Job Saved", Snackbar.LENGTH_SHORT).show();
+                        }
+                }
+            }
+        });
+        httpRequest.open("POST", String.format("%sjobs/saved/", AppGlobals.BASE_URL));
+        httpRequest.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("job", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        httpRequest.send(jsonObject.toString());
+    }
+
     private class ListAdapter extends BaseAdapter {
         private ViewHolder viewHolder;
         private ArrayList<JobDetails> jobDetails;
@@ -125,7 +156,7 @@ public class Search extends Fragment {
             viewHolder.saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("save button pressed");
+                    saveJob(jobDetail.getJobId());
                 }
             });
             return convertView;
