@@ -20,6 +20,7 @@ import com.byteshaft.jobapp.R;
 import com.byteshaft.jobapp.gettersetters.JobDetails;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
+import com.byteshaft.jobapp.utils.LoginDialog;
 import com.byteshaft.requests.HttpRequest;
 
 import org.json.JSONArray;
@@ -156,7 +157,14 @@ public class Search extends Fragment {
             viewHolder.saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveJob(jobDetail.getJobId());
+                    if (AppGlobals.isLogin()) {
+                        saveJob(jobDetail.getJobId());
+                    } else {
+                        LoginDialog loginDialog = new LoginDialog(getActivity());
+                        loginDialog.setCancelable(true);
+                        loginDialog.setTitle(null);
+                        loginDialog.show();
+                    }
                 }
             });
             return convertView;

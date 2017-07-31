@@ -23,4 +23,9 @@
         <item name="android:layout_width">300dp</item>
     </style>
 
+    <style name="dialog_button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>
