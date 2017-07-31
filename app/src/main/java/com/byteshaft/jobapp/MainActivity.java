@@ -11,10 +11,13 @@ import android.view.MenuItem;
 import com.byteshaft.jobapp.fragments.Home;
 import com.byteshaft.jobapp.fragments.Me;
 import com.byteshaft.jobapp.fragments.Search;
+import com.byteshaft.jobapp.utils.AppGlobals;
+import com.byteshaft.jobapp.utils.LoginDialog;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private LoginDialog loginDialog;
     public static MainActivity sInstance;
 
     public static MainActivity getInstance() {
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sInstance = this;
         setContentView(R.layout.activity_main);
+        loginDialog = new LoginDialog(MainActivity.this);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadThisFragment(new Home(), "", "");
@@ -46,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     loadThisFragment(new Search(), "", "");
                     return true;
                 case R.id.navigation_me:
-                    loadThisFragment(new Me(), "", "");
+                    if (!AppGlobals.isLogin()) {
+                        loginDialog.show();
+                    } else {
+                        loadThisFragment(new Me(), "", "");
+                    }
+
                     return true;
             }
             return false;
