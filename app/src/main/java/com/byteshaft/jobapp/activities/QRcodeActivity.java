@@ -46,8 +46,9 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     protected void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(this);
         mScannerView.startCamera();
+        mScannerView.setResultHandler(this);
+
     }
 
     @Override

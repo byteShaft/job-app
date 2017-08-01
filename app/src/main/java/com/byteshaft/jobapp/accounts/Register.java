@@ -1,6 +1,5 @@
 package com.byteshaft.jobapp.accounts;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,13 +17,10 @@ import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
 import com.byteshaft.requests.HttpRequest;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -70,8 +66,8 @@ public class Register extends Fragment implements View.OnClickListener,
 
         mSignUpButton.setOnClickListener(this);
         mLoginTextView.setOnClickListener(this);
-        setupView(mBaseView);
-        System.out.println("onCreateView");
+//        setupView(mBaseView);
+//        System.out.println("onCreateView");
         return mBaseView;
     }
 
@@ -212,8 +208,8 @@ public class Register extends Fragment implements View.OnClickListener,
 
             }
         };
-        facebookLoginButton.setReadPermissions("public_profile", "user_friends","user_birthday","user_about_me","email");
-        facebookLoginButton.registerCallback(callbackManager, callback);
+//        facebookLoginButton.setReadPermissions("public_profile", "user_friends","user_birthday","user_about_me","email");
+//        facebookLoginButton.registerCallback(callbackManager, callback);
     }
 
 }
