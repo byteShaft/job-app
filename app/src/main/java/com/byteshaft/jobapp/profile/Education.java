@@ -40,6 +40,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
     private Button addEducationButton;
     private ArrayList<Qualification> qualificationArrayList;
     private QualificationAdapter adapter;
+    private TextView addTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +50,21 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         buttonSave = (TextView) findViewById(R.id.button_save_edu);
         backButton = (ImageButton) findViewById(R.id.back_button);
         mListView = (ListView) findViewById(R.id.education_list);
+        addTextView = (TextView) findViewById(R.id.add_text_view);
         addEducationButton = (Button) findViewById(R.id.button_add_education);
         setSupportActionBar(toolbarTop);
         qualificationArrayList = new ArrayList<>();
-
         backButton.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         addEducationButton.setOnClickListener(this);
         adapter = new QualificationAdapter(qualificationArrayList);
         mListView.setAdapter(adapter);
         getQualificationList();
+        if (qualificationArrayList.size() == 0) {
+            addTextView.setVisibility(View.VISIBLE);
+        } else {
+            addTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,13 +77,13 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 for (int i=0 ; i < qualificationArrayList.size() ; i++) {
                     Qualification education = qualificationArrayList.get(i);
                     if (education.getId() == -1) {
-                        Log.e("SAVEBUTTON", "Save button code");
                         addEducation();
                         break;
                     }
                 }
                 break;
             case R.id.button_add_education:
+                addTextView.setVisibility(View.GONE);
                 Qualification qualification = new Qualification();
                 qualification.setQualification("");
                 qualification.setSchool("");
@@ -125,7 +131,6 @@ public class Education extends AppCompatActivity implements View.OnClickListener
             for (int i = 0; i < mListView.getCount(); i++) {
                 Qualification education = qualificationArrayList.get(i);
                 if (education.getId() == -1) {
-
                     Log.e("LOOP CODE", "Save button code");
                     JSONObject jsonObject = new JSONObject();
                     EditText period = (EditText) mListView.getChildAt(i).findViewById(R.id.et_time_span);
@@ -162,7 +167,6 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                                         Qualification qualification = new Qualification();
                                         qualification.setId(jsonObject.getInt("id"));
-                                        qualification.setUserId(jsonObject.getInt("user"));
                                         qualification.setQualification(jsonObject.getString("qualification"));
                                         qualification.setPeriod(jsonObject.getString("period"));
                                         qualification.setSchool(jsonObject.getString("school"));

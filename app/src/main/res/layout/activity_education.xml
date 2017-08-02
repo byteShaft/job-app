@@ -66,6 +66,18 @@
         android:dividerHeight="8dp"
         android:scrollbars="none" />
 
+    <TextView
+        android:id="@+id/add_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Empty"
+        android:textColor="@android:color/black"
+        android:textSize="25dp" />
+
     <Button
         android:id="@+id/button_add_education"
         android:layout_width="match_parent"

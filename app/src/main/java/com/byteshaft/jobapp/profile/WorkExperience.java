@@ -172,7 +172,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                                         WorkExp workExp = new WorkExp();
                                         workExp.setId(jsonObject.getInt("id"));
-                                        workExp.setUserId(jsonObject.getInt("user"));
                                         workExp.setJobTitle(jsonObject.getString("title"));
                                         workExp.setComapnyName(jsonObject.getString("company"));
                                         workExp.setPeriod(jsonObject.getString("period"));
