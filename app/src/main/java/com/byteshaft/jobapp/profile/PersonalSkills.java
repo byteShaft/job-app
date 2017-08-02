@@ -20,7 +20,8 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 
 
-public class PersonalSkills extends AppCompatActivity implements View.OnClickListener, HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
+public class PersonalSkills extends AppCompatActivity implements View.OnClickListener,
+        HttpRequest.OnReadyStateChangeListener, HttpRequest.OnErrorListener {
 
 
     private TextView buttonSave;
@@ -35,7 +36,6 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_skills);
-
         toolbarTop = (Toolbar) findViewById(R.id.add_education_toolbar);
         buttonSave = (TextView) findViewById(R.id.button_skills_save);
         backButton = (ImageButton) findViewById(R.id.back_button);
@@ -59,12 +59,15 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateSkills() {
+        Helpers.showProgressDialog(PersonalSkills.this, "Please wait...");
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
         request.setOnErrorListener(this);
         request.open("PUT", String.format("%sme", AppGlobals.BASE_URL));
+        JSONObject mainObject = new JSONObject();
         JSONObject jsonObject = new JSONObject();
         try {
+            mainObject.put("user_details", jsonObject.toString());
             jsonObject.put("skills", skills);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,7 +75,6 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
         request.send(jsonObject.toString());
-        Helpers.showProgressDialog(PersonalSkills.this, "Please wait...");
     }
 
     @Override
@@ -87,7 +89,9 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
                     case HttpURLConnection.HTTP_OK:
                         try {
                             JSONObject jsonObject = new JSONObject(request.getResponseText());
-                            String mySkills = jsonObject.getString(AppGlobals.KEY_SKILLS);
+                            JSONObject skillObject = jsonObject.getJSONObject("user_details");
+                            String mySkills = skillObject.getString(AppGlobals.KEY_SKILLS);
+                            System.out.println(mySkills);
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_SKILLS, mySkills);
 
                         } catch (JSONException e) {
