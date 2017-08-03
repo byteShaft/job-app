@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -53,6 +54,7 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.button_skills_save:
                 skills = skillsEdittex.getText().toString();
+                System.out.println(skills);
                 updateSkills();
                 break;
         }
@@ -67,14 +69,14 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
         JSONObject mainObject = new JSONObject();
         JSONObject jsonObject = new JSONObject();
         try {
-            mainObject.put("user_details", jsonObject.toString());
             jsonObject.put("skills", skills);
+            mainObject.put("user_details", jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         request.setRequestHeader("Authorization", "Token " +
                 AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
-        request.send(jsonObject.toString());
+        request.send(mainObject.toString());
     }
 
     @Override
@@ -97,8 +99,10 @@ public class PersonalSkills extends AppCompatActivity implements View.OnClickLis
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                         onBackPressed();
+                        break;
+                    case HttpURLConnection.HTTP_BAD_REQUEST:
+                        Log.e("RRRRRRRRR", request.getResponseText());
                 }
         }
     }

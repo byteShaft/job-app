@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
@@ -23,18 +24,12 @@ import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.profile.WorkExperience;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-
-/**
- * Created by shahid on 28/05/2017.
- */
 
 public class Me extends Fragment implements View.OnClickListener {
 
@@ -56,6 +51,9 @@ public class Me extends Fragment implements View.OnClickListener {
 
     private TextView skillsTextViews;
 
+    private ListView workList;
+    private ListView educationList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_me, container, false);
@@ -68,6 +66,8 @@ public class Me extends Fragment implements View.OnClickListener {
         mProfileImage = (CircleImageView) mBaseView.findViewById(R.id.user_dp);
         mUserName = (TextView) mBaseView.findViewById(R.id.name_text_view);
         mLocation = (TextView) mBaseView.findViewById(R.id.user_location);
+        workList = (ListView) mBaseView.findViewById(R.id.work_list);
+        educationList = (ListView) mBaseView.findViewById(R.id.education_list);
 
         skillsTextViews = (TextView) mBaseView.findViewById(R.id.skills_text_view);
 
@@ -99,13 +99,13 @@ public class Me extends Fragment implements View.OnClickListener {
 
         }
 
-         if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null &&
-                 !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME).isEmpty()) {
-             String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
-             userName = userName.toLowerCase();
-             userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-             mUserName.setText(userName);
-         }
+        if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null &&
+                !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME).isEmpty()) {
+            String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
+            userName = userName.toLowerCase();
+            userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+            mUserName.setText(userName);
+        }
         if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null &&
                 !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION).trim().isEmpty()) {
             String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
