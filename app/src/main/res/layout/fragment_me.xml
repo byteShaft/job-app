@@ -76,6 +76,7 @@
                 android:gravity="center"
                 android:text="Your name"
                 android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/user_location"
                 android:layout_width="wrap_content"
@@ -202,29 +203,6 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/edu_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_edu"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:drawableLeft="@mipmap/work_experience"
-                        android:drawablePadding="5dp"
-                        android:text="Education One"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/period_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/edu_one"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp"
-                        android:drawableLeft="@mipmap/work_experience"
-                        android:drawablePadding="5dp"
-                        android:text="Education Two"
-                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/education_edit_text_view"
@@ -236,7 +214,18 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
+
+                    <ListView
+                        android:id="@+id/education_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/a"
+                        android:layout_below="@+id/text_edu"
+                        android:scrollbars="none" />
+
+
                     <TextView
+                        android:id="@+id/a"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -274,30 +263,6 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/exp_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_exp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:drawableLeft="@mipmap/work_experience"
-                        android:drawablePadding="5dp"
-                        android:text="Exp One"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/exp_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/exp_one"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp"
-                        android:drawableLeft="@mipmap/work_experience"
-                        android:drawablePadding="5dp"
-                        android:text="Exp Two"
-                        android:textSize="18sp" />
-
-                    <TextView
                         android:id="@+id/work_experience_edit_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -307,7 +272,16 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
+                    <ListView
+                        android:id="@+id/work_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/b"
+                        android:layout_below="@+id/text_exp"
+                        android:scrollbars="none" />
+
                     <TextView
+                        android:id="@+id/b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
