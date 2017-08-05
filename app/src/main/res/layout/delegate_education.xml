@@ -42,36 +42,37 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true">
 
                     <EditText
                         android:id="@+id/et_time_span"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_period"
-                        android:hint="Period"
-                        android:singleLine="true" />
+                        android:hint="Period" />
                 </android.support.design.widget.TextInputLayout>
 
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true">
 
                     <EditText
                         android:id="@+id/et_qualification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_qualification"
-                        android:hint="Qualification"
-                        android:singleLine="true" />
+                        android:hint="Qualification" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true">
 
                     <EditText
                         android:id="@+id/et_school"
@@ -79,8 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_school"
                         android:layout_marginTop="10dp"
-                        android:hint="School"
-                        android:singleLine="true" />
+                        android:hint="School" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>

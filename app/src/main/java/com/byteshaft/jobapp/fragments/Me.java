@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,23 +14,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.byteshaft.jobapp.R;
+import com.byteshaft.jobapp.gettersetters.Qualification;
+import com.byteshaft.jobapp.gettersetters.WorkExp;
 import com.byteshaft.jobapp.profile.Education;
 import com.byteshaft.jobapp.profile.PersonalSkills;
 import com.byteshaft.jobapp.profile.ProfileSettings;
 import com.byteshaft.jobapp.profile.WorkExperience;
 import com.byteshaft.jobapp.utils.AppGlobals;
 import com.byteshaft.jobapp.utils.Helpers;
+import com.byteshaft.requests.HttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Me extends Fragment implements View.OnClickListener {
 
@@ -53,6 +66,12 @@ public class Me extends Fragment implements View.OnClickListener {
 
     private ListView workList;
     private ListView educationList;
+    private ArrayList<Qualification> qualificationArrayList;
+    private QualificationAdapter adapter;
+
+
+    private ArrayList<WorkExp> workExperienceArrayList;
+    private WorkExpAdapter workExpAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +95,12 @@ public class Me extends Fragment implements View.OnClickListener {
         educationEditTextView = (TextView) mBaseView.findViewById(R.id.education_edit_text_view);
         personalSkillsEditTextView = (TextView) mBaseView.findViewById(R.id.personal_skills_edit_text_view);
         activity.setSupportActionBar(toolbarTop);
+        qualificationArrayList = new ArrayList<>();
+        adapter = new QualificationAdapter(qualificationArrayList);
+        educationList.setAdapter(adapter);
+        workExperienceArrayList = new ArrayList<>();
+        workExpAdapter = new WorkExpAdapter(workExperienceArrayList);
+        workList.setAdapter(workExpAdapter);
         settingsButton.setOnClickListener(this);
         workExperienceEditTextView.setOnClickListener(this);
         educationEditTextView.setOnClickListener(this);
@@ -87,9 +112,80 @@ public class Me extends Fragment implements View.OnClickListener {
         return mBaseView;
     }
 
+    private void getQualificationList() {
+        HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+        requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_OK:
+                                try {
+                                    JSONArray jsonArray = new JSONArray(request.getResponseText());
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Qualification qualification = new Qualification();
+                                        qualification.setId(jsonObject.getInt("id"));
+                                        qualification.setQualification(jsonObject.getString("qualification"));
+                                        qualification.setPeriod(jsonObject.getString("period"));
+                                        qualification.setSchool(jsonObject.getString("school"));
+                                        qualificationArrayList.add(qualification);
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                        }
+                }
+            }
+        });
+        requestQualifications.open("GET", String.format("%seducation/", AppGlobals.BASE_URL));
+        requestQualifications.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        requestQualifications.send();
+    }
+
+    private void getWorkExperienceList() {
+        HttpRequest requestQualifications = new HttpRequest(getApplicationContext());
+        requestQualifications.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_OK:
+                                try {
+                                    JSONArray jsonArray = new JSONArray(request.getResponseText());
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        WorkExp workExp = new WorkExp();
+                                        workExp.setId(jsonObject.getInt("id"));
+                                        workExp.setJobTitle(jsonObject.getString("title"));
+                                        workExp.setComapnyName(jsonObject.getString("company"));
+                                        workExp.setPeriod(jsonObject.getString("period"));
+                                        workExperienceArrayList.add(workExp);
+                                        workExpAdapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                        }
+                }
+            }
+        });
+        requestQualifications.open("GET", String.format("%sexperience/", AppGlobals.BASE_URL));
+        requestQualifications.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        requestQualifications.send();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        getQualificationList();
+        getWorkExperienceList();
         skillsTextViews.setText(AppGlobals.getStringFromSharedPreferences("skills"));
         if (AppGlobals.isLogin() && !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL).trim().isEmpty()
                 && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
@@ -144,6 +240,108 @@ public class Me extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    private class QualificationAdapter extends BaseAdapter {
+
+        private ViewHolder viewHolder;
+        private ArrayList<Qualification> qualificationsList;
+
+        public QualificationAdapter(ArrayList<Qualification> qualificationsList) {
+            this.qualificationsList = qualificationsList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.delegate_qualification, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.period = (TextView) convertView.findViewById(R.id.time_period);
+//                viewHolder.qualification = (TextView) convertView.findViewById(R.id.et_qualification);
+                viewHolder.school = (TextView) convertView.findViewById(R.id.text_school);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            final Qualification qualification = qualificationsList.get(position);
+            if (qualification.getPeriod() != null && !qualification.getPeriod().trim().isEmpty()) {
+                viewHolder.period.setText(qualification.getPeriod());
+//                viewHolder.qualification.setText(qualification.getQualification());
+                viewHolder.school.setText(qualification.getSchool());
+            }
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return qualificationsList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+    }
+
+    private class WorkExpAdapter extends BaseAdapter {
+
+        private ViewHolder viewHolder;
+        private ArrayList<WorkExp> workExperiencesList;
+
+        public WorkExpAdapter(ArrayList<WorkExp> workExperiencesList) {
+            this.workExperiencesList = workExperiencesList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.delegate_work_exp, parent, false);
+                viewHolder = new ViewHolder();
+                viewHolder.period = (TextView) convertView.findViewById(R.id.work_period);
+//                viewHolder.title = (TextView) convertView.findViewById(R.id.et_job_title);
+                viewHolder.company = (TextView) convertView.findViewById(R.id.text_company);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            final WorkExp workExperience = workExperiencesList.get(position);
+            viewHolder.period.setText(workExperience.getPeriod());
+//            viewHolder.title.setText(workExperience.getJobTitle());
+            viewHolder.company.setText(workExperience.getComapnyName());
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return workExperiencesList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+    }
+
+    private class ViewHolder {
+        private TextView qualification;
+        private TextView school;
+
+        private TextView period;
+
+        private TextView title;
+        private TextView company;
     }
 
     public void loadFragment(Fragment fragment) {
