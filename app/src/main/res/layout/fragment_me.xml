@@ -221,6 +221,9 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/a"
                         android:layout_below="@+id/text_edu"
+                        android:layout_margin="8dp"
+                        android:background="@null"
+                        android:divider="@null"
                         android:scrollbars="none" />
 
 
@@ -278,6 +281,9 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/b"
                         android:layout_below="@+id/text_exp"
+                        android:layout_margin="8dp"
+                        android:background="@null"
+                        android:divider="@null"
                         android:scrollbars="none" />
 
                     <TextView
